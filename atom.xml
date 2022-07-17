@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><title type="text">loomt</title><subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle><updated>2022-07-17T05:40:30+00:00</updated><id>/</id><link rel="alternate" type="text/html" href="/"/><link rel="self" type="application/atom+xml" href="/atom.xml"/><author><name>loomt</name><uri>/</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="/posts/%E5%BB%BA%E7%AB%99/"/><id>/posts/%E5%BB%BA%E7%AB%99/</id><updated>2022-07-17T05:40:27+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.eu.org</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ）。
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><title type="text">loomt</title><subtitle type="html">MemE is a powerful and highly customizable GoHugo theme for personal blogs.</subtitle><updated>2022-07-17T05:44:35+00:00</updated><id>/</id><link rel="alternate" type="text/html" href="/"/><link rel="self" type="application/atom+xml" href="/atom.xml"/><author><name>loomt</name><uri>/</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="/posts/%E5%BB%BA%E7%AB%99/"/><id>/posts/%E5%BB%BA%E7%AB%99/</id><updated>2022-07-17T05:44:31+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.eu.org</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ）。
 简略步骤 Hugo 配置 先在 wsl 下装 Hugo 1 sudo apt install hugo 然后用 tldr 看一下 Hugo 的基础命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 loomt@loomt:~/blog/loomt$ tldr hugo hugo Template-based static site generator.</summary><content type="html">&lt;p>&lt;img src="/img/sky.jpg" alt="sky">&lt;/p>
 &lt;blockquote>
 &lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.eu.org">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）。&lt;/p>
@@ -141,32 +141,48 @@ git commit -m &lt;span class="s2">&amp;#34;update&amp;#34;&lt;/span>
 git push
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>还可以加个 Github Workflow，简化步骤，具体可阅读 &lt;a href="https://docs.github.com/cn/actions/learn-github-actions/understanding-github-actions">GitHub Actions 官方文档&lt;/a> 和 &lt;a href="https://io-oi.me/tech/deploy-hugo-to-github-pages-via-github-actions/">reuixiy 的博客&lt;/a> ，下面粘一下我的配置方案，将其复制在根目录下的 .github/workflows/xxx.yml 里面即可在push后由github服务器自动执行定义好的工作流。&lt;/p>
-&lt;pre tabindex="0">&lt;code>name: auto deploy
+&lt;/div>&lt;p>还可以加个 Github Workflow，简化步骤，具体可阅读 &lt;a href="https://docs.github.com/cn/actions/learn-github-actions/understanding-github-actions">GitHub Actions 官方文档&lt;/a>，&lt;a href="https://github.com/peaceiris/actions-gh-pages">actions-gh-pages&lt;/a>和 &lt;a href="https://io-oi.me/tech/deploy-hugo-to-github-pages-via-github-actions/">reuixiy 的博客&lt;/a> 。&lt;/p>
+&lt;p>下面粘一下我的配置方案，将其复制在根目录下的 .github/workflows/xxx.yml 里面即可在push后由github服务器自动执行定义好的工作流。&lt;/p>
+&lt;pre tabindex="0">&lt;code>name: GitHub Pages
 on:
-  push:
-    branches:
-      - main # Set a branch to deploy
+push:
+branches:
+- main # Set a branch name to trigger deployment
+pull_request:
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: &amp;quot;0.92.2&amp;quot;
-          # extended: true
-      - name: Build
-        run: hugo --gc --minify --cleanDestinationDir
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+deploy:
+runs-on: ubuntu-latest
+permissions:
+contents: write
+concurrency:
+group: ${{ github.workflow }}-${{ github.ref }}
+steps:
+- uses: actions/checkout@v3
+with:
+submodules: true # Fetch Hugo themes (true OR recursive)
+fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+- name: Setup Hugo
+uses: peaceiris/actions-hugo@v2
+with:
+hugo-version: '0.92.2'
+- name: Build
+run: hugo --minify
+# - name: Deploy
+# uses: peaceiris/actions-gh-pages@v3
+# # If you're changing the branch from main,
+# # also change the `main` in `refs/heads/main`
+# # below accordingly.
+# if: ${{ github.ref == 'refs/heads/main' }}
+# with:
+# github_token: ${{ secrets.GITHUB_TOKEN }}
+# publish_dir: ./public
+- name: Deploy
+uses: peaceiris/actions-gh-pages@v3
+with:
+deploy_key: ${{ secrets.DEPLOY_KEY }}
+external_repository: loomts/loomts.github.io
+publish_branch: main # default: gh-pages
+publish_dir: ./public
 &lt;/code>&lt;/pre>&lt;h2 id="github-page-绑定自定义域名">Github Page 绑定自定义域名&lt;/h2>
 &lt;p>Github Page 绑定域名
 在域名的 DNS 服务商那里加一个 CNAME&lt;/p>
