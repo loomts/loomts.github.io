@@ -1,4 +1,673 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Sun, 17 Jul 2022 08:04:34 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>建站</title><link>https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</guid><pubDate>Fri, 15 Jul 2022 12:01:10 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;p>&lt;img src="https://loomt.eu.org/img/sky.jpg" alt="sky">&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Sun, 14 Aug 2022 12:41:18 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;blockquote>
+&lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下……&lt;/p>
+&lt;/blockquote>
+&lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不多。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>安装breed（闭源免费的bootloader，装了能更好地刷各种包）
+如果你的路由器是小米4A千兆版，可以直接用我在恩山找的&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/R4A.zip">一键配置&lt;/a>，如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">breed官网&lt;/a>下载你路由器的适配包。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>用breed安装OpenWrt（OpenWrt）
+这里放一个&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
+刷路由器之前必须备份好固件（因为没有在breed备份eeprom.bin导致安装的Openwrt 5G信号奇差），特别是 eeprom.bin，而后点击固件更新-&amp;gt;常规固件-&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>配置OpenWrt的各项参数（随便配一下即可）
+OpenWrt非常神通广大，作为一个在路由器上跑的linux，它可以装上各种插件：酸酸乳、Docker、网易云解锁灰色歌曲……&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>但我折腾了一通，调教好基础的上网功能后，感觉网络状况大不如前。作为百来块的路由器，本来就没有多大的内存，原厂的调教已经将性能都用在刀刃上了，装了OpenWrt之后虽然上下行流量速度没有很大变化，但稳定性下降了很多，便懒得继续折腾，忍痛remake了。&lt;/p>
+&lt;ol start="4">
+&lt;li>刷回官方包（没备份eeprom.bin也可以通过刷回官方包的方法恢复）
+下载&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed-&amp;gt;固件更新-&amp;gt;编程器固件，仅勾选自动重启-&amp;gt;上传all.bin。&lt;/li>
+&lt;/ol></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>Auto7zip</title><link>https://loomt.eu.org/posts/auto7zip/</link><guid isPermaLink="true">https://loomt.eu.org/posts/auto7zip/</guid><pubDate>Wed, 20 Jul 2022 12:12:02 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
+&lt;blockquote>
+&lt;p>因为难以忍受7zip打开界面解压或者右键解压操作，通过修改注册表以实现双击自动解压（参考https://gist.github.com/zabbarob/5891200）&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>替换 &lt;code>D:\\000000000000\\7-Zip\\7zG.exe\&lt;/code> 为 &lt;code>your\path\to\7zG.exe&lt;/code>&lt;/li>
+&lt;li>将代码塞进.reg文件，双击即可。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;span class="lnt">166
+&lt;/span>&lt;span class="lnt">167
+&lt;/span>&lt;span class="lnt">168
+&lt;/span>&lt;span class="lnt">169
+&lt;/span>&lt;span class="lnt">170
+&lt;/span>&lt;span class="lnt">171
+&lt;/span>&lt;span class="lnt">172
+&lt;/span>&lt;span class="lnt">173
+&lt;/span>&lt;span class="lnt">174
+&lt;/span>&lt;span class="lnt">175
+&lt;/span>&lt;span class="lnt">176
+&lt;/span>&lt;span class="lnt">177
+&lt;/span>&lt;span class="lnt">178
+&lt;/span>&lt;span class="lnt">179
+&lt;/span>&lt;span class="lnt">180
+&lt;/span>&lt;span class="lnt">181
+&lt;/span>&lt;span class="lnt">182
+&lt;/span>&lt;span class="lnt">183
+&lt;/span>&lt;span class="lnt">184
+&lt;/span>&lt;span class="lnt">185
+&lt;/span>&lt;span class="lnt">186
+&lt;/span>&lt;span class="lnt">187
+&lt;/span>&lt;span class="lnt">188
+&lt;/span>&lt;span class="lnt">189
+&lt;/span>&lt;span class="lnt">190
+&lt;/span>&lt;span class="lnt">191
+&lt;/span>&lt;span class="lnt">192
+&lt;/span>&lt;span class="lnt">193
+&lt;/span>&lt;span class="lnt">194
+&lt;/span>&lt;span class="lnt">195
+&lt;/span>&lt;span class="lnt">196
+&lt;/span>&lt;span class="lnt">197
+&lt;/span>&lt;span class="lnt">198
+&lt;/span>&lt;span class="lnt">199
+&lt;/span>&lt;span class="lnt">200
+&lt;/span>&lt;span class="lnt">201
+&lt;/span>&lt;span class="lnt">202
+&lt;/span>&lt;span class="lnt">203
+&lt;/span>&lt;span class="lnt">204
+&lt;/span>&lt;span class="lnt">205
+&lt;/span>&lt;span class="lnt">206
+&lt;/span>&lt;span class="lnt">207
+&lt;/span>&lt;span class="lnt">208
+&lt;/span>&lt;span class="lnt">209
+&lt;/span>&lt;span class="lnt">210
+&lt;/span>&lt;span class="lnt">211
+&lt;/span>&lt;span class="lnt">212
+&lt;/span>&lt;span class="lnt">213
+&lt;/span>&lt;span class="lnt">214
+&lt;/span>&lt;span class="lnt">215
+&lt;/span>&lt;span class="lnt">216
+&lt;/span>&lt;span class="lnt">217
+&lt;/span>&lt;span class="lnt">218
+&lt;/span>&lt;span class="lnt">219
+&lt;/span>&lt;span class="lnt">220
+&lt;/span>&lt;span class="lnt">221
+&lt;/span>&lt;span class="lnt">222
+&lt;/span>&lt;span class="lnt">223
+&lt;/span>&lt;span class="lnt">224
+&lt;/span>&lt;span class="lnt">225
+&lt;/span>&lt;span class="lnt">226
+&lt;/span>&lt;span class="lnt">227
+&lt;/span>&lt;span class="lnt">228
+&lt;/span>&lt;span class="lnt">229
+&lt;/span>&lt;span class="lnt">230
+&lt;/span>&lt;span class="lnt">231
+&lt;/span>&lt;span class="lnt">232
+&lt;/span>&lt;span class="lnt">233
+&lt;/span>&lt;span class="lnt">234
+&lt;/span>&lt;span class="lnt">235
+&lt;/span>&lt;span class="lnt">236
+&lt;/span>&lt;span class="lnt">237
+&lt;/span>&lt;span class="lnt">238
+&lt;/span>&lt;span class="lnt">239
+&lt;/span>&lt;span class="lnt">240
+&lt;/span>&lt;span class="lnt">241
+&lt;/span>&lt;span class="lnt">242
+&lt;/span>&lt;span class="lnt">243
+&lt;/span>&lt;span class="lnt">244
+&lt;/span>&lt;span class="lnt">245
+&lt;/span>&lt;span class="lnt">246
+&lt;/span>&lt;span class="lnt">247
+&lt;/span>&lt;span class="lnt">248
+&lt;/span>&lt;span class="lnt">249
+&lt;/span>&lt;span class="lnt">250
+&lt;/span>&lt;span class="lnt">251
+&lt;/span>&lt;span class="lnt">252
+&lt;/span>&lt;span class="lnt">253
+&lt;/span>&lt;span class="lnt">254
+&lt;/span>&lt;span class="lnt">255
+&lt;/span>&lt;span class="lnt">256
+&lt;/span>&lt;span class="lnt">257
+&lt;/span>&lt;span class="lnt">258
+&lt;/span>&lt;span class="lnt">259
+&lt;/span>&lt;span class="lnt">260
+&lt;/span>&lt;span class="lnt">261
+&lt;/span>&lt;span class="lnt">262
+&lt;/span>&lt;span class="lnt">263
+&lt;/span>&lt;span class="lnt">264
+&lt;/span>&lt;span class="lnt">265
+&lt;/span>&lt;span class="lnt">266
+&lt;/span>&lt;span class="lnt">267
+&lt;/span>&lt;span class="lnt">268
+&lt;/span>&lt;span class="lnt">269
+&lt;/span>&lt;span class="lnt">270
+&lt;/span>&lt;span class="lnt">271
+&lt;/span>&lt;span class="lnt">272
+&lt;/span>&lt;span class="lnt">273
+&lt;/span>&lt;span class="lnt">274
+&lt;/span>&lt;span class="lnt">275
+&lt;/span>&lt;span class="lnt">276
+&lt;/span>&lt;span class="lnt">277
+&lt;/span>&lt;span class="lnt">278
+&lt;/span>&lt;span class="lnt">279
+&lt;/span>&lt;span class="lnt">280
+&lt;/span>&lt;span class="lnt">281
+&lt;/span>&lt;span class="lnt">282
+&lt;/span>&lt;span class="lnt">283
+&lt;/span>&lt;span class="lnt">284
+&lt;/span>&lt;span class="lnt">285
+&lt;/span>&lt;span class="lnt">286
+&lt;/span>&lt;span class="lnt">287
+&lt;/span>&lt;span class="lnt">288
+&lt;/span>&lt;span class="lnt">289
+&lt;/span>&lt;span class="lnt">290
+&lt;/span>&lt;span class="lnt">291
+&lt;/span>&lt;span class="lnt">292
+&lt;/span>&lt;span class="lnt">293
+&lt;/span>&lt;span class="lnt">294
+&lt;/span>&lt;span class="lnt">295
+&lt;/span>&lt;span class="lnt">296
+&lt;/span>&lt;span class="lnt">297
+&lt;/span>&lt;span class="lnt">298
+&lt;/span>&lt;span class="lnt">299
+&lt;/span>&lt;span class="lnt">300
+&lt;/span>&lt;span class="lnt">301
+&lt;/span>&lt;span class="lnt">302
+&lt;/span>&lt;span class="lnt">303
+&lt;/span>&lt;span class="lnt">304
+&lt;/span>&lt;span class="lnt">305
+&lt;/span>&lt;span class="lnt">306
+&lt;/span>&lt;span class="lnt">307
+&lt;/span>&lt;span class="lnt">308
+&lt;/span>&lt;span class="lnt">309
+&lt;/span>&lt;span class="lnt">310
+&lt;/span>&lt;span class="lnt">311
+&lt;/span>&lt;span class="lnt">312
+&lt;/span>&lt;span class="lnt">313
+&lt;/span>&lt;span class="lnt">314
+&lt;/span>&lt;span class="lnt">315
+&lt;/span>&lt;span class="lnt">316
+&lt;/span>&lt;span class="lnt">317
+&lt;/span>&lt;span class="lnt">318
+&lt;/span>&lt;span class="lnt">319
+&lt;/span>&lt;span class="lnt">320
+&lt;/span>&lt;span class="lnt">321
+&lt;/span>&lt;span class="lnt">322
+&lt;/span>&lt;span class="lnt">323
+&lt;/span>&lt;span class="lnt">324
+&lt;/span>&lt;span class="lnt">325
+&lt;/span>&lt;span class="lnt">326
+&lt;/span>&lt;span class="lnt">327
+&lt;/span>&lt;span class="lnt">328
+&lt;/span>&lt;span class="lnt">329
+&lt;/span>&lt;span class="lnt">330
+&lt;/span>&lt;span class="lnt">331
+&lt;/span>&lt;span class="lnt">332
+&lt;/span>&lt;span class="lnt">333
+&lt;/span>&lt;span class="lnt">334
+&lt;/span>&lt;span class="lnt">335
+&lt;/span>&lt;span class="lnt">336
+&lt;/span>&lt;span class="lnt">337
+&lt;/span>&lt;span class="lnt">338
+&lt;/span>&lt;span class="lnt">339
+&lt;/span>&lt;span class="lnt">340
+&lt;/span>&lt;span class="lnt">341
+&lt;/span>&lt;span class="lnt">342
+&lt;/span>&lt;span class="lnt">343
+&lt;/span>&lt;span class="lnt">344
+&lt;/span>&lt;span class="lnt">345
+&lt;/span>&lt;span class="lnt">346
+&lt;/span>&lt;span class="lnt">347
+&lt;/span>&lt;span class="lnt">348
+&lt;/span>&lt;span class="lnt">349
+&lt;/span>&lt;span class="lnt">350
+&lt;/span>&lt;span class="lnt">351
+&lt;/span>&lt;span class="lnt">352
+&lt;/span>&lt;span class="lnt">353
+&lt;/span>&lt;span class="lnt">354
+&lt;/span>&lt;span class="lnt">355
+&lt;/span>&lt;span class="lnt">356
+&lt;/span>&lt;span class="lnt">357
+&lt;/span>&lt;span class="lnt">358
+&lt;/span>&lt;span class="lnt">359
+&lt;/span>&lt;span class="lnt">360
+&lt;/span>&lt;span class="lnt">361
+&lt;/span>&lt;span class="lnt">362
+&lt;/span>&lt;span class="lnt">363
+&lt;/span>&lt;span class="lnt">364
+&lt;/span>&lt;span class="lnt">365
+&lt;/span>&lt;span class="lnt">366
+&lt;/span>&lt;span class="lnt">367
+&lt;/span>&lt;span class="lnt">368
+&lt;/span>&lt;span class="lnt">369
+&lt;/span>&lt;span class="lnt">370
+&lt;/span>&lt;span class="lnt">371
+&lt;/span>&lt;span class="lnt">372
+&lt;/span>&lt;span class="lnt">373
+&lt;/span>&lt;span class="lnt">374
+&lt;/span>&lt;span class="lnt">375
+&lt;/span>&lt;span class="lnt">376
+&lt;/span>&lt;span class="lnt">377
+&lt;/span>&lt;span class="lnt">378
+&lt;/span>&lt;span class="lnt">379
+&lt;/span>&lt;span class="lnt">380
+&lt;/span>&lt;span class="lnt">381
+&lt;/span>&lt;span class="lnt">382
+&lt;/span>&lt;span class="lnt">383
+&lt;/span>&lt;span class="lnt">384
+&lt;/span>&lt;span class="lnt">385
+&lt;/span>&lt;span class="lnt">386
+&lt;/span>&lt;span class="lnt">387
+&lt;/span>&lt;span class="lnt">388
+&lt;/span>&lt;span class="lnt">389
+&lt;/span>&lt;span class="lnt">390
+&lt;/span>&lt;span class="lnt">391
+&lt;/span>&lt;span class="lnt">392
+&lt;/span>&lt;span class="lnt">393
+&lt;/span>&lt;span class="lnt">394
+&lt;/span>&lt;span class="lnt">395
+&lt;/span>&lt;span class="lnt">396
+&lt;/span>&lt;span class="lnt">397
+&lt;/span>&lt;span class="lnt">398
+&lt;/span>&lt;span class="lnt">399
+&lt;/span>&lt;span class="lnt">400
+&lt;/span>&lt;span class="lnt">401
+&lt;/span>&lt;span class="lnt">402
+&lt;/span>&lt;span class="lnt">403
+&lt;/span>&lt;span class="lnt">404
+&lt;/span>&lt;span class="lnt">405
+&lt;/span>&lt;span class="lnt">406
+&lt;/span>&lt;span class="lnt">407
+&lt;/span>&lt;span class="lnt">408
+&lt;/span>&lt;span class="lnt">409
+&lt;/span>&lt;span class="lnt">410
+&lt;/span>&lt;span class="lnt">411
+&lt;/span>&lt;span class="lnt">412
+&lt;/span>&lt;span class="lnt">413
+&lt;/span>&lt;span class="lnt">414
+&lt;/span>&lt;span class="lnt">415
+&lt;/span>&lt;span class="lnt">416
+&lt;/span>&lt;span class="lnt">417
+&lt;/span>&lt;span class="lnt">418
+&lt;/span>&lt;span class="lnt">419
+&lt;/span>&lt;span class="lnt">420
+&lt;/span>&lt;span class="lnt">421
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-reg" data-lang="reg">Windows Registry Editor Version 5.00
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell\extract]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
+&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell\extract\command]&lt;/span>
+&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>建站</title><link>https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</guid><pubDate>Fri, 15 Jul 2022 12:01:10 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;p>&lt;img src="https://loomt.eu.org/img/sky.jpg" alt="sky">&lt;/p>
 &lt;blockquote>
 &lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.eu.org">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）。&lt;/p>
 &lt;/blockquote>
