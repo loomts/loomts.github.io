@@ -1,32 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Sun, 14 Aug 2022 12:41:43 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Sun, 14 Aug 2022 13:16:14 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;blockquote>
 &lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下……&lt;/p>
 &lt;/blockquote>
 &lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不多。&lt;/p>
 &lt;ol>
-&lt;li>
-&lt;p>安装breed（闭源免费的bootloader，装了能更好地刷各种包）
-如果你的路由器是小米4A千兆版，可以直接用我在恩山找的&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/R4A.zip">一键配置&lt;/a>，如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">breed官网&lt;/a>下载你路由器的适配包。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>用breed安装OpenWrt（OpenWrt）
-这里放一个&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
-刷路由器之前必须备份好固件（因为没有在breed备份eeprom.bin导致安装的Openwrt 5G信号奇差），特别是 eeprom.bin，而后点击固件更新-&amp;gt;常规固件-&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>配置OpenWrt的各项参数（随便配一下即可）
-OpenWrt非常神通广大，作为一个在路由器上跑的linux，它可以装上各种插件：酸酸乳、Docker、网易云解锁灰色歌曲……&lt;/p>
-&lt;/li>
+&lt;li>安装Breed（闭源免费的BootLoader，又称“不死鸟”，有了它就能肆无忌惮地刷各种第三方包了&lt;/li>
 &lt;/ol>
-&lt;p>但我折腾了一通，调教好基础的上网功能后，感觉网络状况大不如前。作为百来块的路由器，本来就没有多大的内存，原厂的调教已经将性能都用在刀刃上了，装了OpenWrt之后虽然上下行流量速度没有很大变化，但稳定性下降了很多，便懒得继续折腾，忍痛remake了。&lt;/p>
+&lt;p>如果你的路由器是小米4A千兆版，可以直接用我在恩山论坛找的&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/R4A.zip">无脑直装Breed&lt;/a>；如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">Breed官网&lt;/a>下载路由器的适配包并自行搜索如何通过Telnet连接路由器并刷入Breed。
+&lt;img src="https://loomt.eu.org/img/breed.png" alt="Breed">&lt;/p>
+&lt;ol start="2">
+&lt;li>用Breed安装OpenWrt&lt;/li>
+&lt;/ol>
+&lt;p>这里放一个&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
+刷路由器之前必须备份好eeprom（我第一次就是因为没有在Breed备份eeprom导致安装了Openwrt后 5G信号奇差），而后点击固件更新~&amp;gt;常规固件~&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
+&lt;ol start="3">
+&lt;li>配置OpenWrt的各项参数（随便配一下即可&lt;/li>
+&lt;/ol>
+&lt;p>OpenWrt可谓神通广大，作为一个在路由器上跑的Linux，它可以装上各种插件：酸酸乳、Docker、网易云解锁灰色歌曲……&lt;/p>
+&lt;p>但我折腾了一通，调教好基础的上网功能后，感觉网络状况大不如前。作为百来块的路由器，本来就没有多大的内存，感觉原厂固件的调教已经将性能都用在刀刃上了。装了OpenWrt后虽然上下行流量速度没有很大变化，但稳定性差了很多，便懒得继续折腾，忍痛remake了。&lt;/p>
 &lt;ol start="4">
-&lt;li>刷回官方包（没备份eeprom.bin也可以通过刷回官方包的方法恢复）
-下载&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed-&amp;gt;固件更新-&amp;gt;编程器固件，仅勾选自动重启-&amp;gt;上传all.bin。&lt;/li>
-&lt;/ol></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>Auto7zip</title><link>https://loomt.eu.org/posts/auto7zip/</link><guid isPermaLink="true">https://loomt.eu.org/posts/auto7zip/</guid><pubDate>Wed, 20 Jul 2022 12:12:02 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
+&lt;li>刷回官方包（没备份eeprom的问题 &lt;strong>或许&lt;/strong> 也可以通过刷回官方包的方法解决&lt;/li>
+&lt;/ol>
+&lt;p>下载&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed~&amp;gt;固件更新~&amp;gt;编程器固件(仅勾选自动重启)~&amp;gt;上传all.bin。&lt;/p></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>Auto7zip</title><link>https://loomt.eu.org/posts/auto7zip/</link><guid isPermaLink="true">https://loomt.eu.org/posts/auto7zip/</guid><pubDate>Wed, 20 Jul 2022 12:12:02 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
 &lt;blockquote>
-&lt;p>因为难以忍受7zip打开界面解压或者右键解压操作，通过修改注册表以实现双击自动解压（参考https://gist.github.com/zabbarob/5891200）&lt;/p>
+&lt;p>因为难以忍受7zip的右键解压操作，通过修改注册表以实现双击自动解压。&lt;/p>
 &lt;/blockquote>
+&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">reference&lt;/a>&lt;/p>
 &lt;ol>
-&lt;li>替换 &lt;code>D:\\000000000000\\7-Zip\\7zG.exe\&lt;/code> 为 &lt;code>your\path\to\7zG.exe&lt;/code>&lt;/li>
+&lt;li>替换 &lt;code>D:\\000000000000\\7-Zip\\7zG.exe\&lt;/code> 为 &lt;code>your\\path\\to\\7zG.exe&lt;/code>&lt;/li>
 &lt;li>将代码塞进.reg文件，双击即可。&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
