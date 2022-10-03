@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Mon, 19 Sep 2022 07:15:32 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>linux</title><link>https://loomt.eu.org/posts/linux/</link><guid isPermaLink="true">https://loomt.eu.org/posts/linux/</guid><pubDate>Sun, 18 Sep 2022 17:38:54 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="basic-command-for-linux">Basic command for linux&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Mon, 03 Oct 2022 14:41:15 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>linux</title><link>https://loomt.eu.org/posts/linux/</link><guid isPermaLink="true">https://loomt.eu.org/posts/linux/</guid><pubDate>Sun, 18 Sep 2022 17:38:54 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="basic-command-for-linux">Basic command for linux&lt;/h1>
 &lt;blockquote>
 &lt;p>Write what comes to mind&lt;/p>
 &lt;/blockquote>
@@ -160,9 +160,187 @@ make -j? ? 为cpu数，可以通过多线程加速。&lt;/p>
 &lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://loomt.eu.org/img/ccache.png" alt="ccache">&lt;/p>
+&lt;p>只输出命令但不执行&lt;/p>
+&lt;p>&lt;code>make -nB&lt;/code>&lt;/p>
 &lt;h3 id="git">git&lt;/h3>
 &lt;p>&lt;a href="https://onlywei.github.io/explain-git-with-d3">git可视化练习&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://learngitbranching.js.org/?locale=zh_CN">精巧的小游戏&lt;/a>&lt;/p>
+&lt;h3 id="gdb">gdb&lt;/h3>
+&lt;p>gcc main.c -Wall -Werror -o main
+-Wall 提示所有Warning
+-Werror 将Warning视为错误&lt;/p>
+&lt;h4 id="inside-gdb">inside gdb&lt;/h4>
+&lt;p>breakpoint 114514
+watch val
+next
+continue
+print val&lt;/p>
+&lt;h3 id="str">str&lt;/h3>
+&lt;blockquote>
+&lt;p>strtok() stores the pointer in static variable where did you last time left off , so on its 2nd call , when we pass the null , strtok() gets the pointer from the static variable .&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="c1">//左对齐20位并且前导10个0
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%-20.010X&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mh">0x3f3f3f3f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="正则">正则&lt;/h4>
+&lt;p>元字符 &lt;code>.&lt;/code> 将匹配除换行符以外的任意字符；&lt;/p>
+&lt;p>转义字符 &lt;code>\&lt;/code> 将下一字符标记为特殊字符、原义字符等，如 &lt;code>\d&lt;/code> 匹配一个数字，或把 &lt;code>\.&lt;/code> 解释为小数点而不是匹配任意字符的元字符；&lt;/p>
+&lt;p>元字符 &lt;code>\w&lt;/code> 将匹配一个字母或数字或下划线或汉字，如 &lt;code>\w&lt;/code> 可以匹配 &lt;code>1&lt;/code>，也可以匹配 &lt;code>a&lt;/code>；&lt;/p>
+&lt;p>元字符 &lt;code>\s&lt;/code> 将匹配一个空白字符，如 &lt;code>\s&lt;/code> 可以匹配 &lt;code>&amp;lt;space&amp;gt;&lt;/code>，也可以匹配 &lt;code>&amp;lt;tab&amp;gt;&lt;/code>，甚至可以匹配换行符；&lt;/p>
+&lt;p>元字符 &lt;code>\d&lt;/code> 将匹配一个数字，如 &lt;code>\d&lt;/code> 可以匹配 &lt;code>1&lt;/code>，也可以匹配 &lt;code>2&lt;/code>；&lt;/p>
+&lt;p>元字符 &lt;code>^&lt;/code> 和 &lt;code>$&lt;/code> 分别匹配字符串的开始和结束，如 &lt;code>^&lt;/code> 匹配字符串 &lt;code>abc&lt;/code> 的字符 &lt;code>a&lt;/code> 之前的那个位置，&lt;code>$&lt;/code>则匹配字符 &lt;code>c&lt;/code> 之后的那个位置；&lt;/p>
+&lt;p>限定符 &lt;code>*&lt;/code> 将匹配前子表达式 &lt;code>0-n&lt;/code> 次，如 &lt;code>\d*abc&lt;/code> 可以匹配 &lt;code>1234abc&lt;/code>，亦可以匹配 &lt;code>abc&lt;/code>；&lt;/p>
+&lt;p>限定符 &lt;code>+&lt;/code> 将匹配前子表达式 &lt;code>1-n&lt;/code> 次，如 &lt;code>\d+abc&lt;/code> 可以匹配 &lt;code>1234abc&lt;/code>，但不能匹配 &lt;code>abc&lt;/code>；&lt;/p>
+&lt;p>限定符 &lt;code>{n}&lt;/code> 将匹配前子表达式 &lt;code>n&lt;/code> 次，其中 &lt;code>n&lt;/code> 为非负整数，如 &lt;code>\d{5}abc&lt;/code> 可以匹配 &lt;code>12345abc&lt;/code>，但不能匹配 &lt;code>123abc&lt;/code>；&lt;/p>
+&lt;p>限定符 &lt;code>{n,m}&lt;/code> 匹配前子表达式 &lt;code>n-m&lt;/code> 次，其中 &lt;code>n&lt;/code>,&lt;code>m&lt;/code> 为非负整数，&lt;code>n&amp;lt;=m&lt;/code>，如 &lt;code>\d{1,3}abc&lt;/code> 可以匹配 &lt;code>1abc，13abc&lt;/code>，但不能匹配 &lt;code>abc&lt;/code>，然而，可以匹配 &lt;code>1234abc&lt;/code> 的 &lt;code>234abc&lt;/code> 部分；&lt;/p>
+&lt;p>字符类的表达可以使用一对中括号 &lt;code>[]&lt;/code>，如 &lt;code>[a-c1-5]&lt;/code> 可以匹配 &lt;code>a&lt;/code> ,&lt;code>b&lt;/code>, &lt;code>c&lt;/code>, 1, 2, 3, 4, 5 之中的任意一个字符，如表达式 &lt;code>[a-c1-5]{3}&lt;/code> 可以匹配 &lt;code>a1c&lt;/code>, &lt;code>23b&lt;/code> 等等字符串；&lt;/p>
+&lt;p>分枝条件 &lt;code>abc|123&lt;/code> 将匹配字符串 &lt;code>abc&lt;/code> 或 &lt;code>123&lt;/code>；&lt;/p>
+&lt;h4 id="贪婪">贪婪&lt;/h4>
+&lt;p>&lt;code>a.*b&lt;/code>&lt;/p>
+&lt;h4 id="懒惰">懒惰&lt;/h4>
+&lt;p>&lt;code>a.*?b&lt;/code>匹配最短的，以&lt;code>a&lt;/code>开始，以&lt;code>b&lt;/code>结束的字符串。如果把它应用于&lt;code>aabab&lt;/code>的话，它会匹配&lt;code>aab&lt;/code>（第一到第三个字符）和&lt;code>ab&lt;/code>（第四到第五个字符）。&lt;/p>
+&lt;p>. 匹配除换行符以外的任意字符&lt;/p>
+&lt;p>\w 匹配字母或数字或下划线或汉字&lt;/p>
+&lt;p>\s 匹配任意的空白符&lt;/p>
+&lt;p>\d 匹配数字&lt;/p>
+&lt;p>\b 匹配单词的开始或结束&lt;/p>
+&lt;p>^ 匹配字符串的开始&lt;/p>
+&lt;p>$ 匹配字符串的结束&lt;/p>
+&lt;h4 id="example-of-posix-regex-in-c">Example of POSIX regex in C&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sys/types.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;regex.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="nf">regcomp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">regex_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">preg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">regex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">cflags&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">Prepare&lt;/span> &lt;span class="n">your&lt;/span> &lt;span class="n">regex&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">fast&lt;/span> &lt;span class="n">processing&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="nf">regexec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">regex_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">preg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">nmatch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">regmatch_t&lt;/span> &lt;span class="n">pmatch&lt;/span>&lt;span class="p">[],&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">eflags&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">Do&lt;/span> &lt;span class="n">the&lt;/span> &lt;span class="n">matching&lt;/span>
+&lt;span class="kt">void&lt;/span> &lt;span class="nf">regfree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">regex_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">preg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">Free&lt;/span> &lt;span class="n">your&lt;/span> &lt;span class="n">compiled&lt;/span> &lt;span class="n">regex&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="s">&amp;#34;compiling&amp;#34;&lt;/span>
+&lt;span class="n">size_t&lt;/span> &lt;span class="n">regerror&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">errcode&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">regex_t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">preg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">errbuf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">errbuf_size&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">Retrieve&lt;/span> &lt;span class="n">some&lt;/span> &lt;span class="n">more&lt;/span> &lt;span class="n">information&lt;/span> &lt;span class="n">on&lt;/span> &lt;span class="n">why&lt;/span> &lt;span class="n">the&lt;/span> &lt;span class="nf">regexec&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="n">failed&lt;/span>
+&lt;span class="c1">///////////////////////////////////////////
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;sys/types.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;regex.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdlib.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="n">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">argv&lt;/span>&lt;span class="p">[])&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">regex_t&lt;/span> &lt;span class="n">regex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="n">reti&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">char&lt;/span> &lt;span class="n">msgbuf&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="cm">/* Compile regular expression */&lt;/span>
+&lt;span class="n">reti&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">regcomp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">regex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;(.*)&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">REG_EXTENDED&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">reti&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">fprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">stderr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Could not compile regex&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="cm">/* Execute regular expression */&lt;/span>
+&lt;span class="n">regmatch_t&lt;/span> &lt;span class="n">pmatch&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">reti&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">regexec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">regex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;-(asdf)adsf&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">pmatch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// 第三个参数如果是0，则仅判断是否匹配
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%d %d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pmatch&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rm_so&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pmatch&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rm_eo&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">reti&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">puts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Match&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">reti&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">REG_NOMATCH&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">puts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;No match&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">else&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">regerror&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">reti&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">regex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">msgbuf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">msgbuf&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">fprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">stderr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Regex match failed: %s&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">msgbuf&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="cm">/* Free compiled regular expression if you want to use the regex_t again */&lt;/span>
+&lt;span class="n">regfree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">regex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">some examples
+&lt;span class="o">((&lt;/span>2&lt;span class="o">[&lt;/span>0-4&lt;span class="o">]&lt;/span>&lt;span class="se">\d&lt;/span>&lt;span class="p">|&lt;/span>25&lt;span class="o">[&lt;/span>0-5&lt;span class="o">]&lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="o">[&lt;/span>01&lt;span class="o">]&lt;/span>?&lt;span class="se">\d\d&lt;/span>?&lt;span class="o">)&lt;/span>&lt;span class="se">\.&lt;/span>&lt;span class="o">){&lt;/span>3&lt;span class="o">}(&lt;/span>2&lt;span class="o">[&lt;/span>0-4&lt;span class="o">]&lt;/span>&lt;span class="se">\d&lt;/span>&lt;span class="p">|&lt;/span>25&lt;span class="o">[&lt;/span>0-5&lt;span class="o">]&lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="o">[&lt;/span>01&lt;span class="o">]&lt;/span>?&lt;span class="se">\d\d&lt;/span>?&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN">https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://deerchao.cn/tutorials/regex/regex.htm#mission">https://deerchao.cn/tutorials/regex/regex.htm#mission&lt;/a>&lt;/p>
 &lt;p>reference&lt;/p>
 &lt;p>&lt;a href="https://louiszhai.github.io/2017/09/30/tmux">tmux&lt;/a>
 &lt;a href="https://nju-projectn.github.io/ics-pa-gitbook/ics2021/index.html">nju-PA&lt;/a>&lt;/p></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;blockquote>
