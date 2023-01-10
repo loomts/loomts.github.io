@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.eu.org/</link><description>MemE is a powerful and highly customizable GoHugo theme for personal blogs.</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>en</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><lastBuildDate>Thu, 27 Oct 2022 13:49:10 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.eu.org/rss.xml"/><item><title>linux</title><link>https://loomt.eu.org/posts/linux/</link><guid isPermaLink="true">https://loomt.eu.org/posts/linux/</guid><pubDate>Sun, 18 Sep 2022 17:38:54 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="basic-command-for-linux">Basic command for linux&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 10 Jan 2023 02:37:09 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>cloud</title><link>https://loomt.top/posts/cloud/</link><guid isPermaLink="true">https://loomt.top/posts/cloud/</guid><pubDate>Wed, 04 Jan 2023 23:25:51 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>ssh 断开解决方案
+&lt;a href="https://www.jianshu.com/p/fa34a2b5b351">https://www.jianshu.com/p/fa34a2b5b351&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">nohup ./test 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">&amp;amp;&lt;/span>
+&lt;span class="c1"># nohub，no hang up&lt;/span>
+&lt;span class="c1"># 运行test并将错误信息重定向到标准输出（/dev/null）并挂起后台&lt;/span>
+&lt;span class="c1"># &amp;amp; 让命令后台执行，终端退出后命令仍然执行&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>linux</title><link>https://loomt.top/posts/linux/</link><guid isPermaLink="true">https://loomt.top/posts/linux/</guid><pubDate>Sun, 18 Sep 2022 17:38:54 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="basic-command-for-linux">Basic command for linux&lt;/h1>
 &lt;blockquote>
 &lt;p>Write what comes to mind&lt;/p>
 &lt;/blockquote>
@@ -30,7 +46,7 @@ md5sum a b
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">find . -name &lt;span class="s2">&amp;#34;*.[ch]&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> xargs grep &lt;span class="s2">&amp;#34;#include&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sort &lt;span class="p">|&lt;/span> uniq
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">find . -name &lt;span class="s2">&amp;#34;*.[ch]&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> xargs grep &lt;span class="s2">&amp;#34;#include&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sort &lt;span class="p">|&lt;/span> uniq
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ol start="3">
@@ -44,9 +60,6 @@ md5sum a b
 &lt;li>系统监控 - jobs, ps, top, kill, free, dmesg, lsof&lt;/li>
 &lt;/ul>
 &lt;h3 id="vim">vim&lt;/h3>
-&lt;blockquote>
-&lt;p>据说熟练之后很好用的文本编辑器&lt;/p>
-&lt;/blockquote>
 &lt;ul>
 &lt;li>左下上右&lt;/li>
 &lt;/ul>
@@ -55,6 +68,19 @@ md5sum a b
 &lt;li>保存退出&lt;/li>
 &lt;/ul>
 &lt;p>&lt;code>E-:wq&lt;/code>&lt;/p>
+&lt;h3 id="sed">sed&lt;/h3>
+&lt;blockquote>
+&lt;p>sed是一个拿来随手替换文本的工具（有时候ubuntu出锅了可以强行更新一波源而玄学地解决&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">sed -i &lt;span class="s1">&amp;#39;s/focal/jammy/g&amp;#39;&lt;/span> /etc/apt/sources.list
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>s/要替换的正则/替换为/g&lt;/code>&lt;/p>
 &lt;h2 id="tmux">tmux&lt;/h2>
 &lt;p>tmux是一个终端管理工具，主要作用是保留正在运行的进程和切割终端。&lt;/p>
 &lt;blockquote>
@@ -125,8 +151,8 @@ md5sum a b
 Tmux Continuum 定时保存恢复（依赖Tmux Resurrect）&lt;/p>
 &lt;pre tabindex="0">&lt;code>mkdir -p ~/.tmux
 cd ~/.tmux
-git clone https://github.com/tmux-plugins/tmux-resurrect.git
-git clone https://github.com/tmux-plugins/tmux-continuum.git
+git clone git@github.com:tmux-plugins/tmux-resurrect.git
+git clone git@github.com:tmux-plugins/tmux-continuum.git
 &lt;/code>&lt;/pre>&lt;p>vim ~/.tmux.conf, append to the end.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -135,7 +161,7 @@ git clone https://github.com/tmux-plugins/tmux-continuum.git
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">run-shell ~/.tmux/tmux-resurrect/resurrect.tmux
-run-shell ~/.tmux/tmux-resurrect/continuum.tmux
+run-shell ~/.tmux/tmux-continuum/continuum.tmux
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;pre tabindex="0">&lt;code># 重新加载配置文件
@@ -159,7 +185,7 @@ make -j? ? 为cpu数，可以通过多线程加速。&lt;/p>
 &lt;/div>
 &lt;/div>&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://loomt.eu.org/img/ccache.png" alt="ccache">&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/ccache.png" alt="ccache">&lt;/p>
 &lt;p>只输出命令但不执行&lt;/p>
 &lt;p>&lt;code>make -nB&lt;/code>&lt;/p>
 &lt;h3 id="git">git&lt;/h3>
@@ -341,22 +367,143 @@ print val&lt;/p>
 &lt;/div>
 &lt;/div>&lt;p>&lt;a href="https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN">https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference?redirectedfrom=MSDN&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://deerchao.cn/tutorials/regex/regex.htm#mission">https://deerchao.cn/tutorials/regex/regex.htm#mission&lt;/a>&lt;/p>
-&lt;p>reference&lt;/p>
+&lt;h4 id="zshrc">.zshrc&lt;/h4>
+&lt;pre tabindex="0">&lt;code># alias
+alias apigen=&amp;quot;goctl api go -api *.api -dir ../ --style=goZero&amp;quot;
+alias proxy=&amp;quot;source /bin/proxy.sh&amp;quot;
+alias ll=&amp;quot;ls -alF&amp;quot;
+alias la=&amp;quot;ls -A&amp;quot;
+alias l=&amp;quot;ls -CF&amp;quot;
+alias say=&amp;quot;echo&amp;quot;
+. /bin/proxy.sh set
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r &amp;quot;${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh&amp;quot; ]]; then
+source &amp;quot;${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh&amp;quot;
+fi
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Path to your oh-my-zsh installation.
+export ZSH=&amp;quot;$HOME/.oh-my-zsh&amp;quot;
+# Set name of the theme to load --- if set to &amp;quot;random&amp;quot;, it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME=&amp;quot;robbyrussell&amp;quot;
+ZSH_THEME=&amp;quot;powerlevel10k/powerlevel10k&amp;quot;
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( &amp;quot;robbyrussell&amp;quot; &amp;quot;agnoster&amp;quot; )
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE=&amp;quot;true&amp;quot;
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE=&amp;quot;true&amp;quot;
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled # disable automatic updates
+# zstyle ':omz:update' mode auto # update automatically without asking
+# zstyle ':omz:update' mode reminder # just remind me to update when it's time
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=&amp;quot;true&amp;quot;
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS=&amp;quot;true&amp;quot;
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE=&amp;quot;true&amp;quot;
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION=&amp;quot;true&amp;quot;
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS=&amp;quot;%F{yellow}waiting...%f&amp;quot;
+# Caution: this setting can cause issues with multiline prompts in zsh &amp;lt; 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS=&amp;quot;true&amp;quot;
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY=&amp;quot;true&amp;quot;
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# &amp;quot;mm/dd/yyyy&amp;quot;|&amp;quot;dd.mm.yyyy&amp;quot;|&amp;quot;yyyy-mm-dd&amp;quot;
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS=&amp;quot;mm/dd/yyyy&amp;quot;
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+z
+docker
+git
+sudo
+zsh-autosuggestions
+# zsh-syntax-highlighting
+)
+source $ZSH/oh-my-zsh.sh
+# User configuration
+# export MANPATH=&amp;quot;/usr/local/man:$MANPATH&amp;quot;
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+# export EDITOR='vim'
+# else
+# export EDITOR='mvim'
+# fi
+# Compilation flags
+# export ARCHFLAGS=&amp;quot;-arch x86_64&amp;quot;
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig=&amp;quot;mate ~/.zshrc&amp;quot;
+# alias ohmyzsh=&amp;quot;mate ~/.oh-my-zsh&amp;quot;
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#ccache
+export PATH=&amp;quot;/usr/lib/ccache:$PATH&amp;quot;
+export NEMU_HOME=/home/loomt/CSLearning/PA/nemu
+export AM_HOME=/home/loomt/CSLearning/PA/abstract-machine
+# go
+#根目录
+export GOROOT=/usr/local/go
+#工作目录
+export GOPATH=/home/loomt/go
+#bin目录
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH
+export PATH=$PATH:$GOBIN
+export PATH=$PATH:$GOROOT/bin
+&lt;/code>&lt;/pre>&lt;p>reference&lt;/p>
 &lt;p>&lt;a href="https://louiszhai.github.io/2017/09/30/tmux">tmux&lt;/a>
-&lt;a href="https://nju-projectn.github.io/ics-pa-gitbook/ics2021/index.html">nju-PA&lt;/a>&lt;/p></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;blockquote>
-&lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下……&lt;/p>
+&lt;a href="https://nju-projectn.github.io/ics-pa-gitbook/ics2021/index.html">nju-PA&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。&lt;/p>
 &lt;/blockquote>
-&lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不多。&lt;/p>
+&lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不太多。&lt;/p>
 &lt;ol>
 &lt;li>安装Breed（闭源免费的BootLoader，又称“不死鸟”，有了它就能肆无忌惮地刷各种第三方包了&lt;/li>
 &lt;/ol>
-&lt;p>如果你的路由器是小米4A千兆版，可以直接用我在恩山论坛找的&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/R4A.zip">无脑直装Breed&lt;/a>；如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">Breed官网&lt;/a>下载路由器的适配包并自行搜索如何通过Telnet连接路由器并刷入Breed。
-&lt;img src="https://loomt.eu.org/img/breed.png" alt="Breed">&lt;/p>
+&lt;p>如果你的路由器是小米4A千兆版，可以直接用恩山论坛的&lt;a href="https://pan.loomt.top/Xiaomi4A/R4A.zip">无脑直装Breed&lt;/a>；如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">Breed官网&lt;/a>下载路由器的适配包并自行搜索如何通过Telnet连接路由器并刷入Breed。
+&lt;img src="https://loomt.top/img/breed.png" alt="Breed">&lt;/p>
 &lt;ol start="2">
 &lt;li>用Breed安装OpenWrt&lt;/li>
 &lt;/ol>
-&lt;p>这里放一个&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
-刷路由器之前必须备份好eeprom（我第一次就是因为没有在Breed备份eeprom导致安装了Openwrt后 5G信号奇差），而后点击固件更新~&amp;gt;常规固件~&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
+&lt;p>这里放一个&lt;a href="https://pan.loomt.top/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
+&lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
+&lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice warning" >
+&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/#warning-notice">&lt;/use>&lt;/svg>&lt;/span>警告&lt;/p>&lt;p>刷OpenWrt之前必须用Breed备份eeprom（没有备份eeprom将导致5G信号奇差）&lt;/p>&lt;/div>
+&lt;/p>
+&lt;p>点击固件更新~&amp;gt;常规固件~&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
 &lt;ol start="3">
 &lt;li>配置OpenWrt的各项参数（随便配一下即可&lt;/li>
 &lt;/ol>
@@ -365,11 +512,10 @@ print val&lt;/p>
 &lt;ol start="4">
 &lt;li>刷回官方包（没备份eeprom的问题 &lt;strong>或许&lt;/strong> 也可以通过刷回官方包的方法解决&lt;/li>
 &lt;/ol>
-&lt;p>下载&lt;a href="https://pan.loomt.eu.org/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed~&amp;gt;固件更新~&amp;gt;编程器固件(仅勾选自动重启)~&amp;gt;上传all.bin。&lt;/p></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>Auto7zip</title><link>https://loomt.eu.org/posts/auto7zip/</link><guid isPermaLink="true">https://loomt.eu.org/posts/auto7zip/</guid><pubDate>Wed, 20 Jul 2022 12:12:02 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
+&lt;p>下载&lt;a href="https://pan.loomt.top/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed~&amp;gt;固件更新~&amp;gt;编程器固件(仅勾选自动重启)~&amp;gt;上传all.bin。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>Auto7zip</title><link>https://loomt.top/posts/auto7zip/</link><guid isPermaLink="true">https://loomt.top/posts/auto7zip/</guid><pubDate>Wed, 20 Jul 2022 12:12:02 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
 &lt;blockquote>
 &lt;p>因为难以忍受7zip的右键解压操作，通过修改注册表以实现双击自动解压。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">reference&lt;/a>&lt;/p>
 &lt;ol>
 &lt;li>替换 &lt;code>D:\\000000000000\\7-Zip\\7zG.exe\&lt;/code> 为 &lt;code>your\\path\\to\\7zG.exe&lt;/code>&lt;/li>
 &lt;li>将代码塞进.reg文件，双击即可。&lt;/li>
@@ -1012,9 +1158,10 @@ print val&lt;/p>
 &lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description><category domain="https://loomt.eu.org/posts/">posts</category></item><item><title>建站</title><link>https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</link><guid isPermaLink="true">https://loomt.eu.org/posts/%E5%BB%BA%E7%AB%99/</guid><pubDate>Fri, 15 Jul 2022 12:01:10 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)</copyright><description>&lt;p>&lt;img src="https://loomt.eu.org/img/sky.jpg" alt="sky">&lt;/p>
+&lt;/div>&lt;p>&lt;em>reference&lt;/em>&lt;/p>
+&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">https://gist.github.com/zabbarob/5891200&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>建站</title><link>https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</guid><pubDate>Fri, 15 Jul 2022 12:01:10 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
 &lt;blockquote>
-&lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.eu.org">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）。&lt;/p>
+&lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.top">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过hexo无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="简略步骤">简略步骤&lt;/h1>
 &lt;h2 id="hugo-配置">Hugo 配置&lt;/h2>
@@ -1322,7 +1469,7 @@ git push
 &lt;h2 id="vercel">Vercel&lt;/h2>
 &lt;p>&lt;a href="https://vercel.com/">Vercel&lt;/a> 可以看作是一个结合了 Github Page 还有 Github Actions 的用于前端框架和静态站点管的平台，直接导入仓库即可部署，也可以和 Github Page 结合使用。需要注意的是注册域名的时候要去域名注册商改一下 DNS 服器。&lt;/p>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>目前我在用 Vercel 托管 &lt;a href="https://loomt.eu.org">https://loomt.eu.org&lt;/a> ，顺便将 Github Page 绑定了这个白嫖的域名，博客的更新只需要push源代码vercel就会自动编译部署，感觉非常不戳。&lt;/p>
+&lt;p>目前我在用 Vercel 托管 &lt;a href="https://loomt.top">https://loomt.top&lt;/a> ，顺便将 Github Page 绑定了这个白嫖的域名，博客的更新只需要push源代码vercel就会自动编译部署，感觉非常不戳。&lt;/p>
 &lt;p>个人感觉 Vercel 的体验要比 Github Page 略好一点，但是需要有一个自己的域名。&lt;/p>
 &lt;p>&lt;em>reference&lt;/em>&lt;/p>
 &lt;p>&lt;a href="https://gohugo.io/getting-started/">https://gohugo.io/getting-started/&lt;/a>&lt;/p>
@@ -1330,4 +1477,4 @@ git push
 &lt;p>&lt;a href="https://io-oi.me/tech/hugo-vs-hexo/">https://io-oi.me/tech/hugo-vs-hexo/&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://github.com/MunifTanjim/minimo/issues/189">https://github.com/MunifTanjim/minimo/issues/189&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://zenlian.github.io/posts/tools/github-actions-hugo/">https://zenlian.github.io/posts/tools/github-actions-hugo/&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://github.com/peaceiris/actions-gh-pages">https://github.com/peaceiris/actions-gh-pages&lt;/a>&lt;/p></description><category domain="https://loomt.eu.org/posts/">posts</category><category domain="https://loomt.eu.org/tags/github-page/">Github Page</category><category domain="https://loomt.eu.org/tags/%E5%BB%BA%E7%AB%99/">建站</category></item></channel></rss>
+&lt;p>&lt;a href="https://github.com/peaceiris/actions-gh-pages">https://github.com/peaceiris/actions-gh-pages&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/github-page/">Github Page</category><category domain="https://loomt.top/tags/%E5%BB%BA%E7%AB%99/">建站</category></item></channel></rss>
