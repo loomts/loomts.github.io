@@ -1,16 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 15 Jan 2023 14:06:03 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>华为云公网部署</title><link>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</guid><pubDate>Tue, 08 Nov 2022 22:47:51 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
-&lt;p>开了安全组，用 caddy 部署了一个小网页来测试公网访问&lt;/p>
-&lt;p>![[Pasted image 20221106113308.png]]&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 16 Jan 2023 04:49:22 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
+&lt;blockquote>
+&lt;p>remote processdule controller&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="特点">特点&lt;/h3>
+&lt;p>区别于HTTP服务的RESTful风格接口，RPC主要是远程函数调用，HTTP则更关注与资源。并且RPC服务可以减少网络开销，各种意义上提高效率。&lt;/p>
+&lt;p>一言以蔽之，RPC协议的主要目的是做到不同服务间调用方法像同一服务间调用本地方法一样&lt;/p>
+&lt;h3 id="优点">优点&lt;/h3>
+&lt;ol>
+&lt;li>单一责任&lt;/li>
+&lt;li>扩展性&lt;/li>
+&lt;li>故障隔离&lt;/li>
+&lt;/ol>
+&lt;p>一言以蔽之，RPC协议的主要目的是做到不同服务间调用方法像同一服务间调用本地方法一样。&lt;/p>
+&lt;h3 id="问题">问题&lt;/h3>
+&lt;p>服务宕机&lt;/p>
+&lt;p>网络异常&lt;/p>
+&lt;p>服务时长不合预期&lt;/p>
+&lt;h3 id="理论">理论&lt;/h3>
+&lt;h4 id="论文架构">论文架构&lt;/h4>
+&lt;p>User, User-Stub, RPC-Runtime, Server-Stub, Server&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/Implementing-remote-procedure-calls.png" alt="Implementing-remote-procedure-calls">&lt;/p>
+&lt;h3 id="实现">实现&lt;/h3>
+&lt;p>&lt;img src="https://loomt.top/img/rpc-real.png" alt="rpc-real">&lt;/p>
+&lt;h4 id="idl-interface-description-language">IDL (Interface description language)&lt;/h4>
+&lt;p>Descript the interface.&lt;/p>
+&lt;h5 id="tlv编码">TLV编码&lt;/h5>
+&lt;ul>
+&lt;li>Tag：类型&lt;/li>
+&lt;li>Length：长度&lt;/li>
+&lt;li>Value：值（也可以是TLV结构）
+&lt;img src="https://loomt.top/img/IDL-TLV.png" alt="IDL-TLV">&lt;/li>
+&lt;/ul>
+&lt;h4 id="gencode">GenCode&lt;/h4>
+&lt;p>Translate the IDL to different programming language.&lt;/p>
+&lt;p>Need decode and encode logic.&lt;/p>
+&lt;p>兼容性——增加新的字段不影响现有服务&lt;/p>
+&lt;p>通用性——跨平台跨语言&lt;/p>
+&lt;p>性能——空间时间维度，编码后的数据大小和编码时长&lt;/p>
+&lt;h4 id="encode">Encode&lt;/h4>
+&lt;p>Conv code to byte.&lt;/p>
+&lt;h4 id="protocol">Protocol&lt;/h4>
+&lt;p>Necessary data and metadata&lt;/p>
+&lt;p>0 1 2 3 4 5 6 7 8 9 a b c d e f 0 1 2 3 4 5 6 7 8 9 a b c d e f
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| 0| LENGTH |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| 0| HEADER MAGIC | FLAGS |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| SEQUENCE NUMBER |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| 0| Header Size(/32) | &amp;hellip;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/p>
+&lt;pre>&lt;code> Header is of variable size:
+(and starts at offset 14)
+&lt;/code>&lt;/pre>
+&lt;p>+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| PROTOCOL ID (varint) | NUM TRANSFORMS (varint) |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| TRANSFORM 0 ID (varint) | TRANSFORM 0 DATA &amp;hellip;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| &amp;hellip; &amp;hellip; |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| INFO 0 ID (varint) | INFO 0 DATA &amp;hellip;
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| &amp;hellip; &amp;hellip; |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+
+| |
+| PAYLOAD |
+| |
++&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&lt;/p>
+&lt;p>LENGTH: 数据包大小，不包含自身&lt;/p>
+&lt;p>HEADER MAGIC:标识版本信息，协议解析时快速校验&lt;/p>
+&lt;p>SEQUENCE NUMBER:表示数据包的seqlD，可用于多路复用，单连接内递增&lt;/p>
+&lt;blockquote>
+&lt;p>多路复用(multiplexing) 在单个通信信道上传输多个信息。它可以让多个应用程序或进程在同一时间共享一个信道。以有效地利用带宽和资源，提高系统的效率。常见技术：时分多路复用TDM，波分多路复用WDM，包交换。一般通过TCP/IP实现。&lt;/p>
+&lt;/blockquote>
+&lt;p>HEADER SIZE:头部长度，从第14个字节开始计算一直到PAYLOAD前
+PROTOCOL ID:编解码方式，有Binary和Compact两种
+TRANSFORM ID:压缩方式，如zlilb 和snappy
+INFO ID:传递一些定制的meta信息
+PAYLOAD:消息体&lt;/p>
+&lt;h4 id="network-transfer">Network Transfer&lt;/h4>
+&lt;pre tabindex="0">&lt;code>Application Layer
+Sockets API
+TCP/UDP
+IP
+Driver
+Physical Layer
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://loomt.top/img/socket.png" alt="socket">&lt;/p>
+&lt;h3 id="rpc框架">RPC框架&lt;/h3>
+&lt;p>&lt;em>reference&lt;/em>&lt;/p>
+&lt;p>&lt;a href="http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc">http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>华为云公网部署</title><link>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</guid><pubDate>Tue, 08 Nov 2022 22:47:51 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
+&lt;p>开了安全组，用 caddy 部署了一个小网页来测试公网访问
+&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/caddy.png" alt="run-caddy">&lt;/p>
 &lt;p>可以看到内网访问是正常的。也可以 ping 通&lt;/p>
-&lt;p>![[Pasted image 20221106113613.png]]&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/ping-cloud.png" alt="ping-cloud">&lt;/p>
 &lt;p>根据华为云官网给出的指引排查了很久，绑定了弹性公网 ip，设置了安全组 Sys-FullAccess、ACL，都无法用浏览器访问。&lt;/p>
 &lt;p>最后回到服务器 &lt;em>查询防火墙状态&lt;/em>&lt;/p>
-&lt;p>![](/img/Pasted image 20221106124209.png)
-关掉防火墙
-![](/img/Pasted image 20221106122724.png)
-就可以了
-![](/img/Pasted image 20221106123030.png)&lt;/p>
-&lt;p>对着华为云的控制台搞了很久安全组，还以为安全组除出了 bug，最后发现是服务器防火墙的问题😭&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>关掉防火墙就可以了
+&lt;img src="https://loomt.top/img/disable-firewall.png" alt="disable-firewall">
+对着华为云的控制台搞了很久安全组，还以为安全组哪里配错了，最后发现是服务器防火墙的问题😭&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>小米4A千兆版刷OpenWrt</title><link>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</link><guid isPermaLink="true">https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</guid><pubDate>Fri, 12 Aug 2022 15:58:38 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。&lt;/p>
 &lt;/blockquote>
 &lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不太多。&lt;/p>
