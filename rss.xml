@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 03 Feb 2023 12:47:54 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824</title><link>https://loomt.top/posts/6.824/</link><guid isPermaLink="true">https://loomt.top/posts/6.824/</guid><pubDate>Tue, 17 Jan 2023 23:11:57 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="mit-6824现在好像变成了65840">MIT 6.824（现在好像变成了6.5840&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 03 Feb 2023 15:06:02 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824</title><link>https://loomt.top/posts/6.824/</link><guid isPermaLink="true">https://loomt.top/posts/6.824/</guid><pubDate>Tue, 17 Jan 2023 23:11:57 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="mit-6824现在好像变成了65840">MIT 6.824（现在好像变成了6.5840&lt;/h1>
 &lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>&lt;/p>
 &lt;h2 id="lab1-mapreduce">Lab1 MapReduce&lt;/h2>
 &lt;blockquote>
@@ -287,7 +287,7 @@
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">fi&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ol start="5">
+&lt;/div>&lt;ol start="6">
 &lt;li>result&lt;/li>
 &lt;/ol>
 &lt;pre tabindex="0">&lt;code>same file num:50
