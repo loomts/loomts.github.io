@@ -1,4 +1,317 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 31 Jan 2023 02:28:41 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 03 Feb 2023 12:47:54 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824</title><link>https://loomt.top/posts/6.824/</link><guid isPermaLink="true">https://loomt.top/posts/6.824/</guid><pubDate>Tue, 17 Jan 2023 23:11:57 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="mit-6824现在好像变成了65840">MIT 6.824（现在好像变成了6.5840&lt;/h1>
+&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>&lt;/p>
+&lt;h2 id="lab1-mapreduce">Lab1 MapReduce&lt;/h2>
+&lt;blockquote>
+&lt;p>EndTime: 2023/2/3&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="paper">Paper&lt;/h3>
+&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf">MapReduce: Simplified Data Processing on Large Clusters&lt;/a>&lt;/p>
+&lt;p>MapReduce 将分布式系统处理数据的细节（并行、容错、局部性优化、负载均衡等）隐藏起来，提供一套简化方案，解决了在多台机器处理大量逻辑简单的计算（分布式计算）实现复杂的问题。&lt;/p>
+&lt;h3 id="实现">实现&lt;/h3>
+&lt;p>本实验可以由1个 coordinator/master 调度若干个 worker。先完成所有 map 任务，生成中间键值对并将其存在中间文件后再进行 reduce 任务，最后将 reduce 任务的结果输出到文本。&lt;/p>
+&lt;p>需要我们修改的文件为 &lt;code>mr/*&lt;/code>&lt;/p>
+&lt;ol>
+&lt;li>worker 通过 RPC 循环请求任务。&lt;/li>
+&lt;li>coordinator 读取 8 个给定的文件分给不同的 worker 进行 map 任务，这部分如果喜欢也可以按固定 bytes 进行切割&lt;del>但我懒得处理了&lt;/del>。&lt;/li>
+&lt;li>worker 读取文件并扔给&lt;code>fmap&lt;/code>进行处理，生成中间键值对，计算字符串的 hash 后将&lt;code>key-intermediate_value&lt;/code>存在 &lt;code>mr-taskid-ihash(str)&lt;/code> 里面。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>fmap 函数通过编译生成的 *.so 调用&lt;/p>
+&lt;/blockquote>
+&lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
+&lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice tip" >
+&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/6.824/#tip-notice">&lt;/use>&lt;/svg>&lt;/span>提示&lt;/p>&lt;p>看到一些同学是先 os.CreateTemp(&amp;quot;&amp;quot;, tmpFileName) 存在临时文件里面，等处理完了再 rename 成&lt;code>mr-taskid-ihash(str)&lt;/code>。这样可能会更加规范一些，但不创建 tempfile 理论上应该也是正确的。&lt;/p>
+&lt;p>当文件没完全写完 worker 就 crash 时，这个任务会被 coordinator 发现并交给别的 worker 重做。因为用的是&lt;code>os.Create()&lt;/code>，文件会被新的覆盖，直到 worker 成功完成任务为止。&lt;/p>
+&lt;p>如果逻辑允许两个 worker 同时处理一个任务的话，就需要创建 tempFile 再 rename 的方式，因为需要保证创建的（临时）文件内容不重复。&lt;/p>&lt;/div>
+&lt;ol start="4">
+&lt;li>map 任务全部完成后 coordinator 分配 NReduce 个 reduce 任务给不同的 worker 处理。&lt;/li>
+&lt;li>worker读取中间文件，并将&lt;code>key-list(intermediate_value)&lt;/code>扔给&lt;code>freduce&lt;/code>处理成&lt;code>key-value&lt;/code> 写入&lt;code>mr-out-ihash(str)&lt;/code>。&lt;/li>
+&lt;li>coordinator 发现任务全都处理完后踢走 worker ，并在若干秒后退出。&lt;/li>
+&lt;/ol>
+&lt;h3 id="tips">Tips&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>结构&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>go 可以用 const 和 iota 代替 enum。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>WorkerInfo 在这个实验可以省略，不需要保留 worker 的状态，但我写了就不想删了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>本来还想往结构体内置一个 logger 的，但RPC调用需要gob序列化，而 logger 不知道为啥会序列化失败，不知道是啥 bug ，以后再瞅瞅。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">iota&lt;/span>
+&lt;span class="c1">// MAP REDUCE WAIT: Task type
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">MAP&lt;/span>
+&lt;span class="nx">REDUCE&lt;/span>
+&lt;span class="nx">WAIT&lt;/span>
+&lt;span class="c1">// IDLE BUSY DONE: Task status || WorkerInfo status
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">IDLE&lt;/span>
+&lt;span class="nx">BUSY&lt;/span>
+&lt;span class="nx">DONE&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">Coordinator&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">NMap&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// map 任务的个数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">NReduce&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// reduce 任务的个数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">DMap&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 记录map task完成的个数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">DReduce&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 记录reduce task完成的个数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">WorkerId&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 为新的worker分配workerIds
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">TaskDone&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">bool&lt;/span> &lt;span class="c1">// 记录task是否被完成
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Map&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Task&lt;/span> &lt;span class="c1">// 待取出的map task
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Reduce&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Task&lt;/span> &lt;span class="c1">// 待取出的reduce task
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">TaskMutex&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span> &lt;span class="c1">// 用于任务分发相关数据的mutex
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">DoneMutex&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span> &lt;span class="c1">// 用于完成任务相关数据的mutex
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Mutex&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span> &lt;span class="c1">// 用于其他细节的mutex
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">Task&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">StartTime&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Time&lt;/span>
+&lt;span class="nx">NReduce&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 传给worker，用于ihash 的mod
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Type&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// MAP REDUCE WAIT
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Status&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// IDLE BUSY DONE
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">FileName&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">TaskId&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">WorkerId&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">WorkerInfo&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">WorkerId&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">TaskId&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">Type&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">Status&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="c1">//Lg *log.Logger
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//Why this error?
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//gob: type log.Logger has no exported fields
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//2023/01/31 14:34:13 RPC getWork failed
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//exit status 1
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Map functions return a slice of KeyValue.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">KeyValue&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Key&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">Value&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>RPC写入reply的时候不能直接将reply指向一个新的地址，而是要修改reply地址的值。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="c1">//reply = &amp;amp;GetWorkReply{&amp;amp;Task{...}}
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//上面的方法不会返回想要的reply，因为reply指向的是新的GetWorkReply值在rpc服务器的指针。这部分客户端的内存和服务器的不一样，所以得到的是空值；下面的方法因为 reply是共享内存的，所以服务器和客户端都可以访问 &amp;amp;reply。
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//在RPC调用时，要避免传递指针参数，如果传递的参数是值类型，那么这个值将会被复制到另一个地址
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">reply&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">GetWorkReply&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">Task&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">StartTime&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Now&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="nx">Type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">MAP&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Status&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">BUSY&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">FileName&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">mapTask&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FileName&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">NReduce&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NReduce&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">WorkerId&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">WorkerId&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">TaskId&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">mapTask&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TaskId&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">}}&lt;/span> &lt;span class="c1">// equal to reply.Task = &amp;amp;Task{...}
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>clash test，需要coordinator在worker宕机10s后为同一个任务重新分配worker,这部分需要考虑一下注意一下 data race&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="k">go&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">taskId&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">filename&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">select&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">After&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">12&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Second&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TaskDone&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">taskId&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">dosomething&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">dootherthing&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// default:{
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// }
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// default不能写，如果写了就会直接跳到default，不会进入12s的case
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span>
+&lt;span class="p">}(&lt;/span>&lt;span class="nx">maptask&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TaskId&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">mapTask&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FileName&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>并发编程细节&lt;/li>
+&lt;/ol>
+&lt;p>因为 MapReduce 的特性，map task 可以并发，reduce task 可以并发，但两种任务不能同时并发，所以需要等到 map task 跑完才可以进行 reduce task。如果同时读写同一个变量，需要加锁。其实还可以用 chan 实现 lock-free ，以后试试，如果有时间的话。&lt;/p>
+&lt;ol start="5">
+&lt;li>贴一下测试的 makefile&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="c"># location: src/Makefile
+&lt;/span>&lt;span class="c">&lt;/span>&lt;span class="nv">ntest&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;span class="nf">lab1&lt;/span>&lt;span class="o">:&lt;/span>
+@cd main&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">for&lt;/span> i in &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>seq &lt;span class="m">1&lt;/span> &lt;span class="nv">$$&lt;/span>ntest&lt;span class="o">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> bash test-mr.sh &amp;gt; res&lt;span class="nv">$$&lt;/span>i&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> @cnt&lt;span class="o">=&lt;/span>0&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">for&lt;/span> i in &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>seq &lt;span class="m">1&lt;/span> &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="k">$(&lt;/span>ntest&lt;span class="k">)&lt;/span> - 1&lt;span class="o">))&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">if&lt;/span> cmp main/res&lt;span class="nv">$$&lt;/span>i main/res&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>i + 1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nv">cnt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>cnt + 1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">fi&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;same file num:&amp;#34;&lt;/span>&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>cnt + 1&lt;span class="o">)&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$$&lt;/span>cnt -eq &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="k">$(&lt;/span>ntest&lt;span class="k">)&lt;/span> - 1&lt;span class="o">)&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;****************************************************************&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;all res is the same!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;result content as follow.&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;****************************************************************&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> cat main/res1&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;****************************************************************&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>result&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>same file num:50
+****************************************************************
+all res is the same!
+result content as follow.
+****************************************************************
+*** Starting wc test.
+--- wc test: PASS
+*** Starting indexer test.
+--- indexer test: PASS
+*** Starting map parallelism test.
+--- map parallelism test: PASS
+*** Starting reduce parallelism test.
+--- reduce parallelism test: PASS
+*** Starting job count test.
+--- job count test: PASS
+*** Starting early exit test.
+--- early exit test: PASS
+*** Starting crash test.
+--- crash test: PASS
+*** PASSED ALL TESTS
+****************************************************************
+&lt;/code>&lt;/pre></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
 &lt;blockquote>
 &lt;p>Remote Procedure Call&lt;/p>
 &lt;/blockquote>
