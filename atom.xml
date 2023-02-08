@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">loomt</title><subtitle type="html">记录生活与coding</subtitle><updated>2023-02-03T15:06:02+00:00</updated><id>https://loomt.top/</id><link rel="alternate" type="text/html" href="https://loomt.top/"/><link rel="self" type="application/atom+xml" href="https://loomt.top/atom.xml"/><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">6.824</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824/"/><id>https://loomt.top/posts/6.824/</id><updated>2023-02-03T23:05:41+08:00</updated><published>2023-01-17T23:11:57+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">MIT 6.824（现在好像变成了6.5840 schedule Lab1 MapReduce EndTime: 2023/2/3 Paper MapReduce: Simplified Data Processing on Large Clusters MapReduce 将分布式系统处理数据的细节（并行、容错、局部性优化、负载均衡等）隐藏起来，提供一套简化方案，…</summary><content type="html">&lt;h1 id="mit-6824现在好像变成了65840">MIT 6.824（现在好像变成了6.5840&lt;/h1>
-&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>&lt;/p>
-&lt;h2 id="lab1-mapreduce">Lab1 MapReduce&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">loomt</title><subtitle type="html">记录生活与coding</subtitle><updated>2023-02-08T14:37:24+00:00</updated><id>https://loomt.top/</id><link rel="alternate" type="text/html" href="https://loomt.top/"/><link rel="self" type="application/atom+xml" href="https://loomt.top/atom.xml"/><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">6.824 Lab1</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab1/"/><id>https://loomt.top/posts/6.824-lab1/</id><updated>2023-02-08T22:36:56+08:00</updated><published>2023-02-03T23:25:54+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Lab1 MapReduce EndTime: 2023/2/3 Paper MapReduce: Simplified Data Processing on Large Clusters MapReduce 将分布式系统处理数据的细节（并行、容错、局部性优化、负载均衡等）隐藏起来，提供一套简化方案，解决了在多台机器处理大量逻辑简单的计算（分…</summary><content type="html">&lt;h2 id="lab1-mapreduce">Lab1 MapReduce&lt;/h2>
 &lt;blockquote>
 &lt;p>EndTime: 2023/2/3&lt;/p>
 &lt;/blockquote>
@@ -20,7 +18,7 @@
 &lt;/blockquote>
 &lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
 &lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice tip" >
-&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/6.824/#tip-notice">&lt;/use>&lt;/svg>&lt;/span>提示&lt;/p>&lt;p>看到一些同学是先 os.CreateTemp(&amp;quot;&amp;quot;, tmpFileName) 存在临时文件里面，等处理完了再 rename 成&lt;code>mr-taskid-ihash(str)&lt;/code>。这样可能会更加规范一些，但不创建 tempfile 理论上应该也是正确的。&lt;/p>
+&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/6.824-lab1/#tip-notice">&lt;/use>&lt;/svg>&lt;/span>提示&lt;/p>&lt;p>看到一些同学是先 os.CreateTemp(&amp;quot;&amp;quot;, tmpFileName) 存在临时文件里面，等处理完了再 rename 成&lt;code>mr-taskid-ihash(str)&lt;/code>。这样可能会更加规范一些，但不创建 tempfile 理论上应该也是正确的。&lt;/p>
 &lt;p>当文件没完全写完 worker 就 crash 时，这个任务会被 coordinator 发现并交给别的 worker 重做。因为用的是&lt;code>os.Create()&lt;/code>，文件会被新的覆盖，直到 worker 成功完成任务为止。&lt;/p>
 &lt;p>如果逻辑允许两个 worker 同时处理一个任务的话，就需要创建 tempFile 再 rename 的方式，因为需要保证创建的（临时）文件内容不重复。&lt;/p>&lt;/div>
 &lt;ol start="4">
@@ -267,12 +265,12 @@
 &lt;/span>&lt;span class="c">&lt;/span>&lt;span class="nv">ntest&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="m">50&lt;/span>
 &lt;span class="nf">lab1&lt;/span>&lt;span class="o">:&lt;/span>
 @cd main&lt;span class="p">;&lt;/span>&lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">for&lt;/span> i in &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>seq &lt;span class="m">1&lt;/span> &lt;span class="nv">$$&lt;/span>ntest&lt;span class="o">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">for&lt;/span> i in &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>seq &lt;span class="m">1&lt;/span> &lt;span class="k">$(&lt;/span>ntest&lt;span class="k">)&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>&lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> bash test-mr.sh &amp;gt; res&lt;span class="nv">$$&lt;/span>i&lt;span class="p">;&lt;/span>&lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> @cnt&lt;span class="o">=&lt;/span>0&lt;span class="p">;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nv">cnt&lt;/span>&lt;span class="o">=&lt;/span>0&lt;span class="p">;&lt;/span>&lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">for&lt;/span> i in &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>seq &lt;span class="m">1&lt;/span> &lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="k">$(&lt;/span>ntest&lt;span class="k">)&lt;/span> - 1&lt;span class="o">))&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>&lt;span class="se">\
-&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">if&lt;/span> cmp main/res&lt;span class="nv">$$&lt;/span>i main/res&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>i + 1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">if&lt;/span> cmp res&lt;span class="nv">$$&lt;/span>i res&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>i + 1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span> &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="nv">cnt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$$&lt;/span>&lt;span class="o">(&lt;/span>expr &lt;span class="nv">$$&lt;/span>cnt + 1&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">fi&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span> &lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="se">\
@@ -311,7 +309,10 @@ result content as follow.
 --- crash test: PASS
 *** PASSED ALL TESTS
 ****************************************************************
-&lt;/code>&lt;/pre></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">RPC</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/rpc/"/><id>https://loomt.top/posts/rpc/</id><updated>2023-01-17T21:03:56+08:00</updated><published>2023-01-15T21:47:06+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">RPC Remote Procedure Call 特点 区别于HTTP服务的RESTful风格接口，RPC主要是远程函数调用，HTTP则更关注与资源。并且RPC服务可以减少网络开销，各种意义上提高效率。 一…</summary><content type="html">&lt;h2 id="rpc">RPC&lt;/h2>
+&lt;/code>&lt;/pre></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824/"/><id>https://loomt.top/posts/6.824/</id><updated>2023-02-08T22:36:56+08:00</updated><published>2023-01-17T23:11:57+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">MIT 6.824（现在好像变成了6.5840 schedule go并发编程 lab1 solution</summary><content type="html">&lt;h1 id="mit-6824现在好像变成了65840">MIT 6.824（现在好像变成了6.5840&lt;/h1>
+&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>
+&lt;a href="https://www.youtube.com/watch?v=IdCbMO0Ey9I">go并发编程&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.loomt.top/posts/6.824-lab1">lab1 solution&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">RPC</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/rpc/"/><id>https://loomt.top/posts/rpc/</id><updated>2023-01-17T21:03:56+08:00</updated><published>2023-01-15T21:47:06+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">RPC Remote Procedure Call 特点 区别于HTTP服务的RESTful风格接口，RPC主要是远程函数调用，HTTP则更关注与资源。并且RPC服务可以减少网络开销，各种意义上提高效率。 一…</summary><content type="html">&lt;h2 id="rpc">RPC&lt;/h2>
 &lt;blockquote>
 &lt;p>Remote Procedure Call&lt;/p>
 &lt;/blockquote>
@@ -403,50 +404,194 @@ Physical Layer
 &lt;/code>&lt;/pre>&lt;p>&lt;img src="https://loomt.top/img/socket.png" alt="socket">&lt;/p>
 &lt;h3 id="rpc框架">RPC框架&lt;/h3>
 &lt;p>&lt;em>reference&lt;/em>&lt;/p>
-&lt;p>&lt;a href="http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc">http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">华为云公网部署</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/"/><id>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</id><updated>2023-02-03T15:05:59+00:00</updated><published>2022-11-08T22:47:51+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">记一次华为云耀云服务器公网部署问题 开了安全组，用 caddy 部署了一个小网页来测试公网访问 可以看到内网访问是正常的。也可以 ping 通 根据华为云官网给出的指引排查了很久，绑定了弹…</summary><content type="html">&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
-&lt;p>开了安全组，用 caddy 部署了一个小网页来测试公网访问
-&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
-&lt;p>&lt;img src="https://loomt.top/img/caddy.png" alt="run-caddy">&lt;/p>
-&lt;p>可以看到内网访问是正常的。也可以 ping 通&lt;/p>
-&lt;p>&lt;img src="https://loomt.top/img/ping-cloud.png" alt="ping-cloud">&lt;/p>
-&lt;p>根据华为云官网给出的指引排查了很久，绑定了弹性公网 ip，设置了安全组 Sys-FullAccess、ACL，都无法用浏览器访问。&lt;/p>
-&lt;p>最后回到服务器 &lt;em>查询防火墙状态&lt;/em>&lt;/p>
-&lt;p>关掉防火墙就可以了
-&lt;img src="https://loomt.top/img/disable-firewall.png" alt="disable-firewall">
-对着华为云的控制台搞了很久安全组，还以为安全组哪里配错了，最后发现是服务器防火墙的问题😭&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">小米4A千兆版刷OpenWrt</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/"/><id>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</id><updated>2023-02-03T15:05:59+00:00</updated><published>2022-08-12T15:58:38+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。 去恩山论坛逛了逛，感觉刷软路由和刷手机差不太多。 安装Breed（闭源免费的Boo…</summary><content type="html">&lt;blockquote>
-&lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。&lt;/p>
-&lt;/blockquote>
-&lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不太多。&lt;/p>
-&lt;ol>
-&lt;li>安装Breed（闭源免费的BootLoader，又称“不死鸟”，有了它就能肆无忌惮地刷各种第三方包了&lt;/li>
-&lt;/ol>
-&lt;p>如果你的路由器是小米4A千兆版，可以直接用恩山论坛的&lt;a href="https://pan.loomt.top/Xiaomi4A/R4A.zip">无脑直装Breed&lt;/a>；如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">Breed官网&lt;/a>下载路由器的适配包并自行搜索如何通过Telnet连接路由器并刷入Breed。
-&lt;img src="https://loomt.top/img/breed.png" alt="Breed">&lt;/p>
-&lt;ol start="2">
-&lt;li>用Breed安装OpenWrt&lt;/li>
-&lt;/ol>
-&lt;p>这里放一个&lt;a href="https://pan.loomt.top/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
-&lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
-&lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice warning" >
-&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/#warning-notice">&lt;/use>&lt;/svg>&lt;/span>警告&lt;/p>&lt;p>刷OpenWrt之前必须用Breed备份eeprom（没有备份eeprom将导致5G信号奇差）&lt;/p>&lt;/div>
-&lt;/p>
-&lt;p>点击固件更新~&amp;gt;常规固件~&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
-&lt;ol start="3">
-&lt;li>配置OpenWrt的各项参数（随便配一下即可&lt;/li>
-&lt;/ol>
-&lt;p>OpenWrt可谓神通广大，作为一个在路由器上跑的Linux，它可以装上各种插件：酸酸乳、Docker、网易云解锁灰色歌曲……&lt;/p>
-&lt;p>但我折腾了一通，调教好基础的上网功能后，感觉网络状况大不如前。作为百来块的路由器，本来就没有多大的内存，感觉原厂固件的调教已经将性能都用在刀刃上了。装了OpenWrt后虽然上下行流量速度没有很大变化，但稳定性差了很多，便懒得继续折腾，忍痛remake了。&lt;/p>
-&lt;ol start="4">
-&lt;li>刷回官方包（没备份eeprom的问题 &lt;strong>或许&lt;/strong> 也可以通过刷回官方包的方法解决&lt;/li>
-&lt;/ol>
-&lt;p>下载&lt;a href="https://pan.loomt.top/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed~&amp;gt;固件更新~&amp;gt;编程器固件(仅勾选自动重启)~&amp;gt;上传all.bin。&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">Auto7zip</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/auto7zip/"/><id>https://loomt.top/posts/auto7zip/</id><updated>2023-01-15T00:20:38+08:00</updated><published>2022-07-20T12:12:02+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">7-Zip双击自动解压压缩文件 因为难以忍受7zip的右键解压操作，通过修改注册表以实现双击自动解压。 替换 D:\\000000000000\\7-Zip\\7zG.exe\ 为 your\\path\\to\\7zG.exe 将代码塞进.reg文件，双击即可。 1 2 3 4 5 6 7 8…</summary><content type="html">&lt;h1 id="7-zip双击自动解压压缩文件">7-Zip双击自动解压压缩文件&lt;/h1>
-&lt;blockquote>
-&lt;p>因为难以忍受7zip的右键解压操作，通过修改注册表以实现双击自动解压。&lt;/p>
-&lt;/blockquote>
-&lt;ol>
-&lt;li>替换 &lt;code>D:\\000000000000\\7-Zip\\7zG.exe\&lt;/code> 为 &lt;code>your\\path\\to\\7zG.exe&lt;/code>&lt;/li>
-&lt;li>将代码塞进.reg文件，双击即可。&lt;/li>
-&lt;/ol>
+&lt;p>&lt;a href="http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc">http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">go-zero单体服务实践与华为云部署</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%83%A8%E7%BD%B2/"/><id>https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E9%83%A8%E7%BD%B2/</id><updated>2023-02-08T14:37:19+00:00</updated><published>2023-01-08T09:46:11+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">go-zero go-zero简介 go-zero是一个能够快速生成API，MODEL和RPC的框架。 go-zero 项目结构（不含RPC） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25…</summary><content type="html">&lt;h2 id="go-zero">go-zero&lt;/h2>
+&lt;h3 id="go-zero简介">go-zero简介&lt;/h3>
+&lt;p>&lt;a href="https://go-zero.dev/cn/docs/introduction">go-zero&lt;/a>是一个能够快速生成API，MODEL和RPC的框架。&lt;/p>
+&lt;h3 id="go-zero-项目结构不含rpc">go-zero 项目结构（不含RPC）&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">.
+├── api
+│   ├── etc
+│   │   └── park-api.yaml
+│   ├── internal
+│   │   ├── config
+│   │   │   └── config.go
+│   │   ├── handler
+│   │   │   ├── accessHandler.go
+│   │   │   ├── deviceInfoHandler.go
+│   │   │   ├── incomeHandler.go
+│   │   │   ├── parkingLotHandler.go
+│   │   │   ├── routes.go
+│   │   │   ├── siteInfoHandler.go
+│   │   │   ├── touristCarProvinceHandler.go
+│   │   │   ├── touristFlowHandler.go
+│   │   │   ├── userHandler.go
+│   │   │   └── wechatHandler.go
+│   │   ├── logic
+│   │   │   ├── accessLogic.go
+│   │   │   ├── deviceInfoLogic.go
+│   │   │   ├── incomeLogic.go
+│   │   │   ├── parkingLotLogic.go
+│   │   │   ├── siteInfoLogic.go
+│   │   │   ├── touristCarProvinceLogic.go
+│   │   │   ├── touristFlowLogic.go
+│   │   │   ├── userLogic.go
+│   │   │   └── wechatLogic.go
+│   │   ├── svc
+│   │   │   └── serviceContext.go
+│   │   └── types
+│   │   └── types.go
+│   ├── park.api
+│   ├── park.go
+│   └── park.md
+├── genModel
+│   ├── model
+│   │   ├── accessModel.go
+│   │   ├── accessModel_gen.go
+│   │   ├── deviceInfoModel.go
+│   │   ├── deviceInfoModel_gen.go
+│   │   ├── incomeModel.go
+│   │   ├── incomeModel_gen.go
+│   │   ├── logErrModel.go
+│   │   ├── logErrModel_gen.go
+│   │   ├── parkingLotModel.go
+│   │   ├── parkingLotModel_gen.go
+│   │   ├── siteInfoModel.go
+│   │   ├── siteInfoModel_gen.go
+│   │   ├── touristCarProvinceModel.go
+│   │   ├── touristCarProvinceModel_gen.go
+│   │   ├── touristFlowModel.go
+│   │   ├── touristFlowModel_gen.go
+│   │   ├── userModel.go
+│   │   ├── userModel_gen.go
+│   │   ├── vars.go
+│   │   ├── wechatModel.go
+│   │   └── wechatModel_gen.go
+│   └── resources
+│   ├── genModel.sh
+│   └── park.sql
+├── go.mod
+├── go.sum
+└── model
+├── accessModel.go
+├── accessModel_gen.go
+├── deviceInfoModel.go
+├── deviceInfoModel_gen.go
+├── incomeModel.go
+├── incomeModel_gen.go
+├── logErrModel.go
+├── logErrModel_gen.go
+├── parkingLotModel.go
+├── parkingLotModel_gen.go
+├── siteInfoModel.go
+├── siteInfoModel_gen.go
+├── touristCarProvinceModel.go
+├── touristCarProvinceModel_gen.go
+├── touristFlowModel.go
+├── touristFlowModel_gen.go
+├── userModel.go
+├── userModel_gen.go
+├── vars.go
+├── wechatModel.go
+└── wechatModel_gen.go
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>api&lt;/code> 文件夹用于存放外部调用，需要改动的是 &lt;code>*.api&lt;/code>, &lt;code>etc/*.yaml&lt;/code>, &lt;code>svc/serviceContext.go&lt;/code>, &lt;code>logic/*&lt;/code>，作用分别是生成 api 调用框架，写配置文件，将数据添加到 Context 供逻辑调用，逻辑实现。&lt;/li>
+&lt;li>&lt;code>genModel&lt;/code> 文件夹用于生成数据库调用相关实现，需要改动的是&lt;code>resources/*.sql&lt;/code>。&lt;/li>
+&lt;li>&lt;code>model&lt;/code> 文件夹用于添加额外的数据库调用逻辑（将&lt;code>genModel/model/*&lt;/code>复制到model后开改！）&lt;/li>
+&lt;/ul>
+&lt;h3 id="简单使用">简单使用&lt;/h3>
+&lt;p>通过goctl生成代码框架。&lt;/p>
+&lt;h4 id="api-框架通过-apiapi生成">API 框架通过 &lt;code>api/*.api&lt;/code>生成&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -563,530 +708,235 @@ Physical Layer
 &lt;/span>&lt;span class="lnt">112
 &lt;/span>&lt;span class="lnt">113
 &lt;/span>&lt;span class="lnt">114
-&lt;/span>&lt;span class="lnt">115
-&lt;/span>&lt;span class="lnt">116
-&lt;/span>&lt;span class="lnt">117
-&lt;/span>&lt;span class="lnt">118
-&lt;/span>&lt;span class="lnt">119
-&lt;/span>&lt;span class="lnt">120
-&lt;/span>&lt;span class="lnt">121
-&lt;/span>&lt;span class="lnt">122
-&lt;/span>&lt;span class="lnt">123
-&lt;/span>&lt;span class="lnt">124
-&lt;/span>&lt;span class="lnt">125
-&lt;/span>&lt;span class="lnt">126
-&lt;/span>&lt;span class="lnt">127
-&lt;/span>&lt;span class="lnt">128
-&lt;/span>&lt;span class="lnt">129
-&lt;/span>&lt;span class="lnt">130
-&lt;/span>&lt;span class="lnt">131
-&lt;/span>&lt;span class="lnt">132
-&lt;/span>&lt;span class="lnt">133
-&lt;/span>&lt;span class="lnt">134
-&lt;/span>&lt;span class="lnt">135
-&lt;/span>&lt;span class="lnt">136
-&lt;/span>&lt;span class="lnt">137
-&lt;/span>&lt;span class="lnt">138
-&lt;/span>&lt;span class="lnt">139
-&lt;/span>&lt;span class="lnt">140
-&lt;/span>&lt;span class="lnt">141
-&lt;/span>&lt;span class="lnt">142
-&lt;/span>&lt;span class="lnt">143
-&lt;/span>&lt;span class="lnt">144
-&lt;/span>&lt;span class="lnt">145
-&lt;/span>&lt;span class="lnt">146
-&lt;/span>&lt;span class="lnt">147
-&lt;/span>&lt;span class="lnt">148
-&lt;/span>&lt;span class="lnt">149
-&lt;/span>&lt;span class="lnt">150
-&lt;/span>&lt;span class="lnt">151
-&lt;/span>&lt;span class="lnt">152
-&lt;/span>&lt;span class="lnt">153
-&lt;/span>&lt;span class="lnt">154
-&lt;/span>&lt;span class="lnt">155
-&lt;/span>&lt;span class="lnt">156
-&lt;/span>&lt;span class="lnt">157
-&lt;/span>&lt;span class="lnt">158
-&lt;/span>&lt;span class="lnt">159
-&lt;/span>&lt;span class="lnt">160
-&lt;/span>&lt;span class="lnt">161
-&lt;/span>&lt;span class="lnt">162
-&lt;/span>&lt;span class="lnt">163
-&lt;/span>&lt;span class="lnt">164
-&lt;/span>&lt;span class="lnt">165
-&lt;/span>&lt;span class="lnt">166
-&lt;/span>&lt;span class="lnt">167
-&lt;/span>&lt;span class="lnt">168
-&lt;/span>&lt;span class="lnt">169
-&lt;/span>&lt;span class="lnt">170
-&lt;/span>&lt;span class="lnt">171
-&lt;/span>&lt;span class="lnt">172
-&lt;/span>&lt;span class="lnt">173
-&lt;/span>&lt;span class="lnt">174
-&lt;/span>&lt;span class="lnt">175
-&lt;/span>&lt;span class="lnt">176
-&lt;/span>&lt;span class="lnt">177
-&lt;/span>&lt;span class="lnt">178
-&lt;/span>&lt;span class="lnt">179
-&lt;/span>&lt;span class="lnt">180
-&lt;/span>&lt;span class="lnt">181
-&lt;/span>&lt;span class="lnt">182
-&lt;/span>&lt;span class="lnt">183
-&lt;/span>&lt;span class="lnt">184
-&lt;/span>&lt;span class="lnt">185
-&lt;/span>&lt;span class="lnt">186
-&lt;/span>&lt;span class="lnt">187
-&lt;/span>&lt;span class="lnt">188
-&lt;/span>&lt;span class="lnt">189
-&lt;/span>&lt;span class="lnt">190
-&lt;/span>&lt;span class="lnt">191
-&lt;/span>&lt;span class="lnt">192
-&lt;/span>&lt;span class="lnt">193
-&lt;/span>&lt;span class="lnt">194
-&lt;/span>&lt;span class="lnt">195
-&lt;/span>&lt;span class="lnt">196
-&lt;/span>&lt;span class="lnt">197
-&lt;/span>&lt;span class="lnt">198
-&lt;/span>&lt;span class="lnt">199
-&lt;/span>&lt;span class="lnt">200
-&lt;/span>&lt;span class="lnt">201
-&lt;/span>&lt;span class="lnt">202
-&lt;/span>&lt;span class="lnt">203
-&lt;/span>&lt;span class="lnt">204
-&lt;/span>&lt;span class="lnt">205
-&lt;/span>&lt;span class="lnt">206
-&lt;/span>&lt;span class="lnt">207
-&lt;/span>&lt;span class="lnt">208
-&lt;/span>&lt;span class="lnt">209
-&lt;/span>&lt;span class="lnt">210
-&lt;/span>&lt;span class="lnt">211
-&lt;/span>&lt;span class="lnt">212
-&lt;/span>&lt;span class="lnt">213
-&lt;/span>&lt;span class="lnt">214
-&lt;/span>&lt;span class="lnt">215
-&lt;/span>&lt;span class="lnt">216
-&lt;/span>&lt;span class="lnt">217
-&lt;/span>&lt;span class="lnt">218
-&lt;/span>&lt;span class="lnt">219
-&lt;/span>&lt;span class="lnt">220
-&lt;/span>&lt;span class="lnt">221
-&lt;/span>&lt;span class="lnt">222
-&lt;/span>&lt;span class="lnt">223
-&lt;/span>&lt;span class="lnt">224
-&lt;/span>&lt;span class="lnt">225
-&lt;/span>&lt;span class="lnt">226
-&lt;/span>&lt;span class="lnt">227
-&lt;/span>&lt;span class="lnt">228
-&lt;/span>&lt;span class="lnt">229
-&lt;/span>&lt;span class="lnt">230
-&lt;/span>&lt;span class="lnt">231
-&lt;/span>&lt;span class="lnt">232
-&lt;/span>&lt;span class="lnt">233
-&lt;/span>&lt;span class="lnt">234
-&lt;/span>&lt;span class="lnt">235
-&lt;/span>&lt;span class="lnt">236
-&lt;/span>&lt;span class="lnt">237
-&lt;/span>&lt;span class="lnt">238
-&lt;/span>&lt;span class="lnt">239
-&lt;/span>&lt;span class="lnt">240
-&lt;/span>&lt;span class="lnt">241
-&lt;/span>&lt;span class="lnt">242
-&lt;/span>&lt;span class="lnt">243
-&lt;/span>&lt;span class="lnt">244
-&lt;/span>&lt;span class="lnt">245
-&lt;/span>&lt;span class="lnt">246
-&lt;/span>&lt;span class="lnt">247
-&lt;/span>&lt;span class="lnt">248
-&lt;/span>&lt;span class="lnt">249
-&lt;/span>&lt;span class="lnt">250
-&lt;/span>&lt;span class="lnt">251
-&lt;/span>&lt;span class="lnt">252
-&lt;/span>&lt;span class="lnt">253
-&lt;/span>&lt;span class="lnt">254
-&lt;/span>&lt;span class="lnt">255
-&lt;/span>&lt;span class="lnt">256
-&lt;/span>&lt;span class="lnt">257
-&lt;/span>&lt;span class="lnt">258
-&lt;/span>&lt;span class="lnt">259
-&lt;/span>&lt;span class="lnt">260
-&lt;/span>&lt;span class="lnt">261
-&lt;/span>&lt;span class="lnt">262
-&lt;/span>&lt;span class="lnt">263
-&lt;/span>&lt;span class="lnt">264
-&lt;/span>&lt;span class="lnt">265
-&lt;/span>&lt;span class="lnt">266
-&lt;/span>&lt;span class="lnt">267
-&lt;/span>&lt;span class="lnt">268
-&lt;/span>&lt;span class="lnt">269
-&lt;/span>&lt;span class="lnt">270
-&lt;/span>&lt;span class="lnt">271
-&lt;/span>&lt;span class="lnt">272
-&lt;/span>&lt;span class="lnt">273
-&lt;/span>&lt;span class="lnt">274
-&lt;/span>&lt;span class="lnt">275
-&lt;/span>&lt;span class="lnt">276
-&lt;/span>&lt;span class="lnt">277
-&lt;/span>&lt;span class="lnt">278
-&lt;/span>&lt;span class="lnt">279
-&lt;/span>&lt;span class="lnt">280
-&lt;/span>&lt;span class="lnt">281
-&lt;/span>&lt;span class="lnt">282
-&lt;/span>&lt;span class="lnt">283
-&lt;/span>&lt;span class="lnt">284
-&lt;/span>&lt;span class="lnt">285
-&lt;/span>&lt;span class="lnt">286
-&lt;/span>&lt;span class="lnt">287
-&lt;/span>&lt;span class="lnt">288
-&lt;/span>&lt;span class="lnt">289
-&lt;/span>&lt;span class="lnt">290
-&lt;/span>&lt;span class="lnt">291
-&lt;/span>&lt;span class="lnt">292
-&lt;/span>&lt;span class="lnt">293
-&lt;/span>&lt;span class="lnt">294
-&lt;/span>&lt;span class="lnt">295
-&lt;/span>&lt;span class="lnt">296
-&lt;/span>&lt;span class="lnt">297
-&lt;/span>&lt;span class="lnt">298
-&lt;/span>&lt;span class="lnt">299
-&lt;/span>&lt;span class="lnt">300
-&lt;/span>&lt;span class="lnt">301
-&lt;/span>&lt;span class="lnt">302
-&lt;/span>&lt;span class="lnt">303
-&lt;/span>&lt;span class="lnt">304
-&lt;/span>&lt;span class="lnt">305
-&lt;/span>&lt;span class="lnt">306
-&lt;/span>&lt;span class="lnt">307
-&lt;/span>&lt;span class="lnt">308
-&lt;/span>&lt;span class="lnt">309
-&lt;/span>&lt;span class="lnt">310
-&lt;/span>&lt;span class="lnt">311
-&lt;/span>&lt;span class="lnt">312
-&lt;/span>&lt;span class="lnt">313
-&lt;/span>&lt;span class="lnt">314
-&lt;/span>&lt;span class="lnt">315
-&lt;/span>&lt;span class="lnt">316
-&lt;/span>&lt;span class="lnt">317
-&lt;/span>&lt;span class="lnt">318
-&lt;/span>&lt;span class="lnt">319
-&lt;/span>&lt;span class="lnt">320
-&lt;/span>&lt;span class="lnt">321
-&lt;/span>&lt;span class="lnt">322
-&lt;/span>&lt;span class="lnt">323
-&lt;/span>&lt;span class="lnt">324
-&lt;/span>&lt;span class="lnt">325
-&lt;/span>&lt;span class="lnt">326
-&lt;/span>&lt;span class="lnt">327
-&lt;/span>&lt;span class="lnt">328
-&lt;/span>&lt;span class="lnt">329
-&lt;/span>&lt;span class="lnt">330
-&lt;/span>&lt;span class="lnt">331
-&lt;/span>&lt;span class="lnt">332
-&lt;/span>&lt;span class="lnt">333
-&lt;/span>&lt;span class="lnt">334
-&lt;/span>&lt;span class="lnt">335
-&lt;/span>&lt;span class="lnt">336
-&lt;/span>&lt;span class="lnt">337
-&lt;/span>&lt;span class="lnt">338
-&lt;/span>&lt;span class="lnt">339
-&lt;/span>&lt;span class="lnt">340
-&lt;/span>&lt;span class="lnt">341
-&lt;/span>&lt;span class="lnt">342
-&lt;/span>&lt;span class="lnt">343
-&lt;/span>&lt;span class="lnt">344
-&lt;/span>&lt;span class="lnt">345
-&lt;/span>&lt;span class="lnt">346
-&lt;/span>&lt;span class="lnt">347
-&lt;/span>&lt;span class="lnt">348
-&lt;/span>&lt;span class="lnt">349
-&lt;/span>&lt;span class="lnt">350
-&lt;/span>&lt;span class="lnt">351
-&lt;/span>&lt;span class="lnt">352
-&lt;/span>&lt;span class="lnt">353
-&lt;/span>&lt;span class="lnt">354
-&lt;/span>&lt;span class="lnt">355
-&lt;/span>&lt;span class="lnt">356
-&lt;/span>&lt;span class="lnt">357
-&lt;/span>&lt;span class="lnt">358
-&lt;/span>&lt;span class="lnt">359
-&lt;/span>&lt;span class="lnt">360
-&lt;/span>&lt;span class="lnt">361
-&lt;/span>&lt;span class="lnt">362
-&lt;/span>&lt;span class="lnt">363
-&lt;/span>&lt;span class="lnt">364
-&lt;/span>&lt;span class="lnt">365
-&lt;/span>&lt;span class="lnt">366
-&lt;/span>&lt;span class="lnt">367
-&lt;/span>&lt;span class="lnt">368
-&lt;/span>&lt;span class="lnt">369
-&lt;/span>&lt;span class="lnt">370
-&lt;/span>&lt;span class="lnt">371
-&lt;/span>&lt;span class="lnt">372
-&lt;/span>&lt;span class="lnt">373
-&lt;/span>&lt;span class="lnt">374
-&lt;/span>&lt;span class="lnt">375
-&lt;/span>&lt;span class="lnt">376
-&lt;/span>&lt;span class="lnt">377
-&lt;/span>&lt;span class="lnt">378
-&lt;/span>&lt;span class="lnt">379
-&lt;/span>&lt;span class="lnt">380
-&lt;/span>&lt;span class="lnt">381
-&lt;/span>&lt;span class="lnt">382
-&lt;/span>&lt;span class="lnt">383
-&lt;/span>&lt;span class="lnt">384
-&lt;/span>&lt;span class="lnt">385
-&lt;/span>&lt;span class="lnt">386
-&lt;/span>&lt;span class="lnt">387
-&lt;/span>&lt;span class="lnt">388
-&lt;/span>&lt;span class="lnt">389
-&lt;/span>&lt;span class="lnt">390
-&lt;/span>&lt;span class="lnt">391
-&lt;/span>&lt;span class="lnt">392
-&lt;/span>&lt;span class="lnt">393
-&lt;/span>&lt;span class="lnt">394
-&lt;/span>&lt;span class="lnt">395
-&lt;/span>&lt;span class="lnt">396
-&lt;/span>&lt;span class="lnt">397
-&lt;/span>&lt;span class="lnt">398
-&lt;/span>&lt;span class="lnt">399
-&lt;/span>&lt;span class="lnt">400
-&lt;/span>&lt;span class="lnt">401
-&lt;/span>&lt;span class="lnt">402
-&lt;/span>&lt;span class="lnt">403
-&lt;/span>&lt;span class="lnt">404
-&lt;/span>&lt;span class="lnt">405
-&lt;/span>&lt;span class="lnt">406
-&lt;/span>&lt;span class="lnt">407
-&lt;/span>&lt;span class="lnt">408
-&lt;/span>&lt;span class="lnt">409
-&lt;/span>&lt;span class="lnt">410
-&lt;/span>&lt;span class="lnt">411
-&lt;/span>&lt;span class="lnt">412
-&lt;/span>&lt;span class="lnt">413
-&lt;/span>&lt;span class="lnt">414
-&lt;/span>&lt;span class="lnt">415
-&lt;/span>&lt;span class="lnt">416
-&lt;/span>&lt;span class="lnt">417
-&lt;/span>&lt;span class="lnt">418
-&lt;/span>&lt;span class="lnt">419
-&lt;/span>&lt;span class="lnt">420
-&lt;/span>&lt;span class="lnt">421
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-reg" data-lang="reg">Windows Registry Editor Version 5.00
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.001\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.7z\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.arj\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bz2\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.bzip2\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cab\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.cpio\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.deb\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.dmg\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.fat\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.gzip\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.hfs\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.iso\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lha\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzh\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.lzma\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.ntfs\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rar\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.rpm\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.squashfs\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.swm\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tar\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.taz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tbz2\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tgz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.tpz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.txz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.vhd\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.wim\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xar\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.xz\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.z\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;extract&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell\extract]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Extract to Folder&amp;#34;&lt;/span>
-&lt;span class="k">[&lt;/span>&lt;span class="nb">HKEY_CLASSES_ROOT&lt;/span>&lt;span class="k">\7-Zip.zip\shell\extract\command]&lt;/span>
-&lt;span class="na">@&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;\&amp;#34;D:\\000000000000\\7-Zip\\7zG.exe\&amp;#34; x \&amp;#34;%1\&amp;#34; -o*&amp;#34;&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">//park.api
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">syntax&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;v1&amp;#34;&lt;/span>
+&lt;span class="nf">info&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="nx">title&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;parkApi&amp;#34;&lt;/span>
+&lt;span class="nx">desc&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;parkBackEnd&amp;#34;&lt;/span>
+&lt;span class="nx">author&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;loomt&amp;#34;&lt;/span>
+&lt;span class="nx">email&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;loomt_@outlook.com&amp;#34;&lt;/span>
+&lt;span class="nx">version&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;1.0&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="nx">accessResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Location&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;location&amp;#34;`&lt;/span> &lt;span class="c1">// 接入地点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 接入日期
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Num&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;num&amp;#34;`&lt;/span> &lt;span class="c1">// 接入数量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">incomeResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Type&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;type&amp;#34;`&lt;/span> &lt;span class="c1">// 收入类型
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 日期
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Num&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;num&amp;#34;`&lt;/span> &lt;span class="c1">// 当天收入
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">parkingLotResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;name&amp;#34;`&lt;/span> &lt;span class="c1">// 停车场名字
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Duration&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;duration&amp;#34;`&lt;/span> &lt;span class="c1">// 停车时间（小时）
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Num&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;num&amp;#34;`&lt;/span> &lt;span class="c1">// 泊车数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">siteInfoResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 日期
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">RevisitRate&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;revisit_rate&amp;#34;`&lt;/span> &lt;span class="c1">// 重复访问率（%）
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">SiteHealth&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;site_health&amp;#34;`&lt;/span> &lt;span class="c1">// 站点健康度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">RfHealth&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;rf_health&amp;#34;`&lt;/span> &lt;span class="c1">// 射频健康度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">DeviceHealth&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;device_health&amp;#34;`&lt;/span> &lt;span class="c1">// 设备健康度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Flow&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;flow&amp;#34;`&lt;/span> &lt;span class="c1">// 当日站点流量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">touristFlowResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Location&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;location&amp;#34;`&lt;/span> &lt;span class="c1">// 园区地点
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 时间
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Num&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;num&amp;#34;`&lt;/span> &lt;span class="c1">// 游客数量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">touristCarProvinceResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">Province&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;province&amp;#34;`&lt;/span> &lt;span class="c1">// 省份
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 日期
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">FlowNum&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;flow_num&amp;#34;`&lt;/span> &lt;span class="c1">// 人流数量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">CarNum&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;car_num&amp;#34;`&lt;/span> &lt;span class="c1">// 车辆数
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">userReq&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span> &lt;span class="c1">// 用户id
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">userResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span> &lt;span class="c1">// 用户id
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Username&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;username&amp;#34;`&lt;/span> &lt;span class="c1">// 用户名
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">wechatResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Date&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;date&amp;#34;`&lt;/span> &lt;span class="c1">// 日期
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Num&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;num&amp;#34;`&lt;/span> &lt;span class="c1">// 微信关注数量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">deviceInfoResp&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Id&lt;/span> &lt;span class="kt">int64&lt;/span> &lt;span class="s">`json:&amp;#34;id&amp;#34;`&lt;/span>
+&lt;span class="nx">UplinkRate&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;uplink_rate&amp;#34;`&lt;/span> &lt;span class="c1">// 上行速率
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">DownlinkRate&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;downlink_rate&amp;#34;`&lt;/span> &lt;span class="c1">// 下载速率
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Flow&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;flow&amp;#34;`&lt;/span> &lt;span class="c1">// 流量
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">CpuRate&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;cpu_rate&amp;#34;`&lt;/span> &lt;span class="c1">// CPU占有率
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Longitude&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;longitude&amp;#34;`&lt;/span> &lt;span class="c1">// 经度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Latitude&lt;/span> &lt;span class="kt">float64&lt;/span> &lt;span class="s">`json:&amp;#34;latitude&amp;#34;`&lt;/span> &lt;span class="c1">// 纬度
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nf">server&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="nx">prefix&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">api&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="nx">service&lt;/span> &lt;span class="nx">park&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">api&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取接入详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">accessHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">access&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">accessResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取日收入详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">incomeHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">income&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">incomeResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取停车详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">parkingLotHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">parkingLot&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">parkingLotResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取站点详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">siteInfoHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">siteInfo&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">siteInfoResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取客流量详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">touristFlowHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">touristFlow&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">touristFlowResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取游客与车辆来源省份&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">touristCarProvinceHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">touristCarProvince&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">touristCarProvinceResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取用户详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">userHandler&lt;/span>
+&lt;span class="nx">post&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nf">user&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">userReq&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">userResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取微信关注详情&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">wechatHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">wechat&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">wechatResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">doc&lt;/span> &lt;span class="s">&amp;#34;获取设备信息&amp;#34;&lt;/span>
+&lt;span class="err">@&lt;/span>&lt;span class="nx">handler&lt;/span> &lt;span class="nx">deviceInfoHandler&lt;/span>
+&lt;span class="nx">get&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">deviceInfo&lt;/span> &lt;span class="nf">returns&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">deviceInfoResp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;em>reference&lt;/em>&lt;/p>
-&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">https://gist.github.com/zabbarob/5891200&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%BB%BA%E7%AB%99/"/><id>https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</id><updated>2023-02-03T15:05:59+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ） 简略…</summary><content type="html">&lt;p>&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1"># api&lt;/span>
+goctl api go -api *.api -dir ./ --style&lt;span class="o">=&lt;/span>goZero
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="model-框架有两种生成方式">MODEL 框架有两种生成方式&lt;/h4>
+&lt;ul>
+&lt;li>连接数据库生成model&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="cp">#!/usr/bin/env zsh
+&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="c1"># 使用方法：&lt;/span>
+&lt;span class="c1"># ./genModel.sh usercenter user&lt;/span>
+&lt;span class="c1"># ./genModel.sh usercenter user_auth&lt;/span>
+&lt;span class="c1"># 再将./genModel下的文件剪切到对应服务的model目录里面，记得改package&lt;/span>
+&lt;span class="c1">#生成的表名&lt;/span>
+&lt;span class="nv">tables&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$2&lt;/span>
+&lt;span class="c1">#表生成的genmodel目录&lt;/span>
+&lt;span class="nv">modeldir&lt;/span>&lt;span class="o">=&lt;/span>../model
+&lt;span class="c1"># 数据库配置&lt;/span>
+&lt;span class="nv">host&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1
+&lt;span class="nv">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3306&lt;/span>
+&lt;span class="nv">dbname&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$1&lt;/span>
+&lt;span class="nv">username&lt;/span>&lt;span class="o">=&lt;/span>root
+&lt;span class="nv">passwd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">123456&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;开始创建库：&lt;/span>&lt;span class="nv">$dbname&lt;/span>&lt;span class="s2"> 的表：&lt;/span>&lt;span class="nv">$2&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+goctl model mysql datasource -url&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">username&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">passwd&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">@tcp(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">host&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">port&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">)/&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">dbname&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -table&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">tables&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -dir&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">modeldir&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> --style&lt;span class="o">=&lt;/span>goZero
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>直接用 sql 文件(&lt;code>genModel/resource/*.sql&lt;/code>)生成 model&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="c1"># genModel/resources&lt;/span>
+goctl model mysql ddl -src&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;./*.sql&amp;#34;&lt;/span> -dir&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;../model&amp;#34;&lt;/span> --style&lt;span class="o">=&lt;/span>goZero
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="生成文档">生成文档&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&lt;span class="c1"># ./&lt;/span>
+goctl api doc -dir .
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="华为云部署">华为云部署&lt;/h2>
+&lt;ol>
+&lt;li>mysql 导入&lt;/li>
+&lt;li>&lt;/li>
+&lt;/ol></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">华为云公网部署</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/"/><id>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</id><updated>2023-02-08T14:37:19+00:00</updated><published>2022-11-08T22:47:51+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">记一次华为云耀云服务器公网部署问题 开了安全组，用 caddy 部署了一个小网页来测试公网访问 可以看到内网访问是正常的。也可以 ping 通 根据华为云官网给出的指引排查了很久，绑定了弹…</summary><content type="html">&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
+&lt;p>开了安全组，用 caddy 部署了一个小网页来测试公网访问
+&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/caddy.png" alt="run-caddy">&lt;/p>
+&lt;p>可以看到内网访问是正常的。也可以 ping 通&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/ping-cloud.png" alt="ping-cloud">&lt;/p>
+&lt;p>根据华为云官网给出的指引排查了很久，绑定了弹性公网 ip，设置了安全组 Sys-FullAccess、ACL，都无法用浏览器访问。&lt;/p>
+&lt;p>最后回到服务器 &lt;em>查询防火墙状态&lt;/em>&lt;/p>
+&lt;p>关掉防火墙就可以了
+&lt;img src="https://loomt.top/img/disable-firewall.png" alt="disable-firewall">
+对着华为云的控制台搞了很久安全组，还以为安全组哪里配错了，最后发现是服务器防火墙的问题😭&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">小米4A千兆版刷OpenWrt</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/"/><id>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</id><updated>2023-02-08T14:37:19+00:00</updated><published>2022-08-12T15:58:38+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。 去恩山论坛逛了逛，感觉刷软路由和刷手机差不太多。 安装Breed（闭源免费的Boo…</summary><content type="html">&lt;blockquote>
+&lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。&lt;/p>
+&lt;/blockquote>
+&lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不太多。&lt;/p>
+&lt;ol>
+&lt;li>安装Breed（闭源免费的BootLoader，又称“不死鸟”，有了它就能肆无忌惮地刷各种第三方包了&lt;/li>
+&lt;/ol>
+&lt;p>如果你的路由器是小米4A千兆版，可以直接用恩山论坛的&lt;a href="https://pan.loomt.top/Xiaomi4A/R4A.zip">无脑直装Breed&lt;/a>；如果不是，也可以去&lt;a href="https://breed.hackpascal.net/">Breed官网&lt;/a>下载路由器的适配包并自行搜索如何通过Telnet连接路由器并刷入Breed。
+&lt;img src="https://loomt.top/img/breed.png" alt="Breed">&lt;/p>
+&lt;ol start="2">
+&lt;li>用Breed安装OpenWrt&lt;/li>
+&lt;/ol>
+&lt;p>这里放一个&lt;a href="https://pan.loomt.top/Xiaomi4A/openwrt-ramips-mt7621-xiaomi_mi-router-4a-gigabit-squashfs-sysupgrade.bin">小米4A千兆版OpenWrt直刷包&lt;/a>，其他路由器的固件可以去恩山论坛逛逛。
+&lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
+&lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice warning" >
+&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/#warning-notice">&lt;/use>&lt;/svg>&lt;/span>警告&lt;/p>&lt;p>刷OpenWrt之前必须用Breed备份eeprom（没有备份eeprom将导致5G信号奇差）&lt;/p>&lt;/div>
+&lt;/p>
+&lt;p>点击固件更新~&amp;gt;常规固件~&amp;gt;勾上“固件”和“EEPROM”，选择好上面的直刷包和备份的eeprom.bin，上传即可。&lt;/p>
+&lt;ol start="3">
+&lt;li>配置OpenWrt的各项参数（随便配一下即可&lt;/li>
+&lt;/ol>
+&lt;p>OpenWrt可谓神通广大，作为一个在路由器上跑的Linux，它可以装上各种插件：酸酸乳、Docker、网易云解锁灰色歌曲……&lt;/p>
+&lt;p>但我折腾了一通，调教好基础的上网功能后，感觉网络状况大不如前。作为百来块的路由器，本来就没有多大的内存，感觉原厂固件的调教已经将性能都用在刀刃上了。装了OpenWrt后虽然上下行流量速度没有很大变化，但稳定性差了很多，便懒得继续折腾，忍痛remake了。&lt;/p>
+&lt;ol start="4">
+&lt;li>刷回官方包（没备份eeprom的问题 &lt;strong>或许&lt;/strong> 也可以通过刷回官方包的方法解决&lt;/li>
+&lt;/ol>
+&lt;p>下载&lt;a href="https://pan.loomt.top/Xiaomi4A/all.bin">小米4A千兆版官方包&lt;/a>，进入Breed~&amp;gt;固件更新~&amp;gt;编程器固件(仅勾选自动重启)~&amp;gt;上传all.bin。&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%BB%BA%E7%AB%99/"/><id>https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</id><updated>2023-02-08T14:37:19+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ） 简略…</summary><content type="html">&lt;p>&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
 &lt;blockquote>
 &lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.eu.org">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）&lt;/p>
 &lt;/blockquote>
