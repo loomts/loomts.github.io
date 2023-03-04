@@ -1,0 +1,807 @@
+S0 disconnect
+                                                S1 disconnect
+                                                                                               S2 disconnect
+                                                                                                                                              S3 disconnect
+                                                                                                                                                                                             S4 disconnect
+S0 connect
+                                                S1 connect
+                                                                                               S2 connect
+                                                                                                                                              S3 connect
+                                                                                                                                                                                             S4 connect
+                                                                                               S2 -> Candidate term1
+                                                                                               S2 -> S4 send vote
+                                                                                               S2 -> S3 send vote
+                                                                                               S2 -> S0 send vote
+                                                                                               S2 -> S1 send vote
+                                                                                               S2 <- S1 voted
+                                                                                               S2 <- S3 voted
+                                                                                               S2 -> Leader term1
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- S1 heartbeat matchIndex:0
+                                                                                               S2 <- 1st command 6655
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- S1 heartbeat matchIndex:1
+                                                                                               S2 <- S4 heartbeat matchIndex:1
+                                                                                               S2 applier, commitIndex: 1, lastApplied: 1
+                                                                                               S2 log: [{<nil> 0 0} {6655 1 1}]
+                                                                                               S2 <- S3 heartbeat matchIndex:1
+                                                                                               S2 <- S0 heartbeat matchIndex:1
+                                                                                               S2 <- 2st command 4201
+                                                                                               S2 disconnect
+                                                                                               S2 <- 3st command 6005
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- 4st command 1422
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 <- 5st command 5429
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 6st command 6708
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 7st command 4326
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 8st command 4487
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 <- 9st command 7607
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- 10st command 1532
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 <- 11st command 1038
+                                                                                               S2 <- 12st command 4157
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 13st command 8868
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> Candidate term2
+                                                                                                                                              S3 -> S0 send vote
+                                                                                                                                              S3 -> S1 send vote
+                                                                                                                                              S3 -> S2 send vote
+                                                                                                                                              S3 -> S4 send vote
+                                                                                                                                              S3 <- S1 voted
+                                                                                                                                              S3 <- S0 voted
+                                                                                                                                              S3 -> Leader term2
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 <- S4 heartbeat matchIndex:1
+                                                                                                                                              S3 <- S0 heartbeat matchIndex:1
+                                                                                                                                              S3 <- S1 heartbeat matchIndex:1
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 <- S1 heartbeat matchIndex:1
+                                                                                                                                              S3 <- S0 heartbeat matchIndex:1
+                                                                                               S2 <- 14st command 6694
+                                                                                                                                              S3 <- 2st command 7874
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 <- S4 heartbeat matchIndex:1
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 disconnect
+                                                                                               S2 <- 15st command 9612
+                                                                                                                                              S3 <- 3st command 5673
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 16st command 9573
+                                                                                                                                              S3 <- 4st command 6112
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 17st command 141
+                                                                                                                                              S3 <- 5st command 7544
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 <- 18st command 5422
+                                                                                                                                              S3 <- 6st command 5810
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 <- 19st command 840
+                                                                                                                                              S3 <- 7st command 2270
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 20st command 5585
+                                                                                                                                              S3 <- 8st command 9237
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- 21st command 5639
+                                                                                                                                              S3 <- 9st command 9871
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 <- 22st command 1057
+                                                                                                                                              S3 <- 10st command 7788
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 <- 23st command 3306
+                                                                                                                                              S3 <- 11st command 3990
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 <- 24st command 1385
+                                                                                                                                              S3 <- 12st command 4324
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 25st command 2937
+                                                                                                                                              S3 <- 13st command 4537
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 <- 26st command 7061
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 <- 14st command 6138
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 <- 27st command 389
+                                                                                                                                                                                             S4 -> Candidate term3
+                                                                                                                                                                                             S4 -> S0 send vote
+                                                                                                                                                                                             S4 -> S2 send vote
+                                                                                                                                                                                             S4 -> S1 send vote
+                                                                                                                                                                                             S4 -> S3 send vote
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 <- 15st command 1525
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 28st command 3116
+                                                                                                                                              S3 <- 16st command 7591
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                                                                             S4 <- S1 voted
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 <- 29st command 9277
+                                                                                                                                              S3 <- 17st command 986
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 <- 30st command 5076
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 <- 18st command 5051
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 <- 31st command 3650
+                                                                                                                                              S3 <- 19st command 1357
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 <- S0 voted
+                                                                                                                                                                                             S4 -> Leader term3
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                               S2 <- 32st command 9628
+                                                                                                                                              S3 <- 20st command 3230
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                                                                             S4 <- 3st command 5994
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:2
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:2
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:3
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:3
+                                                                                                                                                                                             S4 applier, commitIndex: 3, lastApplied: 3
+                                                                                                                                                                                             S4 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                                                                                                                                                             {5994 3 3}]
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                S1 lastIndex:3, commIndex:3, lastApplied:0
+                                                S1 applier, commitIndex: 3, lastApplied: 3
+                                                S1 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                {5994 3 3}]
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:3
+S0 lastIndex:3, commIndex:3, lastApplied:0
+S0 applier, commitIndex: 3, lastApplied: 3
+S0 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+{5994 3 3}]
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:3
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:3
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:3
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:3
+                                                                                               S2 <- 33st command 704
+                                                                                                                                              S3 <- 21st command 5350
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 <- 4st command 95
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:4
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:4
+                                                                                                                                                                                             S4 applier, commitIndex: 4, lastApplied: 4
+                                                                                                                                                                                             S4 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                                                                                                                                                             {5994 3 3} {95 3 4}]
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:4
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                S1 lastIndex:4, commIndex:4, lastApplied:3
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:4
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                S1 applier, commitIndex: 4, lastApplied: 4
+                                                S1 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                {5994 3 3} {95 3 4}]
+S0 lastIndex:4, commIndex:4, lastApplied:3
+S0 applier, commitIndex: 4, lastApplied: 4
+S0 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+{5994 3 3} {95 3 4}]
+                                                                                               S2 <- 34st command 1814
+                                                                                                                                              S3 <- 22st command 5899
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 <- 5st command 2817
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 35st command 751
+                                                                                                                                              S3 <- 23st command 7514
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 <- 6st command 4582
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:5
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:6
+                                                                                                                                                                                             S4 applier, commitIndex: 5, lastApplied: 5
+                                                                                                                                                                                             S4 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                                                                                                                                                             {5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:6
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                S1 lastIndex:6, commIndex:5, lastApplied:4
+                                                S1 applier, commitIndex: 5, lastApplied: 5
+                                                S1 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                {5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:6
+S0 lastIndex:6, commIndex:5, lastApplied:4
+S0 applier, commitIndex: 5, lastApplied: 5
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:6
+S0 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+{5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 applier, commitIndex: 6, lastApplied: 6
+                                                                                                                                                                                             S4 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                                                                                                                                                             {5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+S0 lastIndex:6, commIndex:6, lastApplied:5
+S0 applier, commitIndex: 6, lastApplied: 6
+S0 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+{5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 <- S0 heartbeat matchIndex:6
+                                                S1 lastIndex:6, commIndex:6, lastApplied:5
+                                                S1 applier, commitIndex: 6, lastApplied: 6
+                                                S1 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                {5994 3 3} {95 3 4} {2817 3 5} {4582 3 6}]
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:6
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 <- S1 heartbeat matchIndex:6
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 disconnect
+                                                                                               S2 <- 36st command 1440
+                                                                                                                                              S3 <- 24st command 5053
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 <- 7st command 3270
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 connect
+                                                                                               S2 <- 37st command 5297
+                                                                                                                                              S3 <- 25st command 1552
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 <- 8st command 3109
+                                                                                               S2 -> S3 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 disconnect
+                                                                                               S2 connect
+                                                                                               S2 <- 38st command 6991
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 <- 26st command 2276
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 <- 9st command 1172
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 <- 39st command 1412
+                                                                                                                                              S3 <- 27st command 795
+                                                                                                                                                                                             S4 <- 10st command 4211
+                                                                                               S2 disconnect
+                                                                                               S2 connect
+                                                                                               S2 <- 40st command 8114
+                                                                                                                                              S3 <- 28st command 5975
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 <- 11st command 3665
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                               S2 disconnect
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                               S2 -> Follower term3
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S1 send heartbeat
+                                                                                                                                              S3 <- 29st command 6352
+                                                                                               S2 -> S1 send heartbeat
+                                                                                               S2 -> S4 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S3 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                               S2 -> S0 send heartbeat
+                                                                                                                                                                                             S4 <- 12st command 5858
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 connect
+                                                                                                                                              S3 <- 30st command 1488
+                                                                                                                                                                                             S4 <- 13st command 7051
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 disconnect
+                                                                                                                                              S3 connect
+                                                                                                                                              S3 <- 31st command 4642
+                                                                                                                                                                                             S4 <- 14st command 189
+                                                                                                                                              S3 -> Follower term3
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 <- S0 heartbeat matchIndex:31
+                                                                                                                                              S3 <- S1 heartbeat matchIndex:31
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> Candidate term4
+                                                                                                                                              S3 -> S4 send vote
+                                                                                                                                              S3 -> S1 send vote
+                                                                                                                                              S3 -> S0 send vote
+                                                                                                                                              S3 -> S2 send vote
+                                                                                                                                              S3 <- S0 voted
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 <- S1 voted
+                                                                                                                                              S3 -> Leader term4
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 <- S0 heartbeat matchIndex:31
+                                                                                                                                              S3 disconnect
+                                                                                                                                              S3 <- 32st command 8141
+                                                                                                                                                                                             S4 <- 15st command 3567
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 connect
+                                                                                                                                              S3 <- 33st command 2466
+                                                                                                                                                                                             S4 <- 16st command 1460
+                                                                                                                                                                                             S4 disconnect
+                                                                                                                                              S3 <- 34st command 2187
+                                                                                                                                                                                             S4 <- 17st command 680
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 connect
+                                                                                                                                              S3 <- 35st command 1510
+                                                                                                                                                                                             S4 <- 18st command 7246
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                              S3 <- S1 heartbeat matchIndex:35
+                                                                                                                                              S3 <- 36st command 7730
+                                                                                                                                                                                             S4 <- 19st command 5161
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 <- 37st command 3148
+                                                                                                                                                                                             S4 <- 20st command 4600
+                                                                                                                                              S3 -> S2 send heartbeat
+                                                                                                                                              S3 -> S1 send heartbeat
+                                                                                                                                              S3 -> S4 send heartbeat
+                                                                                                                                                                                             S4 -> S3 send heartbeat
+                                                                                                                                              S3 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S2 send heartbeat
+                                                                                                                                                                                             S4 -> S0 send heartbeat
+                                                                                                                                                                                             S4 -> S1 send heartbeat
+                                                                                                                                              S3 <- S0 heartbeat matchIndex:35
+                                                                                                                                              S3 applier, commitIndex: 35, lastApplied: 35
+                                                                                                                                              S3 log: [{<nil> 0 0} {6655 1 1} {7874 2 2}
+                                                                                                                                              {5673 2 3} {6112 2 4} {7544 2 5} {5810 2 6}
+                                                                                                                                              {2270 2 7} {9237 2 8} {9871 2 9} {7788 2 10}
+                                                                                                                                              {3990 2 11} {4324 2 12} {4537 2 13} {6138 2
+                                                                                                                                              14} {1525 2 15} {7591 2 16} {986 2 17} {5051 2
+                                                                                                                                              18} {1357 2 19} {3230 2 20} {5350 2 21} {5899
+                                                                                                                                              2 22} {7514 2 23} {5053 2 24} {1552 2 25}
+                                                                                                                                              {2276 2 26} {795 2 27} {5975 2 28} {6352 2 29}
+                                                                                                                                              {1488 2 30} {4642 2 31} {8141 4 32} {2466 4
+                                                                                                                                              33} {2187 4 34} {1510 4 35} {7730 4 36} {3148
+                                                                                                                                              4 37}]
+############################################################################################################################################################################################################################################
+FAIL    6.824/raft      2.264s
