@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">loomt</title><subtitle type="html">记录生活与coding</subtitle><updated>2023-03-05T01:16:09+00:00</updated><id>https://loomt.top/</id><link rel="alternate" type="text/html" href="https://loomt.top/"/><link rel="self" type="application/atom+xml" href="https://loomt.top/atom.xml"/><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">6.824 Lab2D</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2d/"/><id>https://loomt.top/posts/6.824-lab2d/</id><updated>2023-03-04T11:47:57+08:00</updated><published>2023-03-03T14:57:30+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置芝士 Task 完成 Raft 的快照功能（涉及到较多的与 Service 层的交互。 为什么要有 snapshot? snapshot 可以将 log 压缩，比如将 10 个 log 压缩成 9 个（当两个 log 修改的 key 值一样时）。 snapshot 可以减少 Raft 层 log 的长度，帮…</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">loomt</title><subtitle type="html">记录生活与coding</subtitle><updated>2023-03-08T10:44:54+00:00</updated><id>https://loomt.top/</id><link rel="alternate" type="text/html" href="https://loomt.top/"/><link rel="self" type="application/atom+xml" href="https://loomt.top/atom.xml"/><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.92.2">Hugo</generator><entry><title type="text">6.824 Lab3</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab3/"/><id>https://loomt.top/posts/6.824-lab3/</id><updated>2023-03-08T18:44:28+08:00</updated><published>2023-03-07T18:51:52+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Task 在 raft 框架的基础上建立一个容错的 KV 数据库。重点在于理解 Service 层和 Raft 层的交互，代码方面较为简单，故不进行赘述。 Step 在 client 和 service 两层完成 Get(), Append(), Put() 对重复的 Append 或 Put 进行去重 service 层的快照…</summary><content type="html">&lt;h1 id="task">Task&lt;/h1>
+&lt;p>在 raft 框架的基础上建立一个容错的 KV 数据库。重点在于理解 Service 层和 Raft 层的交互，代码方面较为简单，故不进行赘述。&lt;/p>
+&lt;h2 id="step">Step&lt;/h2>
+&lt;ol>
+&lt;li>在 client 和 service 两层完成 Get(), Append(), Put()&lt;/li>
+&lt;li>对重复的 Append 或 Put 进行去重&lt;/li>
+&lt;li>service 层的快照与持久化（快照存储的是 Key/Value 等元数据）
+&lt;img src="https://loomt.top/img/824lab3.png" alt="lab3">&lt;/li>
+&lt;/ol>
+&lt;h2 id="tips">tips：&lt;/h2>
+&lt;p>值得一提的是在写完 lab3 的大概框架后，TestSpeed3A 一直不通过，因为要求是平均 33ms 一个 commit，但正常来说 commit 时间应该和 heartbeat timeout 差不多，遂修改 Start() 函数，在 command 被 Service 送来的时候发起一次心跳，进行日志同步。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Start&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{})&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">term&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Entry&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Command&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Term&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">term&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Index&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v &amp;lt;- %vst command %v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">persist&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeatL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我们还可以进行一点优化：当 Leader 发送心跳时，加上一个 bool，表明 Leader 真的只是发送心跳，或者是为了快速同步日志，如果是后者，还需要判断每一个 Follower 的 nextIndex 是否需要同步，如果不满足 &lt;code>(rf.getLastLogL().Index &amp;gt; rf.nextIndex[i])&lt;/code>，则不再同步日志。&lt;/p>
+&lt;p>正常来说到这一步就没问题了，但是我又发现了 lab2 的一个遗留 bug，当 commit 频率变得很快时 Leader 就会暴毙（之前的测试仅仅通过 heartbeat timeout 同步日志，频率较低，基本没有出现这个问题）。通过打 log，发现 commit 是通过单独的 go routine 接收 channel 的信号实现的，因为 channel 初始化为&lt;code>make(chan int,1)&lt;/code>，在 Leader 连续 commit 时容易堵塞，其实理论上会缓慢通过，但还是暴毙了，属于是一个很玄学的 bug。最后将 channel 扩容成 100 就轻松过了:)&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2D</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2d/"/><id>https://loomt.top/posts/6.824-lab2d/</id><updated>2023-03-08T18:44:28+08:00</updated><published>2023-03-03T14:57:30+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置芝士 Task 完成 Raft 的快照功能（涉及到较多的与 Service 层的交互。 为什么要有 snapshot? snapshot 可以将 log 压缩，比如将 10 个 log 压缩成 9 个（当两个 log 修改的 key 值一样时）。 snapshot 可以减少 Raft 层 log 的长度，帮…</summary><content type="html">&lt;blockquote>
 &lt;p>&lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="task">Task&lt;/h1>
@@ -11,7 +65,7 @@
 &lt;/ol>
 &lt;/li>
 &lt;li>在 2D 中，snapshot 会涉及到 raft 层与 service 层的多次交互，看这个 &lt;a href="https://pdos.csail.mit.edu/6.824/notes/raft_diagram.pdf">diagram of Raft interactions&lt;/a>  或许可以帮助理解 Raft 协议不同层次的功能与特性。&lt;/li>
-&lt;li>在 2D 中，snapshot 作用于每一个 Raft 节点，我们需要记录 snapshot 最后一个 index 和 term，用于一致性检查。&lt;/li>
+&lt;li>snapshot 作用于每一个 Raft 节点，我们需要记录 snapshot 最后一个 index 和 term，用于一致性检查。&lt;/li>
 &lt;/ul>
 &lt;h2 id="step">Step&lt;/h2>
 &lt;ol>
@@ -30,6 +84,8 @@
 &lt;/span>&lt;span class="lnt"> 9
 &lt;/span>&lt;span class="lnt">10
 &lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Snapshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">snapshot&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
@@ -38,8 +94,10 @@
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="k">return&lt;/span>
 &lt;span class="p">}&lt;/span>
+&lt;span class="nx">term&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">logAt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">Term&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">():]&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">setLastIncludedIndex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">setLastIncludedTerm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">term&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">persister&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">SaveStateAndSnapshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getEncodeStateL&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">snapshot&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dSnap&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v last: %v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
@@ -236,7 +294,7 @@
 &lt;li>给别人投票后。&lt;/li>
 &lt;li>Follower 收到 AppendEntries 或者 InstallSnapshot，并且 args.Term 等于自己当前的 term（在&lt;a href="https://loomt.top/posts/6.824-lab2B">前置芝士&lt;/a>有谈到，其实这个 bug 是我在 2C 的时候才修的）。&lt;/li>
 &lt;/ul>
-&lt;p>我在 Follower 收到 AppendEntries 或者 InstallSnapshot，并且 args.Term 大于 currentTerm 的时候也重置了 electionTimer。改为不重置后，直观的结果是跑 2C 的 test 平均快了 15s，并且不会出现&lt;code>fail to reach agreement&lt;/code>了。&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2B</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2b/"/><id>https://loomt.top/posts/6.824-lab2b/</id><updated>2023-03-04T11:47:57+08:00</updated><published>2023-03-03T14:57:17+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置芝士 Task 处理日志，具体来说是接收 Service 层发来的日志，日志复制，应用日志。 涉及到一点 Raft 层与 Service 层的交互，比如 Leader 接受 command 并保存为日志；Apply 日志到 Service 层。 Step 选举的时候需…</summary><content type="html">&lt;blockquote>
+&lt;p>我在 Follower 收到 AppendEntries 或者 InstallSnapshot，并且 args.Term 大于 currentTerm 的时候也重置了 electionTimer。改为不重置后，直观的结果是跑 2C 的 test 平均快了 15s，并且不会出现&lt;code>fail to reach agreement&lt;/code>了。&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2B</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2b/"/><id>https://loomt.top/posts/6.824-lab2b/</id><updated>2023-03-08T18:44:28+08:00</updated><published>2023-03-03T14:57:17+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置芝士 Task 处理日志，具体来说是接收 Service 层发来的日志，日志复制，应用日志。 涉及到一点 Raft 层与 Service 层的交互，比如 Leader 接受 command 并保存为日志；Apply 日志到 Service 层。 Step 选举的时候需…</summary><content type="html">&lt;blockquote>
 &lt;p>&lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="task">Task&lt;/h1>
@@ -246,7 +304,7 @@
 &lt;ol>
 &lt;li>选举的时候需要额外注意一个限制：只投票给 log 比自己新的 Candidate。&lt;/li>
 &lt;li>Leader 接受 command，append 进 log，返回此 command 的下标，此时 log 在状态机中还没被应用。&lt;/li>
-&lt;li>心跳时顺便发送日志给 Follower（需严格按照论文）。&lt;/li>
+&lt;li>心跳时顺便发送日志给 Follower（也可以分开）。&lt;/li>
 &lt;/ol>
 &lt;ul>
 &lt;li>AppendEntries RPC 参数中的 log 需要深拷贝才能免遭 data race。&lt;/li>
@@ -380,7 +438,7 @@
 &lt;/span>&lt;span class="lnt">21
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// last log index is too short
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// last log index is too small
 &lt;/span>&lt;span class="c1">// entry logAt prevLogIndex whose term doesn&amp;#39;t match prevLogTerm
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogIndex&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogTerm&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">logAt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogIndex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Success&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>
@@ -490,10 +548,7 @@
 &lt;/ol>
 &lt;blockquote>
 &lt;p>If there exists an N such that N &amp;gt; commitIndex, a majority of matchIndex[i] ≥ N, and log[N].term == currentTerm: set commitIndex = N (§5.3, §5.4).&lt;/p>
-&lt;/blockquote></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2A</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2a/"/><id>https://loomt.top/posts/6.824-lab2a/</id><updated>2023-03-04T11:47:57+08:00</updated><published>2023-03-03T14:57:12+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置芝士 Task 完成各种情况的领导人选举。 我们首先需要熟悉一下 Raft 的工作原理，建议先过一遍 前置芝士。 Step 先完善 Raft 结构和 Make 函数，再结合 Gif 思考单个节点的状态。 节点开始时的状态…</summary><content type="html">&lt;blockquote>
-&lt;p>&lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;h1 id="task">Task&lt;/h1>
+&lt;/blockquote></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2A</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2a/"/><id>https://loomt.top/posts/6.824-lab2a/</id><updated>2023-03-08T18:44:28+08:00</updated><published>2023-03-03T14:57:12+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Task 完成各种情况的领导人选举。 我们首先需要熟悉一下 Raft 的工作原理，建议先过一遍 前置芝士。 Step 先完善 Raft 结构和 Make 函数，再结合 Gif 思考单个节点的状态。 节点开始时的状态是 Fol…</summary><content type="html">&lt;h1 id="task">Task&lt;/h1>
 &lt;p>完成各种情况的领导人选举。&lt;/p>
 &lt;p>我们首先需要熟悉一下 Raft 的工作原理，建议先过一遍 &lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>。&lt;/p>
 &lt;h2 id="step">Step&lt;/h2>
@@ -533,17 +588,17 @@
 &lt;span class="k">case&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">C&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">go&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeat&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeatL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;span class="k">case&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">C&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">go&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startElection&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startElectionL&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -581,9 +636,12 @@
 &lt;/span>&lt;span class="lnt">23
 &lt;/span>&lt;span class="lnt">24
 &lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">foraVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">RequestVoteArgs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cnt&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">foraVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">RequestVoteArgs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cnt&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">RequestVoteReply&lt;/span>&lt;span class="p">{}&lt;/span>
 &lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dVote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v -&amp;gt; S%v send vote&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">peer&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">sendRequestVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">reply&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
@@ -597,6 +655,7 @@
 &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">peers&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">nextIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">matchIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dHeart&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v &amp;lt;- S%v nextIndex:%v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">nextIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">])&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">changeStateL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Leader&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
@@ -654,8 +713,8 @@
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">changeStateL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Follower&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;span class="c1">// check log Leader
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// Candidate lastLogTerm to short || (lastLogTerm=rf.lastLogTerm &amp;amp;&amp;amp; Candidate lastLogIndex to short)
+&lt;span class="c1">// check log leader
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// candidate lastLogTerm to short || (lastLogTerm=rf.lastLogTerm &amp;amp;&amp;amp; candidate lastLogIndex to short)
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogTerm&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogTerm&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogIndex&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">VoteGranted&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>
 &lt;span class="k">return&lt;/span>
@@ -686,7 +745,7 @@
 &lt;p>The paper&amp;rsquo;s Section 5.2 mentions election timeouts in the range of 150 to 300 milliseconds. Such a range only makes sense if the Leader sends heartbeats considerably more often than once per 150 milliseconds (e.g., once per 10 milliseconds). Because the tester limits you tens of heartbeats per second, you will have to use an election timeout larger than the paper&amp;rsquo;s 150 to 300 milliseconds, but not too large, because then you may fail to elect a Leader within five seconds.&lt;/p>
 &lt;/blockquote>
 &lt;/li>
-&lt;/ol></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2/"/><id>https://loomt.top/posts/6.824-lab2/</id><updated>2023-03-05T09:15:51+08:00</updated><published>2023-02-04T18:09:59+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Raft Raft 是一个实现分布式共识的协议，主要解决的是分布式一致性的问题。 Overview 假设现在有一个 Raft 架构的服务。我们将这个服务分为三层，Client，Service，Raft。C…</summary><content type="html">&lt;h1 id="raft">Raft&lt;/h1>
+&lt;/ol></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">6.824 Lab2</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/6.824-lab2/"/><id>https://loomt.top/posts/6.824-lab2/</id><updated>2023-03-08T18:44:28+08:00</updated><published>2023-02-04T18:09:59+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Raft Raft 是一个实现分布式共识的协议，主要解决的是分布式一致性的问题。 Overview 假设现在有一个 Raft 架构的服务。我们将这个服务分为三层，Client，Service，Raft。C…</summary><content type="html">&lt;h1 id="raft">Raft&lt;/h1>
 &lt;p>Raft 是一个实现分布式共识的协议，主要解决的是分布式一致性的问题。&lt;/p>
 &lt;h2 id="overview">Overview&lt;/h2>
 &lt;p>假设现在有一个 Raft 架构的服务。我们将这个服务分为三层，Client，Service，Raft。Client 层首先发送请求给 Service 层，然后 Service 层解析请求为&lt;code>command&lt;/code>，将&lt;code>command&lt;/code>发送给 Raft 层的 Leader。Leader 在一定时间内通知 Service 层 &amp;ldquo;apply&amp;rdquo; 包含这个&lt;code>command&lt;/code>的日志，Service 层才可以将这条日志保存到状态机，进而返回对应的结果给 Client 层。并且因为 Raft 层不应该存储过多的 log，所以 Service 层还会将 applied 的 log 压缩成快照，以便快速应用。&lt;/p>
@@ -768,8 +827,154 @@
 &lt;p>Each log entry also has an integer index iden-tifying its position in the log.&lt;/p>
 &lt;/blockquote>
 &lt;p>但这个其实很容易改，所以推荐在 2D 之前不要去管下标的问题，直接用 log 数组自己的下标就可以了。&lt;/p>
-&lt;h3 id="res">res&lt;/h3>
-&lt;p>&lt;img src="https://loomt.top/img/raftRes.png" alt="res">&lt;/p>
+&lt;h3 id="struct">struct&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">const&lt;/span> &lt;span class="nx">NULL&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">iota&lt;/span>
+&lt;span class="nx">Follower&lt;/span>
+&lt;span class="nx">Candidate&lt;/span>
+&lt;span class="nx">Leader&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">ApplyMsg&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">CommandValid&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;span class="nx">Command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="nx">CommandIndex&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">SnapshotValid&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;span class="nx">Snapshot&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>
+&lt;span class="nx">SnapshotTerm&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">SnapshotIndex&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">Entry&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span> &lt;span class="c1">// Command for state machine
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Term&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// Command received Term
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Index&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// A Go object implementing a single Raft peer.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">Raft&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">mu&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span> &lt;span class="c1">// Lock to protect shared access to this peer&amp;#39;s state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">peers&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">labrpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ClientEnd&lt;/span> &lt;span class="c1">// RPC end points of all peers
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">persister&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Persister&lt;/span> &lt;span class="c1">// Object to hold this peer&amp;#39;s persisted state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">me&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// this peer&amp;#39;s index into peers[]
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">dead&lt;/span> &lt;span class="kt">int32&lt;/span> &lt;span class="c1">// set by Kill()
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// Persistent state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">currentTerm&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">votedFor&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// null if none
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">Entry&lt;/span> &lt;span class="c1">// index 1...
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// Volatile state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">commitIndex&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// most of the server has been replicated and durable, 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">lastApplied&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// highest entry applied to state machine, 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">state&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">heartbeatTimer&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Timer&lt;/span>
+&lt;span class="nx">electionTimer&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Timer&lt;/span>
+&lt;span class="nx">applyCh&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="nx">ApplyMsg&lt;/span>
+&lt;span class="nx">applyWaker&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="c1">// for leader (reinitialized after election)
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">nextIndex&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="c1">// last log index+1...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">matchIndex&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="c1">// highest log entry be replicated on server, 0..., update: PrevLogIndex+len(Entries)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">lastIncludedTerm&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Term&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Index&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">setLastIncludedTerm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">term&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">term&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">setLastIncludedIndex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">index&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Duration&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Millisecond&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Duration&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Millisecond&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Duration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rand&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Int31n&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">180&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">180&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="res">res&lt;/h3>
+&lt;p>&lt;img src="https://loomt.top/img/824lab2.png" alt="res">&lt;/p>
 &lt;p>&lt;em>&lt;strong>reference&lt;/strong>&lt;/em>&lt;/p>
 &lt;p>&lt;a href="https://thesquareplanet.com/blog/students-guide-to-raft/">https://thesquareplanet.com/blog/students-guide-to-raft/&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/papers/raft-extended.pdf">https://pdos.csail.mit.edu/6.824/papers/raft-extended.pdf&lt;/a>&lt;/p>
@@ -2004,7 +2209,7 @@ Physical Layer
 &lt;/code>&lt;/pre>&lt;p>&lt;img src="https://loomt.top/img/socket.png" alt="socket">&lt;/p>
 &lt;h3 id="rpc框架">RPC框架&lt;/h3>
 &lt;p>&lt;em>reference&lt;/em>&lt;/p>
-&lt;p>&lt;a href="http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc">http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">go-zero单体服务</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1/"/><id>https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1/</id><updated>2023-03-05T01:16:06+00:00</updated><published>2023-01-08T09:46:11+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">go-zero go-zero简介 go-zero是一个能够快速生成API，MODEL和RPC的框架。 go-zero 项目结构（不含RPC） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25…</summary><content type="html">&lt;h2 id="go-zero">go-zero&lt;/h2>
+&lt;p>&lt;a href="http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc">http://ddia.vonng.com/#/ch4?id=%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e6%b5%81%ef%bc%9arest%e4%b8%8erpc&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">go-zero单体服务</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1/"/><id>https://loomt.top/posts/go-zero%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1/</id><updated>2023-03-08T10:44:51+00:00</updated><published>2023-01-08T09:46:11+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">go-zero go-zero简介 go-zero是一个能够快速生成API，MODEL和RPC的框架。 go-zero 项目结构（不含RPC） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25…</summary><content type="html">&lt;h2 id="go-zero">go-zero&lt;/h2>
 &lt;h3 id="go-zero简介">go-zero简介&lt;/h3>
 &lt;p>&lt;a href="https://go-zero.dev/cn/docs/introduction">go-zero&lt;/a>是一个能够快速生成API，MODEL和RPC的框架。&lt;/p>
 &lt;h3 id="go-zero-项目结构不含rpc">go-zero 项目结构（不含RPC）&lt;/h3>
@@ -2500,7 +2705,7 @@ goctl api doc -dir .
 &lt;ol>
 &lt;li>mysql 导入&lt;/li>
 &lt;li>&lt;code>nohup go run *.go -f etc/*.yaml 2&amp;gt;&amp;amp;1 &amp;amp;&lt;/code>&lt;/li>
-&lt;/ol></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">华为云公网部署</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/"/><id>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</id><updated>2023-03-05T01:16:06+00:00</updated><published>2022-11-08T22:47:51+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">记一次华为云耀云服务器公网部署问题 开了安全组，用 caddy 部署了一个小网页来测试公网访问 可以看到内网访问是正常的。也可以 ping 通 根据华为云官网给出的指引排查了很久，绑定了弹…</summary><content type="html">&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
+&lt;/ol></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">华为云公网部署</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/"/><id>https://loomt.top/posts/%E5%8D%8E%E4%B8%BA%E4%BA%91%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</id><updated>2023-03-08T10:44:51+00:00</updated><published>2022-11-08T22:47:51+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">记一次华为云耀云服务器公网部署问题 开了安全组，用 caddy 部署了一个小网页来测试公网访问 可以看到内网访问是正常的。也可以 ping 通 根据华为云官网给出的指引排查了很久，绑定了弹…</summary><content type="html">&lt;h2 id="记一次华为云耀云服务器公网部署问题">记一次华为云耀云服务器公网部署问题&lt;/h2>
 &lt;p>开了安全组，用 caddy 部署了一个小网页来测试公网访问
 &lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
 &lt;p>&lt;img src="https://loomt.top/img/caddy.png" alt="run-caddy">&lt;/p>
@@ -2510,7 +2715,7 @@ goctl api doc -dir .
 &lt;p>最后回到服务器 &lt;em>查询防火墙状态&lt;/em>&lt;/p>
 &lt;p>关掉防火墙就可以了
 &lt;img src="https://loomt.top/img/disable-firewall.png" alt="disable-firewall">
-对着华为云的控制台搞了很久安全组，还以为安全组哪里配错了，最后发现是服务器防火墙的问题😭&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">小米4A千兆版刷OpenWrt</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/"/><id>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</id><updated>2023-03-05T01:16:06+00:00</updated><published>2022-08-12T15:58:38+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。 去恩山论坛逛了逛，感觉刷软路由和刷手机差不太多。 安装Breed（闭源免费的Boo…</summary><content type="html">&lt;blockquote>
+对着华为云的控制台搞了很久安全组，还以为安全组哪里配错了，最后发现是服务器防火墙的问题😭&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">小米4A千兆版刷OpenWrt</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/"/><id>https://loomt.top/posts/%E5%B0%8F%E7%B1%B34a%E5%8D%83%E5%85%86%E7%89%88%E5%88%B7openwrt/</id><updated>2023-03-08T10:44:51+00:00</updated><published>2022-08-12T15:58:38+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。 去恩山论坛逛了逛，感觉刷软路由和刷手机差不太多。 安装Breed（闭源免费的Boo…</summary><content type="html">&lt;blockquote>
 &lt;p>摆烂，于是将目光看向了家里的小米4a千兆版路由器，准备刷个Openwrt玩一下。&lt;/p>
 &lt;/blockquote>
 &lt;p>去&lt;a href="https://www.right.com.cn/forum/forum.php">恩山论坛&lt;/a>逛了逛，感觉刷软路由和刷手机差不太多。&lt;/p>
@@ -3183,7 +3388,7 @@ goctl api doc -dir .
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;em>reference&lt;/em>&lt;/p>
-&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">https://gist.github.com/zabbarob/5891200&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%BB%BA%E7%AB%99/"/><id>https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</id><updated>2023-03-05T01:16:06+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ） 简略…</summary><content type="html">&lt;p>&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
+&lt;p>&lt;a href="https://gist.github.com/zabbarob/5891200">https://gist.github.com/zabbarob/5891200&lt;/a>&lt;/p></content><category scheme="https://loomt.top/posts/" term="posts" label="posts"/></entry><entry><title type="text">建站</title><link rel="alternate" type="text/html" href="https://loomt.top/posts/%E5%BB%BA%E7%AB%99/"/><id>https://loomt.top/posts/%E5%BB%BA%E7%AB%99/</id><updated>2023-03-08T10:44:51+00:00</updated><published>2022-07-15T12:01:10+08:00</published><author><name>loomt</name><uri>https://loomt.top</uri><email>loomt_@outlook.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前段时间白嫖了一个 域名 ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的Hugo主题 MemE ） 简略…</summary><content type="html">&lt;p>&lt;img src="https://loomt.top/img/sky.jpg" alt="sky">&lt;/p>
 &lt;blockquote>
 &lt;p>前段时间白嫖了一个 &lt;a href="https://loomt.eu.org">域名&lt;/a> ，暑假有时间了赶紧物尽其用，于是花了一天的时间重新建了个站（其实我很久之前就用过 hexo 无脑建站，但最近发现了一个特别喜欢的&lt;a href="https://gohugo.io/">Hugo&lt;/a>主题 &lt;a href="https://github.com/reuixiy/hugo-theme-meme">MemE&lt;/a> ）&lt;/p>
 &lt;/blockquote>

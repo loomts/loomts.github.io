@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 05 Mar 2023 01:16:09 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab2D</title><link>https://loomt.top/posts/6.824-lab2d/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab2d/</guid><pubDate>Fri, 03 Mar 2023 14:57:30 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 08 Mar 2023 10:44:55 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab3</title><link>https://loomt.top/posts/6.824-lab3/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab3/</guid><pubDate>Tue, 07 Mar 2023 18:51:52 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="task">Task&lt;/h1>
+&lt;p>在 raft 框架的基础上建立一个容错的 KV 数据库。重点在于理解 Service 层和 Raft 层的交互，代码方面较为简单，故不进行赘述。&lt;/p>
+&lt;h2 id="step">Step&lt;/h2>
+&lt;ol>
+&lt;li>在 client 和 service 两层完成 Get(), Append(), Put()&lt;/li>
+&lt;li>对重复的 Append 或 Put 进行去重&lt;/li>
+&lt;li>service 层的快照与持久化（快照存储的是 Key/Value 等元数据）
+&lt;img src="https://loomt.top/img/824lab3.png" alt="lab3">&lt;/li>
+&lt;/ol>
+&lt;h2 id="tips">tips：&lt;/h2>
+&lt;p>值得一提的是在写完 lab3 的大概框架后，TestSpeed3A 一直不通过，因为要求是平均 33ms 一个 commit，但正常来说 commit 时间应该和 heartbeat timeout 差不多，遂修改 Start() 函数，在 command 被 Service 送来的时候发起一次心跳，进行日志同步。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Start&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{})&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">term&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Entry&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Command&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Term&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">term&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Index&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v &amp;lt;- %vst command %v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">persist&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeatL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我们还可以进行一点优化：当 Leader 发送心跳时，加上一个 bool，表明 Leader 真的只是发送心跳，或者是为了快速同步日志，如果是后者，还需要判断每一个 Follower 的 nextIndex 是否需要同步，如果不满足 &lt;code>(rf.getLastLogL().Index &amp;gt; rf.nextIndex[i])&lt;/code>，则不再同步日志。&lt;/p>
+&lt;p>正常来说到这一步就没问题了，但是我又发现了 lab2 的一个遗留 bug，当 commit 频率变得很快时 Leader 就会暴毙（之前的测试仅仅通过 heartbeat timeout 同步日志，频率较低，基本没有出现这个问题）。通过打 log，发现 commit 是通过单独的 go routine 接收 channel 的信号实现的，因为 channel 初始化为&lt;code>make(chan int,1)&lt;/code>，在 Leader 连续 commit 时容易堵塞，其实理论上会缓慢通过，但还是暴毙了，属于是一个很玄学的 bug。最后将 channel 扩容成 100 就轻松过了:)&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab2D</title><link>https://loomt.top/posts/6.824-lab2d/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab2d/</guid><pubDate>Fri, 03 Mar 2023 14:57:30 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>&lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="task">Task&lt;/h1>
@@ -11,7 +65,7 @@
 &lt;/ol>
 &lt;/li>
 &lt;li>在 2D 中，snapshot 会涉及到 raft 层与 service 层的多次交互，看这个 &lt;a href="https://pdos.csail.mit.edu/6.824/notes/raft_diagram.pdf">diagram of Raft interactions&lt;/a>  或许可以帮助理解 Raft 协议不同层次的功能与特性。&lt;/li>
-&lt;li>在 2D 中，snapshot 作用于每一个 Raft 节点，我们需要记录 snapshot 最后一个 index 和 term，用于一致性检查。&lt;/li>
+&lt;li>snapshot 作用于每一个 Raft 节点，我们需要记录 snapshot 最后一个 index 和 term，用于一致性检查。&lt;/li>
 &lt;/ul>
 &lt;h2 id="step">Step&lt;/h2>
 &lt;ol>
@@ -30,6 +84,8 @@
 &lt;/span>&lt;span class="lnt"> 9
 &lt;/span>&lt;span class="lnt">10
 &lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Snapshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">snapshot&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
@@ -38,8 +94,10 @@
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="k">return&lt;/span>
 &lt;span class="p">}&lt;/span>
+&lt;span class="nx">term&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">logAt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">Term&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">():]&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">setLastIncludedIndex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">setLastIncludedTerm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">term&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">persister&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">SaveStateAndSnapshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getEncodeStateL&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">snapshot&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dSnap&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v last: %v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
@@ -246,7 +304,7 @@
 &lt;ol>
 &lt;li>选举的时候需要额外注意一个限制：只投票给 log 比自己新的 Candidate。&lt;/li>
 &lt;li>Leader 接受 command，append 进 log，返回此 command 的下标，此时 log 在状态机中还没被应用。&lt;/li>
-&lt;li>心跳时顺便发送日志给 Follower（需严格按照论文）。&lt;/li>
+&lt;li>心跳时顺便发送日志给 Follower（也可以分开）。&lt;/li>
 &lt;/ol>
 &lt;ul>
 &lt;li>AppendEntries RPC 参数中的 log 需要深拷贝才能免遭 data race。&lt;/li>
@@ -380,7 +438,7 @@
 &lt;/span>&lt;span class="lnt">21
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// last log index is too short
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// last log index is too small
 &lt;/span>&lt;span class="c1">// entry logAt prevLogIndex whose term doesn&amp;#39;t match prevLogTerm
 &lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogIndex&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogTerm&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">logAt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PrevLogIndex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Success&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>
@@ -490,10 +548,7 @@
 &lt;/ol>
 &lt;blockquote>
 &lt;p>If there exists an N such that N &amp;gt; commitIndex, a majority of matchIndex[i] ≥ N, and log[N].term == currentTerm: set commitIndex = N (§5.3, §5.4).&lt;/p>
-&lt;/blockquote></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab2A</title><link>https://loomt.top/posts/6.824-lab2a/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab2a/</guid><pubDate>Fri, 03 Mar 2023 14:57:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
-&lt;p>&lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;h1 id="task">Task&lt;/h1>
+&lt;/blockquote></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab2A</title><link>https://loomt.top/posts/6.824-lab2a/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab2a/</guid><pubDate>Fri, 03 Mar 2023 14:57:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="task">Task&lt;/h1>
 &lt;p>完成各种情况的领导人选举。&lt;/p>
 &lt;p>我们首先需要熟悉一下 Raft 的工作原理，建议先过一遍 &lt;a href="https://loomt.top/posts/6.824-lab2">前置芝士&lt;/a>。&lt;/p>
 &lt;h2 id="step">Step&lt;/h2>
@@ -533,17 +588,17 @@
 &lt;span class="k">case&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">C&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">go&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeat&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startHeartbeatL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">heartbeatTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">())&lt;/span>
 &lt;span class="k">case&lt;/span> &lt;span class="o">&amp;lt;-&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">C&lt;/span>&lt;span class="p">:&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Lock&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">state&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Leader&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;span class="k">go&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startElection&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;span class="p">}&lt;/span>
-&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">startElectionL&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">electionTimer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unlock&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -581,9 +636,12 @@
 &lt;/span>&lt;span class="lnt">23
 &lt;/span>&lt;span class="lnt">24
 &lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">foraVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">RequestVoteArgs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cnt&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">foraVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">RequestVoteArgs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">cnt&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">RequestVoteReply&lt;/span>&lt;span class="p">{}&lt;/span>
 &lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dVote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v -&amp;gt; S%v send vote&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">peer&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">sendRequestVote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">peer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">reply&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
@@ -597,6 +655,7 @@
 &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">peers&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">nextIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">matchIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;span class="nf">DPrintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dHeart&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;S%v &amp;lt;- S%v nextIndex:%v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">me&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">nextIndex&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">])&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">changeStateL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Leader&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
@@ -654,8 +713,8 @@
 &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">changeStateL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Follower&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">NULL&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;span class="c1">// check log Leader
-&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// Candidate lastLogTerm to short || (lastLogTerm=rf.lastLogTerm &amp;amp;&amp;amp; Candidate lastLogIndex to short)
+&lt;span class="c1">// check log leader
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// candidate lastLogTerm to short || (lastLogTerm=rf.lastLogTerm &amp;amp;&amp;amp; candidate lastLogIndex to short)
 &lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogTerm&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogTerm&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">getLastLogL&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LastLogIndex&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Term&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reply&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">VoteGranted&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">currentTerm&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>
 &lt;span class="k">return&lt;/span>
@@ -768,8 +827,154 @@
 &lt;p>Each log entry also has an integer index iden-tifying its position in the log.&lt;/p>
 &lt;/blockquote>
 &lt;p>但这个其实很容易改，所以推荐在 2D 之前不要去管下标的问题，直接用 log 数组自己的下标就可以了。&lt;/p>
-&lt;h3 id="res">res&lt;/h3>
-&lt;p>&lt;img src="https://loomt.top/img/raftRes.png" alt="res">&lt;/p>
+&lt;h3 id="struct">struct&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">const&lt;/span> &lt;span class="nx">NULL&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">iota&lt;/span>
+&lt;span class="nx">Follower&lt;/span>
+&lt;span class="nx">Candidate&lt;/span>
+&lt;span class="nx">Leader&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">ApplyMsg&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">CommandValid&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;span class="nx">Command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="nx">CommandIndex&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">SnapshotValid&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;span class="nx">Snapshot&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>
+&lt;span class="nx">SnapshotTerm&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">SnapshotIndex&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">type&lt;/span> &lt;span class="nx">Entry&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Command&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span> &lt;span class="c1">// Command for state machine
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Term&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// Command received Term
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Index&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// A Go object implementing a single Raft peer.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">Raft&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">mu&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span> &lt;span class="c1">// Lock to protect shared access to this peer&amp;#39;s state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">peers&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">labrpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ClientEnd&lt;/span> &lt;span class="c1">// RPC end points of all peers
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">persister&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Persister&lt;/span> &lt;span class="c1">// Object to hold this peer&amp;#39;s persisted state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">me&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// this peer&amp;#39;s index into peers[]
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">dead&lt;/span> &lt;span class="kt">int32&lt;/span> &lt;span class="c1">// set by Kill()
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// Persistent state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">currentTerm&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">votedFor&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// null if none
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">log&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">Entry&lt;/span> &lt;span class="c1">// index 1...
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// Volatile state
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">commitIndex&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// most of the server has been replicated and durable, 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">lastApplied&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="c1">// highest entry applied to state machine, 0...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">state&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="nx">heartbeatTimer&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Timer&lt;/span>
+&lt;span class="nx">electionTimer&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Timer&lt;/span>
+&lt;span class="nx">applyCh&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="nx">ApplyMsg&lt;/span>
+&lt;span class="nx">applyWaker&lt;/span> &lt;span class="kd">chan&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="c1">// for leader (reinitialized after election)
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">nextIndex&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="c1">// last log index+1...
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">matchIndex&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="c1">// highest log entry be replicated on server, 0..., update: PrevLogIndex+len(Entries)
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">lastIncludedTerm&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Term&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">lastIncludedIndex&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Index&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">setLastIncludedTerm&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">term&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Term&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">term&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">rf&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Raft&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">setLastIncludedIndex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">rf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Index&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">index&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">getHeartbeatDuration&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Duration&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Millisecond&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">getElectionDuration&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Duration&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Millisecond&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Duration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rand&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Int31n&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">180&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">180&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="res">res&lt;/h3>
+&lt;p>&lt;img src="https://loomt.top/img/824lab2.png" alt="res">&lt;/p>
 &lt;p>&lt;em>&lt;strong>reference&lt;/strong>&lt;/em>&lt;/p>
 &lt;p>&lt;a href="https://thesquareplanet.com/blog/students-guide-to-raft/">https://thesquareplanet.com/blog/students-guide-to-raft/&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/papers/raft-extended.pdf">https://pdos.csail.mit.edu/6.824/papers/raft-extended.pdf&lt;/a>&lt;/p>
