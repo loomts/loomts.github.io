@@ -1,16 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 13 Mar 2023 09:27:25 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 16 Mar 2023 08:54:04 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>绷不住了，在写 lab4B 的时候，我 commit 了 shardKV（4B）的文件，但写好的 shardctrler（4A）没有 commit，然后我 reset-hard 了整个项目，写完的 shardctrler 就不见了，-2h😭&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="task">Task&lt;/h1>
 &lt;p>完成 Multi-Raft&lt;/p>
 &lt;ul>
-&lt;li>lab4A：完成 Multi-Raft 控制中心（和 lab3 内容差不多，一句话就是 shardctrler 是一个将 Config 作为日志进行维护的单 Raft 集群，并且不需要实现快照和持久化）
-需要注意的地方是 Join 和 Leave 操作 shards 应该怎么平均且有序地分配给 gids（注意在 Leave 操作中，Group 里面可能有多余的 gid，此时需要注意将其算在 gids 里面），主要逻辑和 lab3 差不多，比较简单。&lt;/li>
-&lt;li>lab4B：很 TM 复杂，我们要实现拥有分片功能的，能够加入退出成员的，能够根据配置同步迁移数据的，支持快照功能的 kv 数据库。&lt;/li>
+&lt;li>
+&lt;p>lab4A：完成 Multi-Raft 控制中心（和 lab3 内容差不多，一句话就是 shardctrler 是一个将 Config 作为日志进行维护的单 Raft 集群，并且不需要实现快照和持久化）
+需要注意的地方是 Join 和 Leave 操作 shards 应该怎么平均且有序地分配给 gids（注意在 Leave 操作中，Group 里面可能有多余的 gid，此时需要注意将其算在 gids 里面），主要逻辑和 lab3 差不多，比较简单。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>lab4B：实现一个拥有分片功能，能够随时加入退出成员，可以根据配置同步迁移数据，支持断线重连日志快速追赶和快照功能并且能够保证线性一致性的 kv 数据库。
+虽然叠了很多 buff，但很多地方我们之前已经实现了，比如加入退出成员和日志同步在 lab4A；断线重连和日志快速追赶在 lab2；线性一致性的 kv 数据库在 lab3。&lt;/p>
+&lt;/li>
 &lt;/ul>
-&lt;blockquote>
-&lt;p>concurrent2,3 始终过不了，先鸽了，找到实习必更！&lt;/p>
-&lt;/blockquote></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab3</title><link>https://loomt.top/posts/6.824-lab3/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab3/</guid><pubDate>Tue, 07 Mar 2023 18:51:52 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="task">Task&lt;/h1>
+&lt;p>所以我们在 lab4B 的主要任务是根据最新配置来实现分片的处理，进行分片处理和回复客户端的请求都需要通过 Raft 层实现一致性，所以都要调用&lt;code>kv.rf.Start()&lt;/code>并启动一个 go routine 处理 Raft 层回调的 applyCh。&lt;/p>
+&lt;p>首先是 shard，我们需要将 Client 的 PUT、GET、APPEND 请求通过 key 值的 hash 分配给不同的 shard，shard2gid 数组可以通过读取配置获取。为了防止重复 apply，我们要在 shard 结构加上去重表。所以我实现的 shard 结构体如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Shard&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Log&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span>
+&lt;span class="nx">LastCommand&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">int64&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;span class="nx">Status&lt;/span> &lt;span class="kt">int&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>考虑更新 config，leader 需要另起一个 go routine 不断读取新配置，在更新配置之前我们需要判断当前 gid 是否需要 pull 或 push（存下 lastcfg，用来与当前 cfg 作比较）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">kv&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ShardKV&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">allSentL&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">shard&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">gid&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lastcfg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Shards&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">gid&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gid&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cfg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Shards&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">shard&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gid&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stateMachine&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">shard&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Status&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Serving&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">kv&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ShardKV&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">allReceivedL&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">shard&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">gid&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lastcfg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Shards&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">gid&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gid&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cfg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Shards&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">shard&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gid&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">kv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stateMachine&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">shard&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">Status&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">Serving&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若需要，则等待&lt;strong>相关 shards&lt;/strong>处理完毕再查询新一个 config（因为步子不能迈得太大，需要一个个 config 地进行状态机的更新，原因之一是更新过程会涉及到 shard 的切换）。&lt;/p>
+&lt;p>若有一个 gid 需要 push，则另一个就必然需要 pull。所以无论是用 push 还是用 pull 处理都是可以的。考虑到 Challenge 任务需要在 push 之后删除废弃 shard 释放内存。push 至少比 pull 少一个 RPC 请求，所以我选择了 push。&lt;/p>
+&lt;p>push 主要是需要发送 RPC 给对应 status 为 pulling 的 shard，并等待 receiver 接受并 apply 回复 OK 后进行 delete。&lt;/p>
+&lt;p>还要记得在一个节点刚成为 leader 的时候发送空日志以 apply 旧的日志。&lt;/p>
+&lt;h2 id="tips">tips：&lt;/h2>
+&lt;ol>
+&lt;li>TestConcurrent2 测的是宕机再重启 Service 层不借助 snapshot，用 raft 层的日志快速追赶，然后我的 Get 结果总是与正确答案不一致，表现在前面正确，后面正确，中间缺失。原来是在 shardkv 初始化的时候，cfg 不能初始化为&lt;code>kv.sc.Query(-1)&lt;/code>，因为我将 cfg 初始化为最新值，被 Raft 层推到 Service 层的日志在应用在状态机的时候因为 cfgNum 不等于当前的 cfg，所以自动屏蔽掉了（其实这个问题应该不难发现，但我在打 log 的时候没有将 cfgNum 作为 log 头，就没怎么注意到，找了好久。&lt;/li>
+&lt;li>忘了。&lt;/li>
+&lt;/ol></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab3</title><link>https://loomt.top/posts/6.824-lab3/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab3/</guid><pubDate>Tue, 07 Mar 2023 18:51:52 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="task">Task&lt;/h1>
 &lt;p>在 raft 框架的基础上建立一个容错的 KV 数据库。重点在于理解 Service 层和 Raft 层的交互，代码方面较为简单，故不进行赘述。&lt;/p>
 &lt;h2 id="step">Step&lt;/h2>
 &lt;ol>
@@ -1228,7 +1296,7 @@
 &lt;/ol>
 &lt;p>因为 MapReduce 的特性，map task 可以并发，reduce task 可以并发，但两种任务不能同时并发，所以需要等到 map task 跑完才可以进行 reduce task。如果同时读写同一个变量，需要加锁。其实还可以用 chan 实现 lock-free，以后试试，如果有时间的话。&lt;/p>
 &lt;ol start="5">
-&lt;li>贴一下测试的 makefile&lt;/li>
+&lt;li>随手写的 makefile&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -2127,6 +2195,164 @@ Usage: dstest.py &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/s
 │ --timing -t Report timing, only works on macOS
 │ --help Show this message and exit.
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="完结撒花">完结撒花&lt;/h1>
+&lt;p>断断续续做了两个月&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-zsh" data-lang="zsh">&amp;gt; git log --all --pretty&lt;span class="o">=&lt;/span>format:&lt;span class="s2">&amp;#34;%h - %s (%cd)&amp;#34;&lt;/span>
+a35ab0d - Merge branch &lt;span class="s1">&amp;#39;main&amp;#39;&lt;/span> into 4bnostatus &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 13:49:38 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+b2fbc96 - PASS ALL TEST &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 13:39:42 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+c292e0b - &lt;span class="nb">test&lt;/span> &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 01:17:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+15c78d6 - &lt;span class="nb">test&lt;/span> &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 01:16:48 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+c976166 - upd &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 00:51:59 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+d6fb4a3 - upd &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">16&lt;/span> 00:51:47 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+0cdfc8e - upd &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">15&lt;/span> 14:26:38 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+f72a33c - upd &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">14&lt;/span> 21:26:52 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+&lt;span class="m">1269134&lt;/span> - upd &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">14&lt;/span> 21:14:32 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+6d9482f - upd &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">14&lt;/span> 21:14:32 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+7d71252 - upd &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">14&lt;/span> 21:11:58 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+24af3ca - upd &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">14&lt;/span> 21:11:58 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+76222e9 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 18:17:34 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+bd0c08d - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 18:17:34 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+2ae8d83 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 17:24:10 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+e1556fc - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 17:24:10 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+ce02243 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 17:23:53 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+a55ed3b - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 17:23:53 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+2a7c1e2 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:38:16 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+654401c - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:23:34 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+c2cf04a - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:23:34 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+653e0ac - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:23:07 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+add25da - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:23:07 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+57eca09 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:04:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+67b2ac5 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:04:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+c9fcb98 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:03:49 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+e9310b9 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 16:03:49 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+74f8e56 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 15:01:22 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+fdc6d6c - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 15:01:22 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+65e314e - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 15:01:13 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+3557af4 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 15:01:13 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+f6db284 - upd status version &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 14:25:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+e92462f - upd status version &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 14:25:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+89641d5 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 12:00:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+2c75820 - upd &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 12:00:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+682887d - bk &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 11:03:36 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+ecad136 - bk &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 11:03:36 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+b1e7020 - bk &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 11:03:27 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+1b8ab1f - bk &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 11:03:27 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+ff0cbd3 - add commandterm &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:47:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+8d525ae - add commandterm &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:47:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+8a62fc2 - redone lab4A &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:32:33 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+508f434 - redone lab4A &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:32:33 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+8d092da - redone lab4A &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:32:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+400fbb5 - redone lab4A &lt;span class="o">(&lt;/span>Mon Mar &lt;span class="m">13&lt;/span> 01:32:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+2914c2f - lastCommand out of the Shard &lt;span class="o">(&lt;/span>Sun Mar &lt;span class="m">12&lt;/span> 20:42:01 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+487a1ad - lastCommand out of the Shard &lt;span class="o">(&lt;/span>Sun Mar &lt;span class="m">12&lt;/span> 20:42:01 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+f18aa1d - lastCommand out of the Shard &lt;span class="o">(&lt;/span>Sun Mar &lt;span class="m">12&lt;/span> 20:41:40 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+70c2a35 - lastCommand out of the Shard &lt;span class="o">(&lt;/span>Sun Mar &lt;span class="m">12&lt;/span> 20:41:40 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+2f42f94 - pass 3AB &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">8&lt;/span> 15:31:21 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+36e388a - fix corner &lt;span class="k">case&lt;/span>: commit chan size &amp;gt; &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">8&lt;/span> 09:35:20 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+56a595f - fix corner &lt;span class="k">case&lt;/span>: commit chan size &amp;gt; &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">8&lt;/span> 09:32:00 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+154ef7c - fix corner &lt;span class="k">case&lt;/span>: commit chan size &amp;gt; &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">8&lt;/span> 01:38:02 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+60e2114 - fix corner &lt;span class="k">case&lt;/span>: commit chan size &amp;gt; &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">8&lt;/span> 01:37:43 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+feb8d9c - tmp &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">7&lt;/span> 23:18:53 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+3de06c0 - &lt;span class="m">2&lt;/span> &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">7&lt;/span> 21:01:15 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+0b8ce3e - raft fix election timer &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">7&lt;/span> 11:23:09 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+a86178d - upd raft &lt;span class="o">(&lt;/span>Tue Mar &lt;span class="m">7&lt;/span> 00:37:10 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+abc1af9 - last version &lt;span class="o">(&lt;/span>Sat Mar &lt;span class="m">4&lt;/span> 00:54:22 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+&lt;span class="m">8459818&lt;/span> - last version &lt;span class="o">(&lt;/span>Sat Mar &lt;span class="m">4&lt;/span> 00:51:39 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+279cafe - free &lt;span class="k">for&lt;/span> startElection &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 23:06:52 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+a256413 - free &lt;span class="k">for&lt;/span> startElection &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 23:06:06 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+a7c8567 - free &lt;span class="k">for&lt;/span> startElection &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 22:27:52 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+7f79602 - sleep version&lt;span class="o">(&lt;/span>faster&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 22:25:01 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+&lt;span class="m">0323267&lt;/span> - sleep version&lt;span class="o">(&lt;/span>faster&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 22:24:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+271ba6c - sleep version&lt;span class="o">(&lt;/span>faster&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 22:23:51 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+dbe2c80 - timer version &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 21:20:17 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+1be517a - fix &lt;span class="o">(&lt;/span>Fri Mar &lt;span class="m">3&lt;/span> 09:24:36 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+87dd1e6 - pass lab2 &lt;span class="o">(&lt;/span>Thu Mar &lt;span class="m">2&lt;/span> 15:49:03 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+b2ee034 - before change log.at &lt;span class="o">(&lt;/span>Wed Mar &lt;span class="m">1&lt;/span> 10:02:28 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+90eb1ff - pass 2ABC &lt;span class="o">(&lt;/span>Mon Feb &lt;span class="m">27&lt;/span> 17:04:58 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+914c36e - sometime can&lt;span class="err">&amp;#39;&lt;/span>t pass 2A 2B &lt;span class="o">(&lt;/span>Sun Feb &lt;span class="m">12&lt;/span> 20:23:24 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+ea338b7 - bak &lt;span class="o">(&lt;/span>Thu Feb &lt;span class="m">2&lt;/span> 19:32:53 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
+dbca9cb - init &lt;span class="o">(&lt;/span>Mon Jan &lt;span class="m">2&lt;/span> 17:23:49 &lt;span class="m">2023&lt;/span> +0800&lt;span class="o">)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
