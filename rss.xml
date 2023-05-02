@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 30 Apr 2023 16:18:21 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 02 May 2023 10:18:51 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>绷不住了，在写 lab4B 的时候，我 commit 了 shardKV（4B）的文件，但写好的 shardctrler（4A）没有 commit，然后我 reset-hard 了整个项目，写完的 shardctrler 就不见了，-2h😭&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="task">Task&lt;/h1>
@@ -3837,7 +3837,7 @@ $ ssh-keygen -t rsa -b 4096 -C &amp;quot;yourname@users.noreply.github.com&amp;q
 &lt;p>前往 Github Page 仓库，Settings &amp;gt; Deploy Keys &amp;gt; Add deploy key。&lt;/p>
 &lt;p>需要勾选 Allow write access。&lt;/p>
 &lt;ul>
-&lt;li>id_rsa.pub （公钥）&lt;/li>
+&lt;li>id_rsa.pub（公钥）&lt;/li>
 &lt;/ul>
 &lt;p>前往源码仓库，Settings &amp;gt; Secrets &amp;gt; Actions &amp;gt; New repository secret。&lt;/p>
 &lt;p>Name 需要设为 ACTIONS_DEPLOY_KEY&lt;/p>
@@ -3970,7 +3970,7 @@ $ git push
 &lt;/div>
 &lt;/div>&lt;p>打开你的源码仓库页面，点击 Actions 查看日志，顺利的话已经搞定了，以后每次 &lt;code>git push&lt;/code> Github Workflow 都会自动帮你更新网站了。&lt;/p>
 &lt;h2 id="github-page-绑定自定义域名">Github Page 绑定自定义域名&lt;/h2>
-&lt;p>假设已经有了域名，还需要在域名的 DNS 服务商那里加一个 CNAME （用于 dns 跳转）。&lt;/p>
+&lt;p>假设已经有了域名，还需要在域名的 DNS 服务商那里加一个 CNAME（用于 dns 跳转）。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -3988,7 +3988,7 @@ $ git push
 &lt;/tbody>
 &lt;/table>
 &lt;p>一段时间后，回到 Github Page 仓库，在 Settings &amp;gt; Pages &amp;gt; Custom domain 处填上自己的域名，等待几小时生成证书，然后勾选  &lt;code>Enforce HTTPS&lt;/code>。&lt;/p>
-&lt;p>还要记得添加 &lt;code>your domain&lt;/code> 到 static/CNAME ，以生成到静态文件。&lt;/p>
+&lt;p>还要记得添加 &lt;code>your domain&lt;/code>到 static/CNAME，以生成到静态文件。。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -4285,7 +4285,7 @@ $ git push
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="hugo--algolia-search">Hugo + Algolia search&lt;/h3>
-&lt;p>Algolia 可以提供 AI 搜索服务，但需要在更新站点时用 POST 请求上传 algolia.json(站点信息)给 Algolia，以帮助 Algolia 实现搜索服务。按照要求新建站点以及配置 api 即可，上传 algolia.json 可以使用&lt;a href="https://github.com/replicatedhq/hugo-algolia">hugo-algolia&lt;/a>。因为MeME主题有一定的algolia search支持，下面仅给出上传algolia.json方面的配置。&lt;/p>
+&lt;p>Algolia 可以提供 AI 搜索服务，但需要在更新站点时用 POST 请求上传 algolia.json(站点信息) 给 Algolia，以帮助 Algolia 实现搜索服务。按照要求新建站点以及配置 api 即可，上传 algolia.json 可以使用&lt;a href="https://github.com/replicatedhq/hugo-algolia">hugo-algolia&lt;/a>。因为 MeME 主题有一定的 algolia search 支持，下面仅给出上传 algolia.json 方面的配置。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
