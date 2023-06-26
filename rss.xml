@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 23 Jun 2023 10:37:48 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Redis Cluster 公网部署</title><link>https://loomt.top/posts/redis-cluster%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</link><guid isPermaLink="true">https://loomt.top/posts/redis-cluster%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</guid><pubDate>Wed, 10 May 2023 19:52:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>RT，如果要公网访问服务器的 Redis，要将 redis-cluster 部署在公网上（似乎是废话，但是如果 Redis 服务发现端口是本地的话，就没法公网访问）。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 26 Jun 2023 16:57:29 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.S081</title><link>https://loomt.top/posts/6.s081/</link><guid isPermaLink="true">https://loomt.top/posts/6.s081/</guid><pubDate>Sat, 10 Jun 2023 18:22:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="reference">reference&lt;/h2>
+&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.828/2021/schedule.html">schedule&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/">translation&lt;/a>&lt;/p>
+&lt;h3 id="添加用户函数">添加用户函数&lt;/h3>
+&lt;p>在 Makefile 的 UPROGS 处添加&lt;/p>
+&lt;h3 id="添加系统调用">添加系统调用&lt;/h3>
+&lt;style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style>
+&lt;div>&lt;svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg">&lt;symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>&lt;/symbol>&lt;symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/>&lt;/symbol>&lt;symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">&lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>&lt;/symbol>&lt;/svg>&lt;/div>&lt;div class="notice tip" >
+&lt;p class="first notice-title">&lt;span class="icon-notice baseline">&lt;svg>&lt;use href="https://loomt.top/posts/6.s081/#tip-notice">&lt;/use>&lt;/svg>&lt;/span>提示&lt;/p>&lt;p>系统调用的用户空间代码在user/user.h和user/usys.pl中。&lt;/p>
+&lt;p>内核空间代码是kernel/syscall.h、kernel/syscall.c。&lt;/p>
+&lt;p>与进程相关的代码是kernel/proc.h和kernel/proc.c。&lt;/p>&lt;/div>
+&lt;ol>
+&lt;li>kernel/syscall.h 枚举 SYS_xxx&lt;/li>
+&lt;li>kernel/syscall.c 的两处地方按照格式添加&lt;/li>
+&lt;li>kernel/sysfile.c 添加 sys_xxx 函数（主要实现）&lt;/li>
+&lt;li>user/user.h 添加系统调用函数的定义&lt;/li>
+&lt;li>user/usys.pl 添加系统调用的 entry&lt;/li>
+&lt;/ol>
+&lt;h4 id="系统调用的步骤">系统调用的步骤&lt;/h4>
+&lt;ol>
+&lt;li>操作系统初始化时注册系统调用&lt;/li>
+&lt;li>系统调用函数将对应的调用存到寄存器&lt;/li>
+&lt;li>保存用户空间的状态&lt;/li>
+&lt;li>执行 ECALL 指令，提升权限&lt;/li>
+&lt;li>执行 trampoline 里面的 uservec() ，保存现有的用户寄存器到 trapframe，切换页表&lt;/li>
+&lt;li>执行 usertrap()，判断陷入类型并处理&lt;/li>
+&lt;li>执行 syscall()，进行系统调用&lt;/li>
+&lt;li>执行 usertrapret() ，设置 trapframe&lt;/li>
+&lt;li>执行 trampoline 里面的 userret，恢复寄存器，返回用户空间&lt;/li>
+&lt;/ol></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>Redis Cluster 公网部署</title><link>https://loomt.top/posts/redis-cluster%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</link><guid isPermaLink="true">https://loomt.top/posts/redis-cluster%E5%85%AC%E7%BD%91%E9%83%A8%E7%BD%B2/</guid><pubDate>Wed, 10 May 2023 19:52:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>RT，如果要公网访问服务器的 Redis，要将 redis-cluster 部署在公网上（似乎是废话，但是如果 Redis 服务发现端口是本地的话，就没法公网访问）。&lt;/p>
 &lt;p>config 中有几个很重要的参数：&lt;/p>
 &lt;pre tabindex="0">&lt;code># redis-cluster.conf
 cluster-announce-ip 116.205.130.21 # 公网ip
@@ -239,10 +268,7 @@ jemalloc-bg-thread yes
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis-server /usr/local/etc/redis/redis.conf&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
-&lt;p>绷不住了，在写 lab4B 的时候，我 commit 了 shardKV（4B）的文件，但写好的 shardctrler（4A）没有 commit，然后我 reset-hard 了整个项目，写完的 shardctrler 就不见了，-2h😭&lt;/p>
-&lt;/blockquote>
-&lt;h1 id="task">Task&lt;/h1>
+&lt;/div></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.824 Lab4</title><link>https://loomt.top/posts/6.824-lab4/</link><guid isPermaLink="true">https://loomt.top/posts/6.824-lab4/</guid><pubDate>Thu, 09 Mar 2023 02:02:35 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="task">Task&lt;/h1>
 &lt;p>完成 Multi-Raft&lt;/p>
 &lt;ul>
 &lt;li>
@@ -1641,9 +1667,12 @@ result content as follow.
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/raft/">Raft</category><category domain="https://loomt.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</category><category domain="https://loomt.top/tags/6.824/">6.824</category></item><item><title>6.824</title><link>https://loomt.top/posts/6.824/</link><guid isPermaLink="true">https://loomt.top/posts/6.824/</guid><pubDate>Tue, 17 Jan 2023 23:11:57 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="mit-6824现在好像变成了-65840">MIT 6.824（现在好像变成了 6.5840&lt;/h1>
-&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>
-&lt;a href="https://www.youtube.com/watch?v=IdCbMO0Ey9I">go 并发编程&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://www.loomt.top/posts/6.824-lab1">lab1 solution&lt;/a>&lt;/p>
+&lt;h2 id="reference">reference&lt;/h2>
+&lt;p>&lt;a href="https://pdos.csail.mit.edu/6.824/schedule.html">schedule&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.youtube.com/watch?v=IdCbMO0Ey9I">go concurrency&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://cn.pingcap.com/blog/linearizability-and-raft">PingCAP Raft&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://wenzhe.one/MIT6.824%2021Spring">Wenzha Zhang&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://github.com/OneSizeFitsQuorum/MIT6.824-2021">OneSizeFitsQuorum&lt;/a>&lt;/p>
 &lt;h2 id="efficient-debug-and-test">Efficient debug and test&lt;/h2>
 &lt;p>&lt;a href="https://blog.josejg.com/debugging-pretty/">Debugging by Pretty Printing&lt;/a>&lt;/p>
 &lt;blockquote>
@@ -2438,7 +2467,7 @@ Usage: dstest.py &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/s
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────
 &lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/raft/">Raft</category><category domain="https://loomt.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</category><category domain="https://loomt.top/tags/6.824/">6.824</category></item><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
+&lt;/div></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/raft/">Raft</category><category domain="https://loomt.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</category><category domain="https://loomt.top/tags/6.824/">6.824</category><category domain="https://loomt.top/tags/6.5840/">6.5840</category></item><item><title>RPC</title><link>https://loomt.top/posts/rpc/</link><guid isPermaLink="true">https://loomt.top/posts/rpc/</guid><pubDate>Sun, 15 Jan 2023 21:47:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="rpc">RPC&lt;/h2>
 &lt;blockquote>
 &lt;p>Remote Procedure Call&lt;/p>
 &lt;/blockquote>
