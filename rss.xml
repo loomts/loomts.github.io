@@ -1,4 +1,228 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 26 Jun 2023 16:57:29 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>6.S081</title><link>https://loomt.top/posts/6.s081/</link><guid isPermaLink="true">https://loomt.top/posts/6.s081/</guid><pubDate>Sat, 10 Jun 2023 18:22:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="reference">reference&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 17 Feb 2024 16:07:40 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Reed Solomon原理与简单实现</title><link>https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><guid isPermaLink="true">https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><pubDate>Tue, 23 Jan 2024 22:39:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="reed-solomon-是">Reed-Solomon 是&lt;/h1>
+&lt;p>目前工业界最常用的纠删码（Erasure Code）之一，本文主要讲述其在存储领域如何进行数据容错，并且附带简要实现思路。&lt;/p>
+&lt;h2 id="reed-solomon-原理">Reed-Solomon 原理&lt;/h2>
+&lt;p>Reed-Solomon 通过数据冗余实现容错，并且根据冗余数据的大小实现与其一致的容错。&lt;/p>
+&lt;p>比如我有两个数字 1 和 2，那么可以通过构造出 3 = 1 + 2，并将其存储起来，就能在某个数字丢失的时候将 3 取出并恢复原来的数字。假设数字 1 丢失了，那么可以通过 3-2 = 1 的方式重新得到正确的数据。&lt;/p>
+&lt;p>上面通过简单相加的过程实现了最简单的数据冗余，但怎么实现更强的容错呢？我们可以设定不一样的系数。比如令 x = 1, y = 2，那么可以通过构造不同的系数得到不同的冗余数据，下面随便举几个例子。&lt;/p>
+&lt;p>$$0&lt;em>x+0&lt;/em>y=0$$
+$$0&lt;em>x+1&lt;/em>y=2$$
+$$1&lt;em>x+0&lt;/em>y=1$$
+$$1&lt;em>x+2&lt;/em>y=5$$
+$$2&lt;em>x+1&lt;/em>y=4$$&lt;/p>
+&lt;p>当 x 丢失的时候，我们可以发现公式 1、2 无法为重构 x 提供帮助的，因为其系数为 0，冗余的值与 x 线性无关。&lt;/p>
+&lt;p>所以，正常情况下，我们需要尽可能地保证方程要包含所有数据块的信息。&lt;/p>
+&lt;blockquote>
+&lt;p>P.S. XORing Elephants: Novel Erasure Codes for Big Data 论文中的 LRCs 能够通过构造两个半数线性无关的行列式，通过 14%的追加冗余，提高近乎两倍的数据恢复效率&lt;/p>
+&lt;/blockquote>
+&lt;p>但是我们需要对现实中计算机存储的数据冗余，这又要如何做到呢？&lt;/p>
+&lt;p>首先，我们知道计算机存储的数据都是由 0 和 1 组成的，因此可以对文件读进内存，并且以 byte 为单位对数据本身进行计算。&lt;/p>
+&lt;p>RS 的冗余计算方式是将文件切成 K 个数据块（data shards），假设 N 个数据块排成一列，通过对数据从开头到结尾进行多项式计算来生成 M 个校验块（parity shards），这样得到的校验块就包含了 N 个数据块的信息。&lt;/p>
+&lt;p>刚刚提到的“对数据从开头到结尾进行多项式计算”，其实就是用线性代数的知识对矩阵进行简单的加减乘除。&lt;/p>
+&lt;p>首先是编码矩阵的选取，常见的有 Vandermonde 和 Cauchy，&lt;a href="https://github.com/klauspost/reedsolomon">klauspost/rs&lt;/a> 的默认实现是 Vandermonde 矩阵，通过将其与上半部分（k*k）的逆矩阵相乘得到（k* k）的单位矩阵和（m*k）的下半部分矩阵。&lt;/p>
+&lt;p>$$
+\begin{bmatrix}
+1 &amp;amp; 1 &amp;amp; 1 &amp;amp; \dots &amp;amp; 1 \
+1 &amp;amp; 2 &amp;amp; 2^2 &amp;amp; \dots &amp;amp; 2^{k-1} \
+1 &amp;amp; 3 &amp;amp; 3^2 &amp;amp; \dots &amp;amp; 3^{k-1} \
+\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \
+1 &amp;amp; k+m &amp;amp; (k+m)^2 &amp;amp; \dots &amp;amp; (k+m)^{k-1}
+\end{bmatrix}
+\Longrightarrow
+\begin{bmatrix}
+1 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \
+0 &amp;amp; 1 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \
+0 &amp;amp; 0 &amp;amp; 1 &amp;amp; \dots &amp;amp; 0 \
+\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 1 \
+\hline \
+\alpha &amp;amp; \beta &amp;amp;\gamma &amp;amp; \dots &amp;amp; \delta \
+\epsilon &amp;amp; \zeta &amp;amp; \eta &amp;amp; \dots &amp;amp; \theta
+\end{bmatrix}
+$$&lt;/p>
+&lt;p>得到编码矩阵后，将其与数据块相乘，就能得到校验块。&lt;/p>
+&lt;p>但是如果直接相乘，就会导致一个问题：因为 K 个 1byte 数据的行列式计算结果很有可能会大于 1byte，导致校验块的大小不可控。&lt;/p>
+&lt;p>这个时候就要引入伽罗华域，伽罗华域又名有限域，包含有限个元素，这里我们选取包含 2^8 个元素的伽罗华域，在这个域中，每个元素可以表示为 8bit 的字节，所以校验块的大小不会膨胀。GF(2^8)中的所有多项式都可以通过多项式生成元 g 通过求幂得到。即域中的任意元素 $a \in \lbrace 0, 1, 2, \ldots, 255 \rbrace$，都存在一个 k，使得 a = g^k。为了更方便地在 GF 中进行乘除，我们需要创建两个表：对数表和指数表。对数表可以根据给定的指数查找 GF 中相应的对数；指数表则是反过来，根据对数得到 GF 中对应的指数。&lt;/p>
+&lt;p>打表：先确定 GF(2^8)的素多项式 $P_8(x) = x^8 + x^4 + x^3 + x^2 + 1 = 285$ 和生成元 $g(x)=2$，而后按顺序递推得到&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-golang" data-lang="golang">&lt;span class="nx">logTable&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">expTable&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">logTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">// g^0 = 1
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c1">// g = 2
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">256&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// if expTable[i] bigger than x^8
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">^=&lt;/span> &lt;span class="mh">0x11d&lt;/span> &lt;span class="c1">// P_8(x) = x^8 + x^4 + x^3 + x^2 + 1
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="nx">logTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">expTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">i&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">logTable&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="c1">// exptable[255]=exptable[0]=1, and g^0 must be 1, so reset logtable[1] = 0
+&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="c1">// logTable: -1 0 1 25 2 50 26 198 3 223 51 238 27 104 199 75 4 100 224 14 52 141 239 129 28 193 105 248 200 8 76 113 5 138 101 47 225 36 15 33 53 147 142 218 240 18 130 69 29 181 194 125 106 39 249 185 201 154 9 120 77 228 114 166 6 191 139 98 102 221 48 253 226 152 37 179 16 145 34 136 54 208 148 206 143 150 219 189 241 210 19 92 131 56 70 64 30 66 182 163 195 72 126 110 107 58 40 84 250 133 186 61 202 94 155 159 10 21 121 43 78 212 229 172 115 243 167 87 7 112 192 247 140 128 99 13 103 74 222 237 49 197 254 24 227 165 153 119 38 184 180 124 17 68 146 217 35 32 137 46 55 63 209 91 149 188 207 205 144 135 151 178 220 252 190 97 242 86 211 171 20 42 93 158 132 60 57 83 71 109 65 162 31 45 67 216 183 123 164 118 196 23 73 236 127 12 111 246 108 161 59 82 41 157 85 170 251 96 134 177 187 204 62 90 203 89 95 176 156 169 160 81 11 245 22 235 122 117 44 215 79 174 213 233 230 231 173 232 116 214 244 234 168 80 88 175
+&lt;/span>&lt;span class="c1">// expTable: 1 2 4 8 16 32 64 128 29 58 116 232 205 135 19 38 76 152 45 90 180 117 234 201 143 3 6 12 24 48 96 192 157 39 78 156 37 74 148 53 106 212 181 119 238 193 159 35 70 140 5 10 20 40 80 160 93 186 105 210 185 111 222 161 95 190 97 194 153 47 94 188 101 202 137 15 30 60 120 240 253 231 211 187 107 214 177 127 254 225 223 163 91 182 113 226 217 175 67 134 17 34 68 136 13 26 52 104 208 189 103 206 129 31 62 124 248 237 199 147 59 118 236 197 151 51 102 204 133 23 46 92 184 109 218 169 79 158 33 66 132 21 42 84 168 77 154 41 82 164 85 170 73 146 57 114 228 213 183 115 230 209 191 99 198 145 63 126 252 229 215 179 123 246 241 255 227 219 171 75 150 49 98 196 149 55 110 220 165 87 174 65 130 25 50 100 200 141 7 14 28 56 112 224 221 167 83 166 81 162 89 178 121 242 249 239 195 155 43 86 172 69 138 9 18 36 72 144 61 122 244 245 247 243 251 235 203 139 11 22 44 88 176 125 250 233 207 131 27 54 108 216 173 71 142 1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下面以 &lt;code>ABCDEFGHIJKLNMOP&lt;/code> 为例，模拟 RS 生成校验块并在部分数据块丢失的情况下恢复全量数据的过程。&lt;/p>
+&lt;p>令 K = 4，M = 2，将其切成 4 份，并且读取其 byte，我们可以得到其二进制表示（ASCII）。&lt;/p>
+&lt;p>$$
+\begin{bmatrix}
+A&amp;amp; B&amp;amp; C&amp;amp; D \
+E&amp;amp; F&amp;amp; G&amp;amp; H \
+I&amp;amp; J&amp;amp; K&amp;amp; L \
+N&amp;amp; M&amp;amp; O&amp;amp; P \
+\end{bmatrix}
+→
+\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}
+$$&lt;/p>
+&lt;p>再通过与(4+2,4)的 GF(2^8)编码矩阵相乘，得到校验块&lt;/p>
+&lt;h1 id="endbmatrix">$$
+\begin{bmatrix}
+1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
+0&amp;amp; 1&amp;amp; 0&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
+\end{bmatrix}
+×
+\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}&lt;/h1>
+&lt;h1 id="endbmatrix-1">\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+\end{bmatrix}
+$$
+令第一和第二个数据块丢失，模拟重构数据块的过程
+$$
+\begin{bmatrix}
+1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
+0&amp;amp; 1&amp;amp; 0&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
+\end{bmatrix}
+×
+\begin{bmatrix}
+d_1 \
+d_2 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}&lt;/h1>
+&lt;h1 id="endbmatrix-2">\begin{bmatrix}
+d_1 \
+d_2 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+\end{bmatrix}
+$$
+$$\downarrow$$
+$$
+\begin{bmatrix}
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
+\end{bmatrix}
+×
+\begin{bmatrix}
+d_1 \
+d_2 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}&lt;/h1>
+&lt;h1 id="endbmatrix-3">\begin{bmatrix}
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+\end{bmatrix}
+$$
+$$\downarrow$$
+$$
+\begin{bmatrix}
+d_1 \
+d_2 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}&lt;/h1>
+&lt;h1 id="endbmatrix-1-1">\begin{bmatrix}
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+\end{bmatrix}
+×
+\begin{bmatrix}
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
+\end{bmatrix}^{-1}&lt;/h1>
+&lt;h1 id="endbmatrix-4">\begin{bmatrix}
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+\end{bmatrix}
+×
+\begin{bmatrix}
+208 &amp;amp; 107 &amp;amp; 104&amp;amp; 210\
+107 &amp;amp; 208 &amp;amp; 210&amp;amp; 104\
+1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
+0&amp;amp; 1&amp;amp; 0&amp;amp; 0\
+\end{bmatrix}&lt;/h1>
+&lt;p>\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+\end{bmatrix}
+$$
+$$\downarrow$$
+$$
+d_1 = [65,66,67,68] \
+d_2 = [69,70,71,72]
+$$&lt;/p>
+&lt;p>因此，我们可以通过构造校验块并将每个数据块和校验块分开存储的方式对数据进行容错。&lt;/p>
+&lt;blockquote>
+&lt;p>reference&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;a href="https://drmingdrmer.github.io/tech/distributed/2017/02/01/ec.html">https://drmingdrmer.github.io/tech/distributed/2017/02/01/ec.html&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.cnblogs.com/codingtao/p/5916786.html">https://www.cnblogs.com/codingtao/p/5916786.html&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Vandermonde_matrix">https://en.wikipedia.org/wiki/Vandermonde_matrix&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>6.S081</title><link>https://loomt.top/posts/6.s081/</link><guid isPermaLink="true">https://loomt.top/posts/6.s081/</guid><pubDate>Sat, 10 Jun 2023 18:22:06 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="reference">reference&lt;/h2>
 &lt;p>&lt;a href="https://pdos.csail.mit.edu/6.828/2021/schedule.html">schedule&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/">translation&lt;/a>&lt;/p>
 &lt;h3 id="添加用户函数">添加用户函数&lt;/h3>
@@ -2472,17 +2696,16 @@ Usage: dstest.py &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/s
 &lt;p>Remote Procedure Call&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="特点">特点&lt;/h3>
-&lt;p>RPC 与 HTTP 并不是并列关系，RPC 只是一个远程过程调用的规约，可以用 HTTP 进行信息的传输。&lt;/p>
+&lt;p>RPC 与 HTTP 并不是并列关系，RPC 是远程过程调用的规约，可以用 HTTP 进行信息的传输。&lt;/p>
 &lt;p>RPC 的主要目的是做到不同服务间调用方法像同一服务间调用本地方法一样。&lt;/p>
-&lt;p>大致流程是编码（可以用 protobuf），传输，接收，解码&lt;/p>
+&lt;p>大致流程是编码（protobuf），传输，接收，解码&lt;/p>
 &lt;h3 id="优点">优点&lt;/h3>
 &lt;ol>
-&lt;li>单一责任&lt;/li>
-&lt;li>扩展性&lt;/li>
-&lt;li>故障隔离&lt;/li>
+&lt;li>用的是 HTTP2.0，只需要一个 TCP 协议就可以使得服务器和客户端在这个 TCP 协议的多个双向 Stream 上并发地传输数据&lt;/li>
+&lt;li>用了 protobuf，二进制并且比 json 更小&lt;/li>
 &lt;/ol>
 &lt;h4 id="论文架构">论文架构&lt;/h4>
-&lt;p>User, User-Stub, RPC-Runtime, Server-Stub, Server&lt;/p>
+&lt;p>Client, Client-Stub, RPC-Runtime, Server-Stub, Server&lt;/p>
 &lt;p>&lt;img src="https://loomt.top/img/Implementing-remote-procedure-calls.png" alt="Implementing-remote-procedure-calls">&lt;/p>
 &lt;h3 id="实现">实现&lt;/h3>
 &lt;p>&lt;img src="https://loomt.top/img/rpc-real.png" alt="rpc-real">&lt;/p>
