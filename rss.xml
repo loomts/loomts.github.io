@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 17 Feb 2024 16:07:40 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Reed Solomon原理与简单实现</title><link>https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><guid isPermaLink="true">https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><pubDate>Tue, 23 Jan 2024 22:39:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="reed-solomon-是">Reed-Solomon 是&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 17 Feb 2024 16:44:25 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Reed Solomon原理与简单实现</title><link>https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><guid isPermaLink="true">https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><pubDate>Tue, 23 Jan 2024 22:39:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="reed-solomon-是">Reed-Solomon 是&lt;/h1>
 &lt;p>目前工业界最常用的纠删码（Erasure Code）之一，本文主要讲述其在存储领域如何进行数据容错，并且附带简要实现思路。&lt;/p>
 &lt;h2 id="reed-solomon-原理">Reed-Solomon 原理&lt;/h2>
 &lt;p>Reed-Solomon 通过数据冗余实现容错，并且根据冗余数据的大小实现与其一致的容错。&lt;/p>
 &lt;p>比如我有两个数字 1 和 2，那么可以通过构造出 3 = 1 + 2，并将其存储起来，就能在某个数字丢失的时候将 3 取出并恢复原来的数字。假设数字 1 丢失了，那么可以通过 3-2 = 1 的方式重新得到正确的数据。&lt;/p>
 &lt;p>上面通过简单相加的过程实现了最简单的数据冗余，但怎么实现更强的容错呢？我们可以设定不一样的系数。比如令 x = 1, y = 2，那么可以通过构造不同的系数得到不同的冗余数据，下面随便举几个例子。&lt;/p>
-&lt;p>$$0&lt;em>x+0&lt;/em>y=0$$
-$$0&lt;em>x+1&lt;/em>y=2$$
-$$1&lt;em>x+0&lt;/em>y=1$$
-$$1&lt;em>x+2&lt;/em>y=5$$
-$$2&lt;em>x+1&lt;/em>y=4$$&lt;/p>
+&lt;p>$$0 \times x + 0 \times y = 0$$
+$$0 \times x + 1 \times y = 2$$
+$$1 \times x + 0 \times y = 1$$
+$$1 \times x + 2 \times y = 5$$
+$$2 \times x + 1 \times y = 4$$&lt;/p>
 &lt;p>当 x 丢失的时候，我们可以发现公式 1、2 无法为重构 x 提供帮助的，因为其系数为 0，冗余的值与 x 线性无关。&lt;/p>
 &lt;p>所以，正常情况下，我们需要尽可能地保证方程要包含所有数据块的信息。&lt;/p>
 &lt;blockquote>
@@ -21,21 +21,20 @@ $$2&lt;em>x+1&lt;/em>y=4$$&lt;/p>
 &lt;p>首先是编码矩阵的选取，常见的有 Vandermonde 和 Cauchy，&lt;a href="https://github.com/klauspost/reedsolomon">klauspost/rs&lt;/a> 的默认实现是 Vandermonde 矩阵，通过将其与上半部分（k*k）的逆矩阵相乘得到（k* k）的单位矩阵和（m*k）的下半部分矩阵。&lt;/p>
 &lt;p>$$
 \begin{bmatrix}
-1 &amp;amp; 1 &amp;amp; 1 &amp;amp; \dots &amp;amp; 1 \
-1 &amp;amp; 2 &amp;amp; 2^2 &amp;amp; \dots &amp;amp; 2^{k-1} \
-1 &amp;amp; 3 &amp;amp; 3^2 &amp;amp; \dots &amp;amp; 3^{k-1} \
-\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \
+1 &amp;amp; 1 &amp;amp; 1 &amp;amp; \dots &amp;amp; 1 \\
+1 &amp;amp; 2 &amp;amp; 2^2 &amp;amp; \dots &amp;amp; 2^{k-1} \\
+1 &amp;amp; 3 &amp;amp; 3^2 &amp;amp; \dots &amp;amp; 3^{k-1} \\
+\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\
 1 &amp;amp; k+m &amp;amp; (k+m)^2 &amp;amp; \dots &amp;amp; (k+m)^{k-1}
 \end{bmatrix}
 \Longrightarrow
 \begin{bmatrix}
-1 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \
-0 &amp;amp; 1 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \
-0 &amp;amp; 0 &amp;amp; 1 &amp;amp; \dots &amp;amp; 0 \
-\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \
-0 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 1 \
-\hline \
-\alpha &amp;amp; \beta &amp;amp;\gamma &amp;amp; \dots &amp;amp; \delta \
+1 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\
+0 &amp;amp; 1 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\
+0 &amp;amp; 0 &amp;amp; 1 &amp;amp; \dots &amp;amp; 0 \\
+\vdots &amp;amp; \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 1 \\
+\alpha &amp;amp; \beta &amp;amp; \gamma &amp;amp; \dots &amp;amp; \delta \\
 \epsilon &amp;amp; \zeta &amp;amp; \eta &amp;amp; \dots &amp;amp; \theta
 \end{bmatrix}
 $$&lt;/p>
@@ -83,137 +82,132 @@ $$&lt;/p>
 &lt;p>令 K = 4，M = 2，将其切成 4 份，并且读取其 byte，我们可以得到其二进制表示（ASCII）。&lt;/p>
 &lt;p>$$
 \begin{bmatrix}
-A&amp;amp; B&amp;amp; C&amp;amp; D \
-E&amp;amp; F&amp;amp; G&amp;amp; H \
-I&amp;amp; J&amp;amp; K&amp;amp; L \
-N&amp;amp; M&amp;amp; O&amp;amp; P \
+A&amp;amp; B&amp;amp; C&amp;amp; D \\
+E&amp;amp; F&amp;amp; G&amp;amp; H \\
+I&amp;amp; J&amp;amp; K&amp;amp; L \\
+N&amp;amp; M&amp;amp; O&amp;amp; P \\
 \end{bmatrix}
 →
 \begin{bmatrix}
-65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
-69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \\
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
 \end{bmatrix}
 $$&lt;/p>
-&lt;p>再通过与(4+2,4)的 GF(2^8)编码矩阵相乘，得到校验块&lt;/p>
-&lt;h1 id="endbmatrix">$$
-\begin{bmatrix}
-1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
-0&amp;amp; 1&amp;amp; 0&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
-27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
-28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
-\end{bmatrix}
-×
-\begin{bmatrix}
-65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
-69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-\end{bmatrix}&lt;/h1>
-&lt;h1 id="endbmatrix-1">\begin{bmatrix}
-65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
-69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
-85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
-\end{bmatrix}
-$$
-令第一和第二个数据块丢失，模拟重构数据块的过程
+&lt;p>再通过与(4+2,4)的 GF(2^8)编码矩阵相乘，得到校验块
 $$
 \begin{bmatrix}
-1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
-0&amp;amp; 1&amp;amp; 0&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
-27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
-28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
-\end{bmatrix}
-×
+1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\
+0 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 \\
+0 &amp;amp; 0 &amp;amp; 1 &amp;amp; 0 \\
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1 \\
+27 &amp;amp; 28 &amp;amp; 18 &amp;amp; 20 \\
+28 &amp;amp; 27 &amp;amp; 20 &amp;amp; 18 \\
+\end{bmatrix}\times
 \begin{bmatrix}
-d_1 \
-d_2 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-\end{bmatrix}&lt;/h1>
-&lt;h1 id="endbmatrix-2">\begin{bmatrix}
-d_1 \
-d_2 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
-85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \\
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+\end{bmatrix}=
+\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \\
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \\
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \\
 \end{bmatrix}
+$$&lt;/p>
+&lt;p>令第一和第二个数据块丢失，模拟重构数据块的过程
 $$
-$$\downarrow$$
+\begin{bmatrix}
+1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \\
+0&amp;amp; 1&amp;amp; 0&amp;amp; 0 \\
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \\
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \\
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \\
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \\
+\end{bmatrix}×
+\begin{bmatrix}
+d_1 \\
+d_2 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+\end{bmatrix}=
+\begin{bmatrix}
+d_1 \\
+d_2 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \\
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \\
+\end{bmatrix}
+$$&lt;/p>
+&lt;p>$$\downarrow$$
 $$
 \begin{bmatrix}
-0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
-27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
-28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
-\end{bmatrix}
-×
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \\
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \\
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \\
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \\
+\end{bmatrix}×
 \begin{bmatrix}
-d_1 \
-d_2 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-\end{bmatrix}&lt;/h1>
-&lt;h1 id="endbmatrix-3">\begin{bmatrix}
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
-85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
+d_1 \\
+d_2 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+\end{bmatrix}=
+\begin{bmatrix}
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \\
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \\
 \end{bmatrix}
 $$
 $$\downarrow$$
 $$
 \begin{bmatrix}
-d_1 \
-d_2 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-\end{bmatrix}&lt;/h1>
-&lt;h1 id="endbmatrix-1-1">\begin{bmatrix}
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
-85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
-\end{bmatrix}
-×
+d_1 \\
+d_2 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+\end{bmatrix}=
 \begin{bmatrix}
-0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \
-0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \
-27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \
-28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \
-\end{bmatrix}^{-1}&lt;/h1>
-&lt;h1 id="endbmatrix-4">\begin{bmatrix}
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
-81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \
-85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \
-\end{bmatrix}
-×
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \\
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \\
+\end{bmatrix}×
 \begin{bmatrix}
-208 &amp;amp; 107 &amp;amp; 104&amp;amp; 210\
-107 &amp;amp; 208 &amp;amp; 210&amp;amp; 104\
-1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \
-0&amp;amp; 1&amp;amp; 0&amp;amp; 0\
-\end{bmatrix}&lt;/h1>
-&lt;p>\begin{bmatrix}
-65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \
-69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \
-73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \
-77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \
+0&amp;amp; 0&amp;amp; 1&amp;amp; 0 \\
+0&amp;amp; 0&amp;amp; 0&amp;amp; 1 \\
+27&amp;amp; 28&amp;amp; 18&amp;amp; 20 \\
+28&amp;amp; 27&amp;amp; 20&amp;amp; 18 \\
+\end{bmatrix}^{-1}=
+\begin{bmatrix}
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
+81 &amp;amp; 82 &amp;amp; 83 &amp;amp; 73 \\
+85 &amp;amp; 86 &amp;amp; 87 &amp;amp; 37 \\
+\end{bmatrix}×
+\begin{bmatrix}
+208 &amp;amp; 107 &amp;amp; 104&amp;amp; 210\\
+107 &amp;amp; 208 &amp;amp; 210&amp;amp; 104\\
+1&amp;amp; 0&amp;amp; 0&amp;amp; 0 \\
+0&amp;amp; 1&amp;amp; 0&amp;amp; 0\\
+\end{bmatrix}=
+\begin{bmatrix}
+65 &amp;amp; 66 &amp;amp; 67 &amp;amp; 68 \\
+69 &amp;amp; 70 &amp;amp; 71 &amp;amp; 72 \\
+73 &amp;amp; 74 &amp;amp; 75 &amp;amp; 76 \\
+77 &amp;amp; 78 &amp;amp; 79 &amp;amp; 80 \\
 \end{bmatrix}
 $$
 $$\downarrow$$
 $$
-d_1 = [65,66,67,68] \
+d_1 = [65,66,67,68] \\
 d_2 = [69,70,71,72]
 $$&lt;/p>
 &lt;p>因此，我们可以通过构造校验块并将每个数据块和校验块分开存储的方式对数据进行容错。&lt;/p>
