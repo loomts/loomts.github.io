@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 17 Feb 2024 17:03:45 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Reed Solomon原理与简单实现</title><link>https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><guid isPermaLink="true">https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><pubDate>Tue, 23 Jan 2024 22:39:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="reed-solomon-是">Reed-Solomon 是&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 11 Apr 2024 15:58:09 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>CRDT</title><link>https://loomt.top/posts/crdt/</link><guid isPermaLink="true">https://loomt.top/posts/crdt/</guid><pubDate>Thu, 04 Apr 2024 22:54:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>CRDT （conflict-free replicated data type）是 SEC（strong eventual consistency），常用与共同协作的文档，或者说用于快速响应，但是对正确性要求不高的 AP（Available，Partition torrent） 场景。&lt;/p>
+&lt;p>CRDTs are perfect for asynchronous gossip.&lt;/p>
+&lt;ul>
+&lt;li>将请求以任意顺序合并&lt;/li>
+&lt;li>同样的请求有幂等性&lt;/li>
+&lt;li>即使请求延迟、乱序、重复，都没关系&lt;/li>
+&lt;/ul>
+&lt;p>因为 CRDTs 形成了一个 join semi-lattice，分布式系统的偏序关系形成的有向图最终达成一致的最小公共祖先，即 upper bound on semi-lattice diagram。&lt;/p>
+&lt;p>对于每个节点，CRDT 需要维护：&lt;/p>
+&lt;ul>
+&lt;li>本地对请求的排序&lt;/li>
+&lt;li>merge 函数，可以将其他节点的请求合并到自己身上&lt;/li>
+&lt;li>update 函数，可以更新自己的数据(semi-lattice 的 upper bound)&lt;/li>
+&lt;/ul>
+&lt;p>IPFS Cluster 的 CRDT 是面向 Merkle DAG 的 CRDT，可以对集群的 Merkle DAG 进行共识，但是 DAG 的节点不可变更。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/crdt/">CRDT</category></item><item><title>IPFS Cluster With Erasure Coding</title><link>https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</link><guid isPermaLink="true">https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</guid><pubDate>Thu, 14 Mar 2024 22:45:21 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>本文将会介绍 IPFS 以及 IPFS Cluster 的原理，并且简述 &lt;a href="https://github.com/loomts/ipfs-clsuter">https://github.com/loomts/ipfs-clsuter&lt;/a> 的纠删码优化以及测试的细节。&lt;/p>
+&lt;h2 id="ipfs">IPFS&lt;/h2>
+&lt;p>IPFS 是一个分布式文件系统，其最大的特点是内容寻址，能够将文件的 CID 作为索引，在世界各地获取文件的内容。&lt;/p>
+&lt;p>具体来说，IPFS 在存储文件的时候，会将文件分成默认 256KB 的数据块，同时也会生成一些元数据块，用于存储其他块的 CID，最终会组成一个 Merkle DAG（与 git 的数据结构类似）。&lt;/p>
+&lt;p>如果文件有部分内容被修改，IPFS 只会将被修改的部分切割成小块，并构成一颗新的 Merkle DAG。因为 IPFS 的底层存储可以随意更换，可以用 linux 默认的文件系统，也可以用其他 KV storage，IPFS 默认使用的是 pebble。&lt;/p>
+&lt;h2 id="ipfs-cluster">IPFS Cluster&lt;/h2>
+&lt;p>IPFS 虽然能通过 BitSwap 等机制从对等点获取数据块，但是无法保证对等点存在自己需要的数据，即无法进行方便的容错。&lt;/p>
+&lt;p>IPFS Cluster 作为 IPFS 的集群管理工具，提供了多副本容错机制，能够让集群通过 CRDT 或 Raft 共识算法将元数据和存储的数据保持一致，并且能够管理集群成员的状态。&lt;/p>
+&lt;h2 id="ipfs-cluster-with-ec">IPFS Cluster With EC&lt;/h2>
+&lt;p>EC 即 Erasure Coding，使用的是 Reed-Solomon 码，能够通过等长的数据分片生成若干校验分片，并且使用部分分片进行数据恢复。&lt;/p>
+&lt;p>在 IPFS Cluster 里面实现 EC 首先需要获取文件块，将文件块组装成等长的文件分片，进而再进行 RS 编码和额外的校验分片存储。&lt;/p>
+&lt;p>分片的分配方式是通过将 hash(filename+peerID)作为键值进行排序，排序得到的 peerIDs 将会被分为存储数据分片和校验分片的两类节点。对于这个文件，每类节点分别存储对应类型的分片。&lt;/p>
+&lt;p>&lt;img src="https://loomt.top/img/ipfs-ec-struct.jpg" alt="ipfs-cluster-ec-structure">&lt;/p>
+&lt;p>在 IPFS Cluster 而不在 IPFS 直接进行 EC 的原因&lt;/p>
+&lt;ol>
+&lt;li>IPFS 无法控制其他节点实际存储的块，因此无法起到纠删码分散容错的效果。&lt;/li>
+&lt;li>IPFS Cluster 提供了很多节点之间同步和交互的功能，能维护一个集群一致的分片分配元数据。&lt;/li>
+&lt;li>生成的校验数据会破坏原文件的 Merkle DAG，需要改动很多接口和细节。&lt;/li>
+&lt;/ol>
+&lt;p>但是目前在 IPFS Cluster 上使用 EC 也有一个很令人难受的缺点：因为默认的添加文件方式通过一个 io.Reader 读入数据，切块，并构造 Merkle DAG，所以生成的校验块也是通过这样的方式添加到集群，这样会使得 pinset 比较大，可能在存储的文件过多的时候会对性能有影响。&lt;/p>
+&lt;p>考虑的优化是将这个 Merkle DAG 作为子节点拓展出一个新的 Merkle DAG，新的 Merkle DAG 需要包括校验数据，但 hack Merkle DAG 的方式以及 Merkle DAG 的实际结构还有待商榷。&lt;/p>
+&lt;h3 id="ipfs-cluster-test">IPFS Cluster test&lt;/h3>
+&lt;p>详见 &lt;a href="https://github.com/loomts/ipfs-cluster-erasure-example">https://github.com/loomts/ipfs-cluster-erasure-example&lt;/a>&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>Time, Clocks, and the Ordering of Evenets in a Distributed System 论文阅读</title><link>https://loomt.top/posts/paper/time-clocks-and-the-ordering-of-evenets-in-a-distributed-system%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</link><guid isPermaLink="true">https://loomt.top/posts/paper/time-clocks-and-the-ordering-of-evenets-in-a-distributed-system%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</guid><pubDate>Mon, 11 Mar 2024 14:41:32 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>此文是分布式系统领域的经典论文，定义了分布式系统中事件的偏序关系，并且提出了一种分布式系统的时间同步算法。&lt;/p>
+&lt;p>在多进程通信时，独立的计算机也可能是分布式系统，换句话说，只要不同进程之间的通信时延不能忽略都可以算作分布式系统。
+在分布式系统的运行过程中，事件的执行顺序非常重要，论文首先明确定义了事件的 happened before 关系，
+进而阐明了事件的偏序关系（不叫全序的原因是有些事件不能以物理时钟的视角进行排序，可以看做是并行的，没有绝对的先后顺序），
+为了实现对分布式系统中所有事件排序，又定义了全序关系，在偏序关系的基础上用进程的逻辑时钟对没有先后顺序的事件进行排序。&lt;/p>
+&lt;p>happened before（a $→$ b）：
+偏向对事件的逻辑关系进行排序，事件 a 会对事件 b 造成潜在的影响，称 a happened before b。&lt;/p>
+&lt;ol>
+&lt;li>对于单进程，只要 a 的执行顺序是在 b 之前，即为 a $→$ b。&lt;/li>
+&lt;li>对于多个进程，一个进程发送事件（a）给另一个进程，并且另一个进程收到这个事件（b），也算是 a $→$ b。&lt;/li>
+&lt;li>happened before 有传递性，若 a $→$ b，b $→$ c，也有 a $→$ c。如果 a $↛$ b，并且 b $↛$ a，则表明 a 和 b 是并发的。&lt;/li>
+&lt;/ol>
+&lt;p>The Partial Ordering（偏序关系）：
+由 happened before 延伸而来，但是偏序关系的范围大于 happened before。&lt;/p>
+&lt;ol>
+&lt;li>偏序关系包括 happened before 关系。&lt;/li>
+&lt;li>如果 a $→$ b，并且 a $→$ c，但 b 和 c 之间没有任何关系，表明我们可以不在乎 b 和 c 的顺序，将其看做是并发的。&lt;/li>
+&lt;/ol>
+&lt;p>为了在分布式系统中实现对所有事件进行排序，论文引入了逻辑时钟，我们能将其看做是一个自增的 id，可以不依赖物理时钟，只需要为每个进程定义事件顺序即可，我们可以用 $C_i(a)$ 定义为第 i 个进程的事件 a 的逻辑时钟。&lt;/p>
+&lt;p>对于任意事件 a 和 b，如果 a $→$ b，则 C(a) &amp;lt; C(b)，那么需要满足：
+&lt;span id="IR"> &lt;/span>&lt;/p>
+&lt;ul>
+&lt;li>IR1：对于单进程，每个进程定义的逻辑时钟需要自增。&lt;/li>
+&lt;li>IR2：对于多进程，在传递事件（a）时，进程 i 可以附带上自己的逻辑时钟 $C_i(a)$，进程 j 接收到事件（b）时，可能需要根据其大小控制自己的逻辑时钟 $C_j(b)$ 不小于 $C_i(a)$。&lt;/li>
+&lt;/ul>
+&lt;p>通过逻辑时钟，我们就可以定义全序关系 $⇒$：&lt;/p>
+&lt;ol>
+&lt;li>$C_i(a) &amp;lt; C_j(b)$。&lt;/li>
+&lt;li>$C_i(a) &amp;lt; C_j(b)$ 并且 $process_i &amp;lt; process_j$。&lt;/li>
+&lt;/ol>
+&lt;p>可以知道的是，$⇒$ 关系最终构成的事件顺序是不唯一的，受到逻辑时钟的影响；$→$ 则是唯一的。
+那么如何才能定义全序关系，并且实现呢？对于一个资源互斥的使用场景，全序关系的算法实现需要满足三个条件：&lt;/p>
+&lt;ol>
+&lt;li>同一时间只能有一个进程持有某个资源，进程持有资源的时候，前一个使用此资源的进程需要释放资源。&lt;/li>
+&lt;li>不同资源的请求必须按顺序执行。&lt;/li>
+&lt;li>如果每个已经使用的资源最终被释放，那么每个资源的请求都会被通过。&lt;/li>
+&lt;/ol>
+&lt;p>具体来说，可以用五个规则来实现：&lt;/p>
+&lt;ol>
+&lt;li>进程 i 请求资源时，需要发送包含时间戳和进程 id 的请求到其他所有对等点，并且在自己的请求队列添加这个请求。&lt;/li>
+&lt;li>进程 j 收到请求后，需要返回一个回复或请求，要求时间戳更大。&lt;/li>
+&lt;li>当进程需要释放资源的时候，先删除请求队列里面所有当前资源的请求，再发送删除的请求到所有其他节点。&lt;/li>
+&lt;li>当其他进程收到了删除请求后，直接移除请求队列中所有对应资源的请求。&lt;/li>
+&lt;li>进程持有资源需要满足以下两个条件：① 请求队列中对应资源的请求在开头；② 进程收到了其他所有进程的时间戳大于当前请求的消息。&lt;/li>
+&lt;/ol>
+&lt;p>但是假如用户 A 发送了一个请求到服务器，告知用户 B 之后用户 B 也发送了同样的请求，如果全序关系分配了较大的逻辑时钟给 B 的请求，那么服务器返回的结果可能与期望的结果不符。&lt;/p>
+&lt;p>这个问题，并不是系统内部能够控制的，虽然定义的全序关系可以组成一个多个进程统一的命令队列，每个机器按照队列执行可以保证分布式系统的一致性，但是，集群无法感知外界的“happened before”关系，可能会得到违反自觉的结果。&lt;/p>
+&lt;p>因此，本文的作者引入了物理时钟解决这个问题，引入物理时钟相当于在现实世界添加了一个强约束：如果 $a \rightarrow b$ 则必定 $C(a) &amp;lt; C(b)$。&lt;/p>
+&lt;p>对于时钟约束，我们假设每个机器的速率可以用 $dC_i(t)/dt$ 表示，现实的物理时钟的速率为 1，集群的时钟有两个限制：&lt;/p>
+&lt;ul>
+&lt;li>PC1： $| dC_i(t)/dt -1| &amp;lt; \kappa$ $\kappa$ 常 $ \leq 10^{-6}$&lt;/li>
+&lt;li>PC2： $|C_i(t) - C_j(t)| &amp;lt; \epsilon$&lt;/li>
+&lt;/ul>
+&lt;p>因为两个机器的时钟不可能以同一个速率运行，那么两者的差值会越来越大，我们必须设计一个时钟同步算法来保证 $a \nrightarrow b$ 的时候满足以上两个约束（现实世界的强限制）。&lt;/p>
+&lt;p>首先需要考虑的问题是如何设定 $κ$ 和 $ϵ$ 的值，假定所有机器的时间只会向前流逝，也就是说调整时钟的时候只能调的更慢而不能调快。首先想到的是这两个值与集群进程间通信的时延有关，如果进程间通信的最小时延为 $μ$，由限制 1，我们可以得到 $C_i(t+μ) - C_i(t) &amp;gt; (1-κ)μ$，左边是同一机器在经过 $μ$ 时间后机器时钟的时间差，理想情况下应该等于 $μ$，但是因为时钟只会更慢于物理时钟，因此其值必定小于 $μ$；右边则是允许机器时钟与物理时钟的最小的误差；由限制 2，我们可以得到 $C_i(t+μ)-C_j(t)&amp;gt;0$，化简可知 $ϵ/(1-κ)≤μ$。&lt;/p>
+&lt;p>在真正的物理世界，我们由上面的 &lt;a href="https://loomt.top/posts/paper/time-clocks-and-the-ordering-of-evenets-in-a-distributed-system%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/#IR">逻辑时钟限制&lt;/a> 衍生出了以下两个限制：&lt;/p>
+&lt;ul>
+&lt;li>IR1'：对于每个进程 i，如果在物理时间 t 的时候没收到请求，在时间 t 的时候 $C_i$ 是连续可导的，并且 $dC_i(t)/dt &amp;gt; 0$&lt;/li>
+&lt;li>IR2'：进程 i 发送信息 m 的时候需要附带自己的时间戳 $T_m = C_i(t)$，进程 j 接收到 m 的时候为 t'，那么 j 需要设置自己的时钟为 $max{C_j(t'-0),T_m+μ_m}$。&lt;/li>
+&lt;/ul>
+&lt;p>基于以上的两个限制，论文通过两页纸的证明得出结论：对于一个分布式系统，可以将节点之间的通信表示成有向图的边。如果有向图的直径为 d，并且对于每个请求 m，$μ_m≤μ$，就能满足 PC1；再有 IR1&amp;rsquo;和 IR2'，令每条边每隔 $\tau$ 秒在小于 $\xi$ 的延迟下发送请求的情况下 $ϵ \approx d(2κτ+ξ)，μ+ξ\ll τ$。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/paper/">paper</category><category domain="https://loomt.top/tags/distributed-system/">Distributed System</category><category domain="https://loomt.top/tags/ordering/">Ordering</category></item><item><title>Reed Solomon原理与简单实现</title><link>https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link><guid isPermaLink="true">https://loomt.top/posts/reed-solomon%E5%8E%9F%E7%90%86%E4%B8%8E%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid><pubDate>Tue, 23 Jan 2024 22:39:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="reed-solomon-是">Reed-Solomon 是&lt;/h1>
 &lt;p>目前工业界最常用的纠删码（Erasure Code）之一，本文主要讲述其在存储领域如何进行数据容错，并且附带简要实现思路。&lt;/p>
 &lt;h2 id="reed-solomon-原理">Reed-Solomon 原理&lt;/h2>
 &lt;p>Reed-Solomon 通过数据冗余实现容错，并且根据冗余数据的大小实现与其一致的容错。&lt;/p>
