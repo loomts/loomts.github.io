@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 11 Apr 2024 15:58:09 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>CRDT</title><link>https://loomt.top/posts/crdt/</link><guid isPermaLink="true">https://loomt.top/posts/crdt/</guid><pubDate>Thu, 04 Apr 2024 22:54:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>CRDT （conflict-free replicated data type）是 SEC（strong eventual consistency），常用与共同协作的文档，或者说用于快速响应，但是对正确性要求不高的 AP（Available，Partition torrent） 场景。&lt;/p>
-&lt;p>CRDTs are perfect for asynchronous gossip.&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 11 Apr 2024 16:16:27 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>CRDT</title><link>https://loomt.top/posts/crdt/</link><guid isPermaLink="true">https://loomt.top/posts/crdt/</guid><pubDate>Thu, 04 Apr 2024 22:54:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>CRDT 是一种无冲突复制数据类型，它支持强最终一致性（SEC, Strong Eventual Consistency）。这种数据类型常用于需要多用户协作编辑的文档，或者那些要求快速响应但不需要很高正确性保证的场景，比如分区容错（AP, Availability and Partition Tolerance）应用中。&lt;/p>
+&lt;p>CRDT 非常适合于异步传播（异步 gossip）场景。无论网络状态如何，CRDT 能保证数据的一致性。它具有以下特点：&lt;/p>
 &lt;ul>
 &lt;li>将请求以任意顺序合并&lt;/li>
 &lt;li>同样的请求有幂等性&lt;/li>
 &lt;li>即使请求延迟、乱序、重复，都没关系&lt;/li>
 &lt;/ul>
-&lt;p>因为 CRDTs 形成了一个 join semi-lattice，分布式系统的偏序关系形成的有向图最终达成一致的最小公共祖先，即 upper bound on semi-lattice diagram。&lt;/p>
-&lt;p>对于每个节点，CRDT 需要维护：&lt;/p>
+&lt;p>CRDT 的数据结构形成了一个半格（semi-lattice）。在分布式系统中，通过维护一个偏序关系构成的有向图，在这张有向图中能保证最终所有的节点会收敛到一个最小公共祖先节点，即在半格图（semi-lattice diagram）中找到一个上界（upper bound）。&lt;/p>
+&lt;p>对于每个 CRDT 节点，需要维护：&lt;/p>
 &lt;ul>
 &lt;li>本地对请求的排序&lt;/li>
 &lt;li>merge 函数，可以将其他节点的请求合并到自己身上&lt;/li>
-&lt;li>update 函数，可以更新自己的数据(semi-lattice 的 upper bound)&lt;/li>
+&lt;li>update 函数，可以更新自己的数据(需要合并的更新中最小公共祖先节点)&lt;/li>
 &lt;/ul>
-&lt;p>IPFS Cluster 的 CRDT 是面向 Merkle DAG 的 CRDT，可以对集群的 Merkle DAG 进行共识，但是 DAG 的节点不可变更。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/crdt/">CRDT</category></item><item><title>IPFS Cluster With Erasure Coding</title><link>https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</link><guid isPermaLink="true">https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</guid><pubDate>Thu, 14 Mar 2024 22:45:21 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>本文将会介绍 IPFS 以及 IPFS Cluster 的原理，并且简述 &lt;a href="https://github.com/loomts/ipfs-clsuter">https://github.com/loomts/ipfs-clsuter&lt;/a> 的纠删码优化以及测试的细节。&lt;/p>
+&lt;p>IPFS Cluster 所采用的 CRDT 是一种专为 Merkle DAG 设计的版本。在 IPFS Cluster 中，多个节点可以通过 CRDT 达成对集群 Merkle DAG 状态的共识，而 DAG 中的节点一旦创建便无法改变。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/crdt/">CRDT</category></item><item><title>IPFS Cluster With Erasure Coding</title><link>https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</link><guid isPermaLink="true">https://loomt.top/posts/ipfs-cluster-with-erasure-coding/</guid><pubDate>Thu, 14 Mar 2024 22:45:21 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>本文将会介绍 IPFS 以及 IPFS Cluster 的原理，并且简述 &lt;a href="https://github.com/loomts/ipfs-clsuter">https://github.com/loomts/ipfs-clsuter&lt;/a> 的纠删码优化以及测试的细节。&lt;/p>
 &lt;h2 id="ipfs">IPFS&lt;/h2>
 &lt;p>IPFS 是一个分布式文件系统，其最大的特点是内容寻址，能够将文件的 CID 作为索引，在世界各地获取文件的内容。&lt;/p>
 &lt;p>具体来说，IPFS 在存储文件的时候，会将文件分成默认 256KB 的数据块，同时也会生成一些元数据块，用于存储其他块的 CID，最终会组成一个 Merkle DAG（与 git 的数据结构类似）。&lt;/p>
