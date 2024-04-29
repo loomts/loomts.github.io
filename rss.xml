@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 29 Apr 2024 16:20:06 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>GFS</title><link>https://loomt.top/posts/paper/gfs/</link><guid isPermaLink="true">https://loomt.top/posts/paper/gfs/</guid><pubDate>Fri, 12 Apr 2024 09:04:18 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>GFS 是 Google 2003 年发表的论文，是分布式系统最早的大规模工业化实践。当时的背景是 Google 需要一个适用于各种 application 的 Global 存储系统。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 29 Apr 2024 16:20:27 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>PBFT</title><link>https://loomt.top/posts/paper/pbft/</link><guid isPermaLink="true">https://loomt.top/posts/paper/pbft/</guid><pubDate>Mon, 15 Apr 2024 16:49:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>PBFT，即实用拜占庭容错。本文不赘述 BFT 相关概念，而是简述论文的具体实现部分。&lt;/p>
+&lt;h2 id="默认情况下的-pbft">默认情况下的 PBFT&lt;/h2>
+&lt;p>假设节点数量为 3f+1，每个节点需要维护一致的状态机，为了能够迅速达成共识，需要有一个主节点，其他节点则作为从节点，主节点带领其他节点共识的这段时间称为 view，有点像 Raft 的任期，是自增的。&lt;/p>
+&lt;p>client 的请求也只会发送给主节点，由主节点进行集群的共识，期间需要经历 3 个阶段，集群的节点才能返回结果给 client。
+如果 client 没有及时收到结果，就会给所有的节点发送请求，如果请求已经被处理，那么节点只会再次返回结果；否则，如果节点不是主节点，就会转发给主节点，
+如果主节点并没有进行 pre-prepare phase，就会进行 view change。&lt;/p>
+&lt;h3 id="three-phase">three phase&lt;/h3>
+&lt;p>三个阶段分为是 pre-prepare, prepare, commit，前两者的作用是在同样的 view 内对请求进行排序和验证，让非故障节点对请求的处理顺序达成一致。&lt;/p>
+&lt;h4 id="pre-prepare">pre-prepare&lt;/h4>
+&lt;p>主节点收到 client 的请求 m 后，进入 pre-prepare phase，首先是主节点 p 广播消息给所有从节点。&lt;/p>
+&lt;p>从节点收到 pre-prepare 后，会对其进行验证，只有满足以下条件才能通过：&lt;/p>
+&lt;ol>
+&lt;li>m 的 hash 和消息的 hash 都是正确的（m 的 hash 包含在里面）&lt;/li>
+&lt;li>从节点 view 和 pre-prepare 的 view 一致&lt;/li>
+&lt;li>第一次收到这个消息&lt;/li>
+&lt;li>消息的 id 在检查范围（节点预设的记录区间，&lt;a href="https://loomt.top/posts/paper/pbft/#GC">下文&lt;/a> 有提到）之间&lt;/li>
+&lt;/ol>
+&lt;h4 id="prepare">prepare&lt;/h4>
+&lt;p>从节点通过了某条 pre-prepare 消息后，进入 prepare 阶段，并广播 prepare 消息。&lt;/p>
+&lt;p>同时也会验证其他节点的 prepare 消息，满足以下条件才能通过：&lt;/p>
+&lt;ol>
+&lt;li>prepare 消息的 hash 无误&lt;/li>
+&lt;li>从节点 view 和 prepare 的 view 一致&lt;/li>
+&lt;li>消息的 id 在检查范围之间&lt;/li>
+&lt;/ol>
+&lt;h4 id="commit">commit&lt;/h4>
+&lt;p>当从节点接收到关于 m 的 2f（不包括自己） 条 hash、view 以及序列号都一致的 prepare 消息后就会进入 commit 阶段，并广播 commit 消息。&lt;/p>
+&lt;p>与 prepare 的验证类似，需要满足以下条件：&lt;/p>
+&lt;ol>
+&lt;li>commit 消息的 hash 无误&lt;/li>
+&lt;li>从节点 view 和 commit 的 view 一致&lt;/li>
+&lt;li>commit 消息的 id 在检查范围之间&lt;/li>
+&lt;/ol>
+&lt;p>当从节点接收到关于 m 的 2f（不包括自己） 条 hash、view 以及序列号都一致的 commit 消息后就将结果更新到自己的状态机中并响应 client 了。&lt;/p>
+&lt;p>客户端收到了 f+1 个相同的返回结果后，就能将其作为最终的结果。&lt;/p>
+&lt;h2 id="gc">GC&lt;/h2>
+&lt;p>历史数据比较多的时候，可以通过 checkpoint 创建检查点（类似于 Raft 的 snapshot），让 2f 个其他节点认可 stable checkpoint 后，再丢弃历史数据（包括所有日志 id 小于检查点的 pre-prepare，prepare 和 commit 消息），并且会根据最后一个 stable checkpoint 对应的 id 最为 low-water，设定一个数值（论文为 &lt;code>200+low-water&lt;/code>，两个检查点的距离）作为 high-water，控制 three phase 的 id 在范围之间。&lt;/p>
+&lt;h2 id="view-change">view change&lt;/h2>
+&lt;p>因为 PBFT 高度依赖于主节点，作为拜占庭算法，需要额外考虑主节点的正确性，就有了一个和 Raft 的领导人选举类似的机制——view change，其触发的场景为：&lt;/p>
+&lt;ol>
+&lt;li>prepare 或 commit 后一定的时间内没收到 2f 条同样的消息&lt;/li>
+&lt;li>主节点不响应客户端的请求&lt;/li>
+&lt;/ol>
+&lt;p>当从节点触发 view change 的时候，停止接受除了 checkpoint、view-change 和 new-view 之外的各种消息，发送 view-change 给集群的其他成员，view change 消息中还包括了一系列信息，以证明视图更改的合理性和需要迁移的数据的正确性：&lt;/p>
+&lt;ul>
+&lt;li>n：最后一个稳定检查点的序列号。&lt;/li>
+&lt;li>C：证明检查点正确性的两个检查点消息的集合。&lt;/li>
+&lt;li>P：对于每个该备份节点已经准备(prepared)的、且序列号高于 n 的请求，包含一个集合，每个集合包含一个有效的 pre-prepare 消息（没有相应的客户端消息），以及两个由不同备份节点签名的、有效的、具有相同视图、序列号和摘要的匹配 prepare 消息。&lt;/li>
+&lt;li>v+1：当前视图+1&lt;/li>
+&lt;li>i：节点 i&lt;/li>
+&lt;/ul>
+&lt;p>发送 view-change 的节点收到了 2f 条响应的时候，广播 new-view 给其他节点，内容包括：&lt;/p>
+&lt;ol>
+&lt;li>其他节点同意 view-change 的消息集合&lt;/li>
+&lt;li>最新的 checkpoint 到最高的 prepared 消息下标的所有消息创建一个 pre-prepare 消息，如果这个消息在自己的消息队列存在，说明需要进行处理，正常发送 pre-prepare 消息；如果这个消息不在消息的队列中，说明这个消息已经被成功处理，则创建一个携带 null hash 的 pre-prepare 消息，不会改变从节点的状态机。&lt;/li>
+&lt;/ol></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/paper/">paper</category><category domain="https://loomt.top/tags/distributed-system/">Distributed System</category><category domain="https://loomt.top/tags/byzantine/">Byzantine</category></item><item><title>GFS</title><link>https://loomt.top/posts/paper/gfs/</link><guid isPermaLink="true">https://loomt.top/posts/paper/gfs/</guid><pubDate>Fri, 12 Apr 2024 09:04:18 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>GFS 是 Google 2003 年发表的论文，是分布式系统最早的大规模工业化实践。当时的背景是 Google 需要一个适用于各种 application 的 Global 存储系统。&lt;/p>
 &lt;h3 id="gfs-的目标">GFS 的目标&lt;/h3>
 &lt;ol>
 &lt;li>部署在廉价机器，需要自动监控、容错和恢复。&lt;/li>
@@ -35,7 +90,34 @@
 &lt;p>首先 gfs 在逻辑上会通过前缀压缩路径查找表，master 在获取/a/b/c/d 的写锁时候，需要先获得/a 的读锁，再获得/a/b 的读锁&amp;hellip;最后得到/a/b/c/d 的写锁。&lt;/p>
 &lt;p>&lt;strong>这样的一个好处是可以执行某个目录下的并发操作。&lt;/strong>&lt;/p>
 &lt;h3 id="gc">gc&lt;/h3>
-&lt;p>文件删除后，先标记，Master 定期扫描后再清除，但执行两次相同的删除后会直接物理删除，释放空间。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/paper/">paper</category><category domain="https://loomt.top/tags/distributed-system/">Distributed System</category><category domain="https://loomt.top/tags/gfs/">GFS</category></item><item><title>CRDT</title><link>https://loomt.top/posts/crdt/</link><guid isPermaLink="true">https://loomt.top/posts/crdt/</guid><pubDate>Thu, 04 Apr 2024 22:54:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>CRDT 是一种无冲突复制数据类型，它支持强最终一致性（SEC, Strong Eventual Consistency）。这种数据类型常用于需要多用户协作编辑的文档，或者那些要求快速响应但不需要很高实时性保证的场景，比如强调（AP, Availability and Partition Tolerance）的应用。&lt;/p>
+&lt;p>文件删除后，先标记，Master 定期扫描后再清除，但执行两次相同的删除后会直接物理删除，释放空间。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category><category domain="https://loomt.top/tags/paper/">paper</category><category domain="https://loomt.top/tags/distributed-system/">Distributed System</category><category domain="https://loomt.top/tags/gfs/">GFS</category></item><item><title>BitTable</title><link>https://loomt.top/posts/paper/bittable/</link><guid isPermaLink="true">https://loomt.top/posts/paper/bittable/</guid><pubDate>Thu, 11 Apr 2024 20:08:23 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>BigTable 是搭建在 GFS 之上的结构化数据的存储系统，其作用主要是作为分布式的 NoSQL。&lt;/p>
+&lt;p>在 GFS 和 Chubby 的基础上在工程中实现了 LSM-Tree。&lt;/p>
+&lt;h3 id="数据结构">数据结构&lt;/h3>
+&lt;p>实际上就是 KV&lt;/p>
+&lt;p>Key：row+column+timestamp
+value：blob&lt;/p>
+&lt;p>因为需要支持不同的使用场景，所以将列作为查询的 key 的组成之一，以将较大的数据拆成多个小数据&lt;/p>
+&lt;p>table = tablets
+tablet = SSTables
+SSTable = sorted KVs&lt;/p>
+&lt;p>LSM-Tree 的主要思想是保存一系列在后台自动合并的多层 SSTables 和基于内存的 MemTable。
+SSTables 会生成一些比较稀疏的索引，可以依此进行范围查找，
+在查找之前想用 Bloom 过滤器过滤请求，防止不存在的键影响 LSM-Tree 的查找效率。
+并且还能有不同的策略来确定 SSTables 被压缩和合并的顺序和时间，LevelDB 采用的是平坦压缩，HBase 使用的则是大小分层。
+并且因为磁盘写入是连续的，所以 LSM-Tree 可以支持较高的写入吞吐量；读取方面因为有索引，并且 SSTable 内部是有序的，所以也不会很慢；
+而更新和删除不太一样，因为落盘的 SSTable 是不能更新的，这个时候就可以在 MemTable 上进行更新和删除（标记），当 SSTables 要 Merge 的时候再实际落盘。&lt;/p>
+&lt;h3 id="bigtable-细节">BigTable 细节&lt;/h3>
+&lt;p>Bigtable 由三个组件组成：&lt;/p>
+&lt;ol>
+&lt;li>客户端连接库&lt;/li>
+&lt;li>one master server&lt;/li>
+&lt;li>many tablet servers&lt;/li>
+&lt;/ol>
+&lt;p>table servers 可以自动被添加或删除；master 需要分配 tablets 到 tablet servers，保持负载均衡和 gfs 的 GC，并且维护行列新增的键。&lt;/p>
+&lt;p>每个 tablet server 管理 10 到 1000 个 tablets。&lt;/p>
+&lt;p>与大部分 single-master 类似，client 的数据传输不会通过 master，而是与 tablet servers 直接交流。&lt;/p>
+&lt;p>Bigtable cluster 包含很多 tables，每个 table 包含很多 tablets，每个 tablet 包括某行的所有数据。每个 table 最初只有一个 tablet，当其增长的时候，自动分裂成多个 multiple tablets，每个 tablet 大概 100-200MB。&lt;/p>
+&lt;p>tablets 的位置信息由一个 Chubby file 延伸到一个 Root Tablet，再到 MetaData Tablets，最后再指向 UserTables。&lt;/p></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>CRDT</title><link>https://loomt.top/posts/crdt/</link><guid isPermaLink="true">https://loomt.top/posts/crdt/</guid><pubDate>Thu, 04 Apr 2024 22:54:12 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>CRDT 是一种无冲突复制数据类型，它支持强最终一致性（SEC, Strong Eventual Consistency）。这种数据类型常用于需要多用户协作编辑的文档，或者那些要求快速响应但不需要很高实时性保证的场景，比如强调（AP, Availability and Partition Tolerance）的应用。&lt;/p>
 &lt;p>CRDT 适用于异步传播（gossip）场景。无论网络状态如何，总能保证数据的最终一致性。它具有以下特点：&lt;/p>
 &lt;ul>
 &lt;li>将请求以任意顺序合并&lt;/li>
