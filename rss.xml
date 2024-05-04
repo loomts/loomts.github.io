@@ -1,4 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 29 Apr 2024 16:20:27 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>PBFT</title><link>https://loomt.top/posts/paper/pbft/</link><guid isPermaLink="true">https://loomt.top/posts/paper/pbft/</guid><pubDate>Mon, 15 Apr 2024 16:49:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>PBFT，即实用拜占庭容错。本文不赘述 BFT 相关概念，而是简述论文的具体实现部分。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>loomt</title><link>https://loomt.top/</link><description>记录生活与coding</description><generator>Hugo 0.92.2 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>loomt_@outlook.com (loomt)</managingEditor><webMaster>loomt_@outlook.com (loomt)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 04 May 2024 12:20:43 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://loomt.top/rss.xml"/><item><title>Paxos-vs-Raft</title><link>https://loomt.top/posts/paxos-vs-raft/</link><guid isPermaLink="true">https://loomt.top/posts/paxos-vs-raft/</guid><pubDate>Fri, 03 May 2024 16:20:57 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;blockquote>
+&lt;p>There is only one consensus protocol, and that&amp;rsquo;s Paxos. ——Mike Burrows(Google Chubby)&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Paxos 和 Raft 的共识方式是类似的，大多数是术语的区别，比如对于 Multi-Raft 而言，大致可以分为三个层，Client，Server，Raft。&lt;/p>
+&lt;ul>
+&lt;li>Client 层给请求包一个唯一 id，扔到对应 Raft Group Server 层的 Leader 节点；&lt;/li>
+&lt;li>Server 层是处理请求的地方，需要和 Raft 层交互，具体而言，Server 层需要将 Client 的请求发送到 Raft 层进行共识，多数派共识之后这个 Raft Group 的不同 Server 都会执行相同的请求，但是由 Leader 返回结果；&lt;/li>
+&lt;li>Raft 层通过领导人选举、心跳、日志复制进行共识，日志过多时还能进行快照压缩；其中，Raft 的 leader 对应 Paxos 的 Proposer，会分配一个 rnd 并发起一次 Paxos 共识，Paxos 还有 Acceptor 和 Learner。&lt;/li>
+&lt;li>Raft 的 Term 还被 Paxos 称作 views, ballot numbers, proposal numbers, round numbers。&lt;/li>
+&lt;li>Raft 的选举的过程有些类似于 Classic Paxos 的 phase-1。&lt;/li>
+&lt;li>Raft Leader 的日志复制则类似于 Classic Paxos 的 phase-2。&lt;/li>
+&lt;/ul>
+&lt;h3 id="classic-paxos-phase-1">Classic Paxos phase-1&lt;/h3>
+&lt;p>当 Paxos 的 Proposer 向 Acceptor 发送一个共识的请求时，如果请求中的 rnd 比 Acceptor 的 last_rnd 小，则拒绝共识该请求（返回自己的 last_rnd 和 value）；反之，则将 last_rnd 设置为 rnd，从此 Acceptor 只接受 last_rnd 的 phase-2 请求。所以 rnd 大的请求会覆盖 rnd 小的请求。&lt;/p>
+&lt;p>当 Proposer 收到 Quorum（可以简单理解为多数派）后，如果收到了 value 和 last_rnd，并且 last_rnd 比自己的大，直接退出；如果比自己的小，说明已经有其他的 Proposer 正在运行，那么需要在 &lt;strong>不修改已存在的值的前提下&lt;/strong> 从所有 Acceptor 中选择最大的 vrnd 对应的 value 进行 phase-2。&lt;/p>
+&lt;h3 id="classic-paxos-phase-2">Classic Paxos phase-2&lt;/h3>
+&lt;p>Acceptor 收到 Proposer 后，如果 rnd 不等于 last_rnd 则退出，否则将 value 写入本地。&lt;/p>
+&lt;h3 id="classic-paxos-phase-3">Classic Paxos phase-3&lt;/h3>
+&lt;p>Acceptor 发送 phase-3 到所有的 learner，让其知道一个请求被确定了，多数场合下 proposer 也是 learner。&lt;/p>
+&lt;h3 id="multi-paxos">Multi-Paxos&lt;/h3>
+&lt;p>Classic Paxos 没有 leader，每个请求的共识都由 Proposer 提出，在高并发的时候可能会有活锁问题，Multi-Paxos 引入了 Leader，可以稳定地进行提案，
+并且会将多个请求的 phase-1 合并成一次 rpc，并且仅通过一次 phase-2 完成最终的共识。&lt;/p>
+&lt;h3 id="fast-paxos">Fast-Paxos&lt;/h3>
+&lt;p>直接发送 phase-2，并且 rnd 为 0，保证能够安全回退为 Classic Paxos，Acceptor 在 value 为空的时候才接受 Fast-Paxos，但是在并发写入的时候，Fast-Quorum 的节点数需要大于 3/4，原因是 Fast-Quorum 的 Acceptor 在 Classic-Quorum 中必须超过半数，才不会导致退化为 Classic-Paxos 重试的时候选择一个错误的 value。&lt;/p>
+&lt;h2 id="multi-paxos-与-raft-的不同">Multi-Paxos 与 Raft 的不同&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>diff&lt;/th>
+&lt;th>Paxos&lt;/th>
+&lt;th>Raft&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>确保只有一个 Leader 的机制&lt;/td>
+&lt;td>只有 t mod n = s 的时候（t 为当前任期，n 为集群节点数，s 为节点 id）才能变成 candidate&lt;/td>
+&lt;td>每轮选票只能投给一个 candidate&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>怎么确保成为新的 Leader 包含了所有的 log entries&lt;/td>
+&lt;td>candidate 收到了 quorum 的回复后，从回复中添加最新的日志&lt;/td>
+&lt;td>只有包含最新日志的 candidate 才会被大多数节点承认为 leader&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>怎么确保 leader 安全地 commit 了之前任期的日志&lt;/td>
+&lt;td>新的 leader 会将未 commit 日志的任期更新为当前 term，并继续复制&lt;/td>
+&lt;td>新的 leader 不会改变日志的任期，当随后的日志（noop entry）被多数节点确认后才算是 commit&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description><category domain="https://loomt.top/posts/">posts</category></item><item><title>PBFT</title><link>https://loomt.top/posts/paper/pbft/</link><guid isPermaLink="true">https://loomt.top/posts/paper/pbft/</guid><pubDate>Mon, 15 Apr 2024 16:49:56 +0800</pubDate><author>loomt_@outlook.com (loomt)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>PBFT，即实用拜占庭容错。本文不赘述 BFT 相关概念，而是简述论文的具体实现部分。&lt;/p>
 &lt;h2 id="默认情况下的-pbft">默认情况下的 PBFT&lt;/h2>
 &lt;p>假设节点数量为 3f+1，每个节点需要维护一致的状态机，为了能够迅速达成共识，需要有一个主节点，其他节点则作为从节点，主节点带领其他节点共识的这段时间称为 view，有点像 Raft 的任期，是自增的。&lt;/p>
 &lt;p>client 的请求也只会发送给主节点，由主节点进行集群的共识，期间需要经历 3 个阶段，集群的节点才能返回结果给 client。
@@ -705,8 +757,8 @@ jemalloc-bg-thread yes
 &lt;p>完成 Multi-Raft&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>lab4A：完成 Multi-Raft 控制中心（和 lab3 内容差不多，一句话就是 shardctrler 是一个将 Config 作为日志进行维护的单 Raft 集群，并且不需要实现快照和持久化）
-需要注意的地方是 Join 和 Leave 操作 shards 应该怎么平均且有序地分配给 gids（注意在 Leave 操作中，Group 里面可能有多余的 gid，此时需要注意将其算在 gids 里面），主要逻辑和 lab3 差不多，比较简单。&lt;/p>
+&lt;p>lab4A：完成 Multi-Raft 控制中心（和 lab3 内容差不多，一句话来说就是 shardctrler 是一个将 Config 作为日志进行维护的单 Raft 集群，并且不需要实现快照和持久化）
+需要注意的地方是执行节点的 Join 和 Leave 操作时 shards 应该怎么平均且有序地分配给 gids（注意在 Leave 操作中，Group 里面可能有多余的 gid，此时需要注意将其算在 gids 里面），主要逻辑和 lab3 差不多，比较简单。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>lab4B：实现一个拥有分片功能，能够随时加入退出成员，可以根据配置同步迁移数据，支持断线重连日志快速追赶和快照功能并且能够保证线性一致性的 kv 数据库。
